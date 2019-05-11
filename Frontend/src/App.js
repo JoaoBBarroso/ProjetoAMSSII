@@ -1,27 +1,28 @@
-import React from 'react';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
 
-import { PrivateRoute } from './PrivateRoute';
-import HomePage from './containers/HomePage';
-import LoginPage from './containers/LoginPage';
+import React from 'react';
+import { Provider } from 'react-redux'
+import { ConnectedRouter } from 'react-router-redux'
+import createHistory from 'history/createBrowserHistory';
+import configureStore from './store';
+
+import Router from './Router';
+
+const history = createHistory();
+const store = configureStore(history);
 
 class App extends React.Component {
   render() {
     return (
-      <div className="jumbotron">
-        <div className="container">
-          <div className="col-sm-8 col-sm-offset-2">
-            <Router>
-              <div>
-                <PrivateRoute exact path="/" component={HomePage} />
-                <Route path="/login" component={LoginPage} />
-              </div>
-            </Router>
+      <Provider store={store}>
+        <ConnectedRouter history={history}>
+          <div>
+            <Router basename={`${process.env.PUBLIC_URL}`} />
           </div>
-        </div>
-      </div>
+        </ConnectedRouter>
+      </Provider>
     );
   }
 }
 
 export default App;
+
