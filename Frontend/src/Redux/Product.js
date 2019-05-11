@@ -86,3 +86,28 @@ export function getAllProducts() {
             .catch((error) => dispatch(fetchFailure(error)));
     }
 }
+
+export function searchProducts() {
+    return dispatch => {
+        dispatch(fetchRequest());
+        fetch(`${process.env.PUBLIC_URL}/listapis`, {
+            method: 'GET',
+            credentials: 'include'
+        })
+            .then((response) => response.json())
+            .then((eventsTableData) => {
+
+                //Accept only active events
+                var activeEvents = []
+                eventsTableData.map(function (event) {
+                    if (event.isEventActive) {
+                        activeEvents.push(event)
+                    }
+                    return false;
+                })
+
+                dispatch(fetchSuccess(activeEvents, 'allAcronyms'))
+            })
+            .catch((error) => dispatch(fetchFailure(error)));
+    }
+}

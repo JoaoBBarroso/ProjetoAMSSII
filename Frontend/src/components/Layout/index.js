@@ -1,7 +1,8 @@
 import React from 'react';
 import Proptypes from 'prop-types';
 
-import { Container } from 'react-bootstrap/Container'
+import { Container } from 'reactstrap'
+import "./styles.css"
 
 const HEADER_HEIGHT = 80 + 40;
 const FOOTER_HEIGHT = 40;
@@ -28,12 +29,9 @@ export default class Layout extends React.Component {
     }
 
     render() {
-        return (
-            <div>
-                <Container>
+        return (<Container className="appBackground">
                     {this.props.children}
                 </Container>
-            </div>
         )
     }
 }
