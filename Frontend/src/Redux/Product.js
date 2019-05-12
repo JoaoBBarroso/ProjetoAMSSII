@@ -2,11 +2,12 @@
 const FETCH_REQUEST = 'eventsTable/FETCH_REQUEST';
 const FETCH_SUCCESS = 'eventsTable/FETCH_SUCCESS';
 const FETCH_FAILURE = 'eventsTable/FETCH_FAILURE';
-const FETCH_ALL_EVENTS = 'eventsTable/FETCH_ALL_EVENTS';
+const FETCH_TEST = 'eventsTable/FETCH_TEST';
 
 
 const initialState = {
-    name: ""
+    name: "",
+    data: []
 }
 
 export default function reducer(state = initialState, action) {
@@ -29,7 +30,7 @@ export default function reducer(state = initialState, action) {
                 fetching: false,
                 error: action.payload
             }
-        case FETCH_ALL_EVENTS:
+        case FETCH_TEST:
             return {
                 ...state,
                 fetching: false,
@@ -46,10 +47,10 @@ function fetchRequest() {
     }
 }
 
-function fetchSuccess(eventsTableData, prop) {
+function fetchSuccess(data, prop) {
     return {
         type: FETCH_SUCCESS,
-        [prop]: eventsTableData,
+        [prop]: data,
         propType: prop
     }
 }
@@ -62,26 +63,18 @@ function fetchFailure(error) {
 }
 
 
-export function getAllProducts() {
+export function getTest() {
+    // console.log("boas", `localhost:3000/API/listapis`)
     return dispatch => {
         dispatch(fetchRequest());
-        fetch(`${process.env.PUBLIC_URL}/listapis`, {
+        fetch(`localhost:3000/API/listapis`, {
             method: 'GET',
             credentials: 'include'
         })
             .then((response) => response.json())
-            .then((eventsTableData) => {
-
-                //Accept only active events
-                var activeEvents = []
-                eventsTableData.map(function (event) {
-                    if (event.isEventActive) {
-                        activeEvents.push(event)
-                    }
-                    return false;
-                })
-
-                dispatch(fetchSuccess(activeEvents, 'allAcronyms'))
+            .then((data) => {
+                console.log(data)
+                dispatch(fetchSuccess(data, 'data'))
             })
             .catch((error) => dispatch(fetchFailure(error)));
     }

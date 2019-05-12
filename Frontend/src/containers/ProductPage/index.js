@@ -2,6 +2,10 @@ import React from 'react';
 import ProductSearch from '../../components/ProductSearch';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
+import {
+    getTest,
+} from '../../Redux/Product';
+
 
 class ProductPage extends React.Component {
     constructor(props) {
@@ -12,6 +16,11 @@ class ProductPage extends React.Component {
             loading: false,
             error: ''
         };
+    }
+
+    componentDidMount = () => {
+        getTest();
+        console.log(this.props.data)
     }
 
     handleChange = (e) => {
@@ -45,6 +54,7 @@ class ProductPage extends React.Component {
 
     render() {
         const { currentSearch, submitted, error } = this.state;
+        console.log(this.props.data)
         return (
             <ProductSearch
 
@@ -62,11 +72,20 @@ class ProductPage extends React.Component {
 }
 
 const mapPropsToState = (state) => {
-    var user = state.user;
+    var { data } = state.product;
+    // var user = state.user;
     return {
-        user: user.user,
+        // user: user.user,
+        data: data,
+    }
+}
+
+const mapDispatchToState = (dispatch) => {
+    return {
+        getTest: () => dispatch(getTest())
+
     }
 }
 
 
-export default withRouter(connect(mapPropsToState)(ProductPage));
+export default withRouter(connect(mapPropsToState, mapDispatchToState)(ProductPage));
