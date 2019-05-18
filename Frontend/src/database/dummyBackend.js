@@ -3,7 +3,7 @@ export function configureFakeBackend() {
         id: 1,
         username: 'test',
         password: 'test',
-        firstName: 'Test',
+        firstName: 'Admin',
         lastName: 'User'
     }];
     let realFetch = window.fetch;
