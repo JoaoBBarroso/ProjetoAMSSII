@@ -19,17 +19,34 @@ class ProductPage extends React.Component {
     }
 
     componentDidMount = () => {
-        getTest();
         console.log(this.props.data)
     }
 
     handleChange = (e) => {
+
+        this.props.getTest();
         const { value } = e.target;
         this.setState({ currentSearch: value });
     }
 
     handleSubmit = (e) => {
         console.log(this.state.currentSearch)
+        this.props.getTest();
+
+        let value = 737628064502;
+        fetch(`http://localhost:3001/api/food/${value}`,
+            {
+                method: 'GET',
+                mode: 'cors',
+                cache: 'default'
+            })
+            .then(function (response) {
+                return response.json();
+            })
+            .then(function (data) {
+                console.log(data)
+            });
+
         this.setState({ loading: true, error: "your product doesn't exist" });
         // e.preventDefault();
 
