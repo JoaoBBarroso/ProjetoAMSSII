@@ -33,6 +33,7 @@ class ProductPage extends React.Component {
         console.log(this.state.currentSearch)
         this.props.getTest();
 
+        // let value = e.target.value;
         let value = 737628064502;
         fetch(`http://localhost:3001/api/food/${value}`,
             {
