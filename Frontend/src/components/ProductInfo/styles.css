@@ -1,0 +1,18 @@
+.productInfo {
+    margin-top: 5%;
+}
+
+.productGrade {
+    
+}
+
+.productDetailButton {
+    background-color: #D8D8F6 !important;
+    color: black !important;
+    margin-bottom: 1rem !important;
+}
+
+.productDetailsDiv {
+    height: 300px;
+    overflow-y: scroll;
+}

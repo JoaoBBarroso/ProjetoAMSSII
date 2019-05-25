@@ -36,6 +36,9 @@ router.get('/food/:upc', (req, res, next) => {
           sources : body.product.sources,
           ingredients: body.product.ingredients,
           nutrients_grade: body.product.nutrition_grades,
+          img: body.product.image_thumb_url,
+          id: body.product.id,
+          brands: body.product.brands,
           nutrients: body.product.nutriments
         };
       res.send(body);

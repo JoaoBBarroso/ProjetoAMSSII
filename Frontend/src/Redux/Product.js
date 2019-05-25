@@ -65,12 +65,13 @@ function fetchFailure(error) {
 
 export function getTest() {
     let value = 737628064502;
-    console.log("boas", `localhost:3001/api/food/${value}`)
+    console.log("boas", `localhost:3001/food/${value}`)
     return dispatch => {
         dispatch(fetchRequest());
         fetch(`localhost:3001/api/food/${value}`, {
             method: 'GET',
-            credentials: 'include'
+            credentials: 'include',
+            mode: 'cors'
         })
             .then((response) => {
                 console.log(response)

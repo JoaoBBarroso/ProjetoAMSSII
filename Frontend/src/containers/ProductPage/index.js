@@ -1,5 +1,6 @@
 import React from 'react';
 import ProductSearch from '../../components/ProductSearch';
+import ProductInfo from '../../components/ProductInfo';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import {
@@ -14,7 +15,8 @@ class ProductPage extends React.Component {
             currentSearch: '',
             submitted: '',
             loading: false,
-            error: ''
+            error: '',
+            productData: {}
         };
     }
 
@@ -30,7 +32,7 @@ class ProductPage extends React.Component {
     }
 
     handleSubmit = (e) => {
-        console.log(this.state.currentSearch)
+        let that = this;
         this.props.getTest();
 
         // let value = e.target.value;
@@ -44,8 +46,9 @@ class ProductPage extends React.Component {
             .then(function (response) {
                 return response.json();
             })
-            .then(function (data) {
-                console.log(data)
+            .then(function (productData) {
+                console.log(productData)
+                that.setState({ productData })
             });
 
         this.setState({ loading: true, error: "your product doesn't exist" });
@@ -72,19 +75,24 @@ class ProductPage extends React.Component {
 
     render() {
         const { currentSearch, submitted, error } = this.state;
-        console.log(this.props.data)
+        console.log(this.state.productData)
         return (
-            <ProductSearch
+            <div>
+                <ProductSearch
 
-                //state
-                currentSearch={currentSearch}
-                submitted={submitted}
-                error={error}
+                    //state
+                    currentSearch={currentSearch}
+                    submitted={submitted}
+                    error={error}
 
-                //functions
-                handleChange={this.handleChange}
-                handleSubmit={this.handleSubmit}
-            />
+                    //functions
+                    handleChange={this.handleChange}
+                    handleSubmit={this.handleSubmit}
+                />
+                <ProductInfo
+                    productData={this.state.productData}
+                />
+            </div>
         );
     }
 }
