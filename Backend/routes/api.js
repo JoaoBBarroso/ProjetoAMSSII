@@ -46,7 +46,7 @@ router.get('/food/:upc', (req, res, next) => {
           brand: body.product.brands,
           name: body.product["product_name"] !== "" ? body.product["product_name"] : body.product.generic_name,
           upc: body.product.id,
-          img: body.product.image_thumb_url,
+          img: body.product.image_front_url ? body.product.image_front_url : body.product.image_thumb_url,
         };
 
         client.connect(err => {
@@ -63,15 +63,13 @@ router.get('/food/:upc', (req, res, next) => {
               collection.insertOne(body, (err, resp) => {
                 if (err) {
                   res.sendStatus(500);
-                  client.close();
                 }
                 res.send(body);
-                client.close();
               });
             } else {
               res.send(body);
-              client.close();
             }
+            client.close();
           });
         });
 
@@ -91,55 +89,27 @@ router.get('/food', (req, res, next) => {
     if (err) throw err;
     let collection = client.db("ProjetoAMSSII").collection("Products");
     collection.find({}).toArray().then(v => {
+      var list  ={A:0,B:0,C:0,D:0,E:0,ND:0}
       v = v.map(e => {
+        let grade = e.nutritionGrade ? e.nutritionGrade.toUpperCase() : "ND"
+        list[grade]+=1;
         return {
           upc: e.upc,
           name: e.name,
-          grade: e.nutritionGrade ? e.nutritionGrade.toUpperCase() : "ND"
+          grade: grade
         }
-      })
+      });
       res.render('food', {
-        data: v
+        data: v,
+        A:list["A"],
+        B:list["B"],
+        C:list["C"],
+        D:list["D"],
+        E:list["E"],
+        ND:list["ND"]
       });
     })
   });
-});
-
-router.get("/populate", (req, res, next) => {
-
-  const clientRemote = new MongoClient(uri, {
-    useNewUrlParser: true
-  });
-  clientRemote.connect(err => {
-    if (err) throw err;
-    let collection = clientRemote.db("ProjetoAMSSII").collection("Products");
-
-    collection.remove({
-      name: null
-    }, result => {
-      res.send(result);
-    });
-
-  });
-})
-
-router.post("/foods", (req, res, next) => {
-  var upcs = req.body['upcs'];
-  if (upcs) {
-    upcs.forEach((element, i) => {
-      setTimeout(() => {
-        request.get(`http://localhost:3000/api/food/${element}`, (err, res, body) => {
-          if (err) {
-            console.log("Error");
-            return;
-          };
-          console.log(`[ADDED ${i}] ${res.statusCode}`);
-          return;
-        })
-      }, 500);
-    });
-    res.send(`Adding ${upcs.length} products`);
-  }
 });
 
 router.delete('/food/:upc', (req, res, next) => {
@@ -151,15 +121,16 @@ router.delete('/food/:upc', (req, res, next) => {
     client.connect(err => {
       if (err) throw err;
       let collection = client.db("ProjetoAMSSII").collection("Products");
-      collection.remove({upc:upc},(err,result)=>{
-        if(err) throw err;
-        res.redirect('/food');
+      collection.deleteOne({
+        upc: upc
+      }, (err, result) => {
+        if (err) throw err;
+        res.send(200);
       });
     });
-  }else{
+  } else {
     res.send(400);
   }
-
 });
 
 /**

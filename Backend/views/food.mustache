@@ -16,8 +16,16 @@
 <body>
   <div class="container text-center mt-5">
     <h1>Produtos</h1>
-    {{! <div class="btn btn-outline-primary mt-3 mb-1" data-toggle="modal" data-target="#foodModal">Adicionar Produto</div> }}
-    <div class="input-group mt-3 mb-3">
+    <div class="row mt-3">
+      <div class="col-2 h4">A: {{A}}</div>
+      <div class="col-2 h4">B: {{B}}</div>
+      <div class="col-2 h4">C: {{C}}</div>
+      <div class="col-2 h4">D: {{D}}</div>
+      <div class="col-2 h4">E: {{E}}</div>
+      <div class="col-2 h4">ND: {{ND}}</div>
+    </div>
+    {{! <div class="btn btn-outline-primary mt-1 mb-1" data-toggle="modal" data-target="#foodModal">Adicionar Produto</div> }}
+    <div class="input-group mt-1 mb-3">
       <input type="number" class="form-control" placeholder="Product's UPC" id="txtUpc">
       <div class="input-group-append">
         <button class="btn btn-outline-success" type="button" id="addProductbtn">Add product</button>
@@ -44,7 +52,7 @@
           <th scope="row">{{upc}}</th>
           <td>{{name}}</td>
           <td>{{grade}}</td>
-          <td><button class="btn btn-outline-danger" type="button" class="pdelete" data-product="{{upc}}"><i
+          <td><button class="btn btn-outline-danger pdelete" type="button" data-product="{{upc}}"><i
                 class="fas fa-trash"></i></button></td>
         </tr>
         {{/data}}
@@ -266,10 +274,12 @@
             } else {
               $('#addProductbtn').addClass("disabled");
               $('#sp-addProduct').show();
-              $.get("http://localhost:3000/api/food/" + $('#txtUpc').val(), function (data) {}).done(
-            function () {
-                location.reload();
-              }).fail(function () {
+
+              var url = location.href.endsWith("/") ? location.href : location.href+"/"
+              $.get(url + $('#txtUpc').val(), function (data) {}).done(
+                function () {
+                  location.reload();
+                }).fail(function () {
                 alert("Product Not Found");
               }).always(function () {
                 $('#addProductbtn').removeClass("disabled");
@@ -277,6 +287,24 @@
               });
             }
           });
+        });
+
+        $('.pdelete').click((e) => {
+          var p = $(e.currentTarget).attr("data-product");
+          var url = location.href.endsWith("/") ? location.href : location.href+"/"
+          url = url + p;
+          if (p) {
+            $.ajax({
+              url: url,
+              type: 'DELETE',
+              success: function (result) {
+                location.reload();
+              },
+              error: function(){
+                alert("Error removing an item!");
+              }
+            });
+          }
         });
 
         function bindDeletes() {
