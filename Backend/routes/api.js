@@ -89,10 +89,17 @@ router.get('/food', (req, res, next) => {
     if (err) throw err;
     let collection = client.db("ProjetoAMSSII").collection("Products");
     collection.find({}).toArray().then(v => {
-      var list  ={A:0,B:0,C:0,D:0,E:0,ND:0}
+      var list = {
+        A: 0,
+        B: 0,
+        C: 0,
+        D: 0,
+        E: 0,
+        ND: 0
+      }
       v = v.map(e => {
         let grade = e.nutritionGrade ? e.nutritionGrade.toUpperCase() : "ND"
-        list[grade]+=1;
+        list[grade] += 1;
         return {
           upc: e.upc,
           name: e.name,
@@ -101,12 +108,12 @@ router.get('/food', (req, res, next) => {
       });
       res.render('food', {
         data: v,
-        A:list["A"],
-        B:list["B"],
-        C:list["C"],
-        D:list["D"],
-        E:list["E"],
-        ND:list["ND"]
+        A: list["A"],
+        B: list["B"],
+        C: list["C"],
+        D: list["D"],
+        E: list["E"],
+        ND: list["ND"]
       });
     })
   });
@@ -133,6 +140,10 @@ router.delete('/food/:upc', (req, res, next) => {
   }
 });
 
+
+
+
+
 /**
  * Método que calcula o indice saudável de um elemento, baseado nos seus dados nutricionais
  * @param propotion Valor que indica o valor de referência do produto
@@ -146,16 +157,7 @@ router.delete('/food/:upc', (req, res, next) => {
  * @param acuca Valor de acuçar presente no alimento
  */
 function healthyRating(p, gorduraTotal, gorduraSat, gorduraTrans, sodio, potassio, acucar, acucarSat, ferro, vitaminas) {
-
-  var g = (((gorduraSat + gorduraTrans) / gorduraTotal) * gorduraTotal) / p; // Percentagem de gordura "má".
-  var s = sodio / p; // Percentagem de sódio -
-  var pt = potassio / p; // Percentagem de potassio +
-  var a = acucarSat / acucar //  Percentagem de açucar
-  var f = ferro / p; // Percentagem de ferro
-
-  if (gorduraTotal - (gorduraSat + gorduraTrans) < (gorduraSat + gorduraTrans)) {
-    return -1
-  }
+//TODO: 
 }
 
 module.exports = router;
