@@ -42,8 +42,12 @@ export default class Router extends Component {
                     <Switch>
                         <Route exact path="/login" component={LoginPage} />
                         {/* Private Routes for logged-in users */}
-                        <PrivateRoute exact path={`/`} component={HomePage} /> 
-                        <PrivateRoute exact path="/productSearch" component={ProductPage} />
+                        <Route exact path={`/`} component={HomePage} /> 
+                        {/* <PrivateRoute exact path={`/`} component={HomePage} />  */}
+                        <Route exact path="/productSearch" component={ProductPage} />
+                        {/* <PrivateRoute exact path="/productSearch" component={ProductPage} /> */}
+                        
+                        
                         {/* <Route exact path={`${process.env.PUBLIC_URL}/`} render={props => (
                             <ProtectedRoute userRole={['administrator']}>
                                 <Homepage routes={routes} />

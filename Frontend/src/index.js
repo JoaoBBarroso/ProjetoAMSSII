@@ -8,8 +8,8 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 import 'bootstrap/dist/css/bootstrap.css';
 
-import { configureFakeBackend } from './database/dummyBackend';
-configureFakeBackend();
+// import { configureFakeBackend } from './database/dummyBackend';
+// configureFakeBackend();
 
 
 

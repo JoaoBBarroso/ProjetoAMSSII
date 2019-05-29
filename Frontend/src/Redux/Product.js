@@ -64,14 +64,19 @@ function fetchFailure(error) {
 
 
 export function getTest() {
-    // console.log("boas", `localhost:3000/API/listapis`)
+    let value = 737628064502;
+    console.log("boas", `localhost:3001/food/${value}`)
     return dispatch => {
         dispatch(fetchRequest());
-        fetch(`localhost:3000/API/listapis`, {
+        fetch(`localhost:3001/api/food/${value}`, {
             method: 'GET',
-            credentials: 'include'
+            credentials: 'include',
+            mode: 'cors'
         })
-            .then((response) => response.json())
+            .then((response) => {
+                console.log(response)
+                response.json()
+            })
             .then((data) => {
                 console.log(data)
                 dispatch(fetchSuccess(data, 'data'))
