@@ -45,7 +45,7 @@ router.get('/food/:upc', (req, res, next) => {
           nutrients: body.product.nutriments,
           brand: body.product.brands,
           name: body.product["product_name"] !== "" ? body.product["product_name"] : body.product.generic_name,
-          upc: body.product.id
+          upc: body.product.id,
           img: body.product.image_thumb_url,
         };
 
