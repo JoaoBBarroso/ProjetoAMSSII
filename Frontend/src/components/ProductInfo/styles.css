@@ -2,9 +2,6 @@
     margin-top: 5%;
 }
 
-.productGrade {
-    
-}
 
 .productDetailButton {
     background-color: #D8D8F6 !important;
@@ -14,5 +11,6 @@
 
 .productDetailsDiv {
     height: 300px;
+    margin-bottom: 1.5rem;
     overflow-y: scroll;
 }

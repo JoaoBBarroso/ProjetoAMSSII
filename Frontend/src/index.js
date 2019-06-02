@@ -1,17 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-
-
-
 import App from './App';
 import * as serviceWorker from './serviceWorker';
+import { configureFakeBackend } from './database/authBackend';
 import 'bootstrap/dist/css/bootstrap.css';
-
-// import { configureFakeBackend } from './database/dummyBackend';
-// configureFakeBackend();
-
-
+configureFakeBackend();
 
 ReactDOM.render(<App />, document.getElementById('root'));
 

@@ -56,7 +56,6 @@ class Menu extends React.Component {
                         <Nav className="ml-auto" navbar>
                             {
                                 routes.map((e, i) => {
-                                    console.log(e.to)
                                     let link = e.to + "/";
                                     if (e.hide === undefined || e.hide === false)
                                         return <NavItem key={i}><NavLink href={link}>{e.label}</NavLink></NavItem>

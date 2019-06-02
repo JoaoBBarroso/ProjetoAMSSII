@@ -31,7 +31,7 @@ export default class LoginPage extends React.Component {
         this.setState({ submitted: true });
         const { username, password, returnUrl } = this.state;
 
-        // stop here if form is invalid
+        // if form is invalid
         if (!(username && password)) {
             return;
         }

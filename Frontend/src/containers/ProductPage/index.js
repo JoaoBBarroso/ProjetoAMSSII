@@ -3,10 +3,6 @@ import ProductSearch from '../../components/ProductSearch';
 import ProductInfo from '../../components/ProductInfo';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import {
-    getTest,
-} from '../../Redux/Product';
-
 
 class ProductPage extends React.Component {
     constructor(props) {
@@ -20,24 +16,17 @@ class ProductPage extends React.Component {
         };
     }
 
-    componentDidMount = () => {
-        console.log(this.props.data)
-    }
-
     handleChange = (e) => {
-
-        this.props.getTest();
         const { value } = e.target;
         this.setState({ currentSearch: value });
     }
 
-    handleSubmit = (e) => {
+    handleSubmit = () => {
         let that = this;
-        this.props.getTest();
+        this.setState({ loading: true });
 
-        // let value = e.target.value;
-        let value = 737628064502;
-        fetch(`http://localhost:3001/api/food/${value}`,
+        console.log(`http://localhost:3001/api/food/${this.state.currentSearch}`)
+        fetch(`http://localhost:3001/api/food/${this.state.currentSearch}`,
             {
                 method: 'GET',
                 mode: 'cors',
@@ -47,35 +36,15 @@ class ProductPage extends React.Component {
                 return response.json();
             })
             .then(function (productData) {
-                console.log(productData)
-                that.setState({ productData })
+                console.log(productData);
+                that.setState({ productData, loading: false })
+            }).catch(function (err) {
+                that.setState({ loading: false, error: "your product doesn't exist" });
             });
-
-        this.setState({ loading: true, error: "your product doesn't exist" });
-        // e.preventDefault();
-
-        // this.setState({ submitted: true });
-        // const { username, password, returnUrl } = this.state;
-
-        // // stop here if form is invalid
-        // if (!(username && password)) {
-        //     return;
-        // }
-
-        // this.setState({ loading: true });
-        // userService.login(username, password)
-        //     .then(
-        //         user => {
-        //             const { from } = this.props.location.state || { from: { pathname: "/" } };
-        //             this.props.history.push(from);
-        //         },
-        //         error => this.setState({ error, loading: false })
-        //     );
     }
 
     render() {
-        const { currentSearch, submitted, error } = this.state;
-        console.log(this.state.productData)
+        const { currentSearch, submitted, error, loading } = this.state;
         return (
             <div>
                 <ProductSearch
@@ -84,12 +53,15 @@ class ProductPage extends React.Component {
                     currentSearch={currentSearch}
                     submitted={submitted}
                     error={error}
+                    loading={loading}
 
                     //functions
                     handleChange={this.handleChange}
                     handleSubmit={this.handleSubmit}
                 />
                 <ProductInfo
+
+                    //state
                     productData={this.state.productData}
                 />
             </div>
@@ -108,10 +80,8 @@ const mapPropsToState = (state) => {
 
 const mapDispatchToState = (dispatch) => {
     return {
-        getTest: () => dispatch(getTest())
-
+        // getTest: () => dispatch(getTest())
     }
 }
-
 
 export default withRouter(connect(mapPropsToState, mapDispatchToState)(ProductPage));

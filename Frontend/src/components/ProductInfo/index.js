@@ -1,7 +1,7 @@
 // eslint-disable
 import React from 'react';
 import {
-    Container, Row, Col, Form, FormGroup, Label, Input, Button, Alert, Card, CardImg, CardText, CardBody,
+    Container, Row, Col, Button, Card, CardText, CardBody,
     CardTitle, CardSubtitle, ListGroup, ListGroupItem, Collapse
 } from 'reactstrap';
 import { FaAngleDown, FaAngleUp } from "react-icons/fa";
@@ -26,8 +26,12 @@ class ProductInfo extends React.Component {
     }
 
     getNutriscoreGrade = (grade) => {
-        let uppercaseGrade = grade.toUpperCase();
-        return <img alt={`Grade ${uppercaseGrade}.`} src={require(`./nutri-score/nutriscore${uppercaseGrade}.png`)}></img>
+        if (grade !== undefined) {
+            let uppercaseGrade = grade.toUpperCase();
+            return <img alt={`Grade ${uppercaseGrade}.`} src={require(`./nutri-score/nutriscore${uppercaseGrade}.png`)}></img>
+        } else {
+            return <p>N/D</p>
+        }
     }
 
     render() {
@@ -40,14 +44,14 @@ class ProductInfo extends React.Component {
                             <Card>
                                 <CardBody>
                                     <div style={{ float: "right" }}>
-                                        <img alt={`Shows ${this.props.productData.brands}`} src={this.props.productData.img}></img>
+                                        <img className="cardImage" alt={`Shows ${this.props.productData.brand}`} src={this.props.productData.img}></img>
                                     </div>
-                                    <CardTitle>{this.props.productData.brands}</CardTitle>
+                                    <CardTitle>{this.props.productData.brand}</CardTitle>
                                     <CardSubtitle>Code: {this.props.productData.id}</CardSubtitle>
                                     <br />
                                     <CardText>The product's score is:</CardText>
                                     <div>
-                                        {this.getNutriscoreGrade(this.props.productData.nutrients_grade)}
+                                        {this.getNutriscoreGrade(this.props.productData.nutritionGrade)}
                                     </div>
                                 </CardBody>
                             </Card>

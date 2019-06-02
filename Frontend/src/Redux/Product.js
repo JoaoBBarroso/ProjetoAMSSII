@@ -62,29 +62,6 @@ function fetchFailure(error) {
     }
 }
 
-
-export function getTest() {
-    let value = 737628064502;
-    console.log("boas", `localhost:3001/food/${value}`)
-    return dispatch => {
-        dispatch(fetchRequest());
-        fetch(`localhost:3001/api/food/${value}`, {
-            method: 'GET',
-            credentials: 'include',
-            mode: 'cors'
-        })
-            .then((response) => {
-                console.log(response)
-                response.json()
-            })
-            .then((data) => {
-                console.log(data)
-                dispatch(fetchSuccess(data, 'data'))
-            })
-            .catch((error) => dispatch(fetchFailure(error)));
-    }
-}
-
 export function searchProducts() {
     return dispatch => {
         dispatch(fetchRequest());
