@@ -6,6 +6,21 @@ const uri = "mongodb+srv://asmsii:asmsii@cluster0-9q1xc.mongodb.net/test?retryWr
 let nutrInfo = [];
 var request = require('request');
 
+const units = {
+  /**
+   * @param kj Kilojoule to convert in Kilocalorie
+   */
+  "kcal": function (kj) {
+    return kj * 0.2390057;
+  },
+  /**
+   * @param kcal Kilocalorie to convert in Kilojoule
+   */
+  "kj": function (kcal) {
+    return kcal / 0.2390057
+  }
+}
+
 router.get('/listapis', function (req, res, next) {
   const client = new MongoClient(uri, {
     useNewUrlParser: true
@@ -21,7 +36,6 @@ router.get('/listapis', function (req, res, next) {
     });
   });
 });
-
 
 //i.e. http://localhost:3000/api/food/737628064502
 router.get('/food/:upc', (req, res, next) => {
@@ -72,7 +86,6 @@ router.get('/food/:upc', (req, res, next) => {
             client.close();
           });
         });
-
       }
     });
   } else {
@@ -140,7 +153,79 @@ router.delete('/food/:upc', (req, res, next) => {
   }
 });
 
+router.get('/alternatives/:upc', (req, res, next) => {
+  var upc = req.params['upc'];
+  if (upc) {
+    getRecommended(upc).then((result) => {
+      res.send("" + result);
+    }).catch((result) => {
+      res.send(500);
+    })
+  } else {
+    res.send(400);
+  }
+});
 
+router.get('/categorize', (req, res, next) => {
+  const client = new MongoClient(uri, {
+    useNewUrlParser: true
+  });
+  client.connect(err => {
+    if (err) throw err;
+    let collection = client.db("ProjetoAMSSII").collection("Products");
+
+  });
+});
+
+
+router.get('/categorize/:upc', (req, res, next) => {
+  var upc = req.params['upc'];
+  if (upc) {
+    const client = new MongoClient(uri, {
+      useNewUrlParser: true
+    });
+    client.connect(err => {
+      if (err) res.send(500);
+      let categories = client.db("ProjetoAMSSII").collection("Categories");
+      let products = client.db("ProjetoAMSSII").collection("Products");
+
+      products.findOne({upc:upc}).then(result=>{
+        res.render("./foodDetail.mustache",{product:result});
+      }).catch(err => {
+        res.send(500);
+      })
+    });
+
+  } else {
+    res.send(400);
+  }
+});
+
+
+function getRecommended(upc) {
+  return new Promise((resolve, reject) => {
+    const client = new MongoClient(uri, {
+      useNewUrlParser: true
+    });
+    client.connect(err => {
+      if (err) throw err;
+      const collection = client.db("ProjetoAMSSII").collection("Products");
+
+      collection.findOne({
+        upc: upc
+      }, (err, result) => {
+        if (err) reject(400);
+        var energy = result.nutrients["energy_100g"];
+        var energyUnit = result.nutrients["energy_unit"];
+        if (energyUnit.toLowerCase() === "kcal") {
+          energy = units.kj(energy);
+        }
+
+        resolve(energy);
+      });
+    });
+  });
+}
 
 
 
@@ -157,7 +242,7 @@ router.delete('/food/:upc', (req, res, next) => {
  * @param acuca Valor de acuçar presente no alimento
  */
 function healthyRating(p, gorduraTotal, gorduraSat, gorduraTrans, sodio, potassio, acucar, acucarSat, ferro, vitaminas) {
-//TODO: 
+  //TODO: 
 }
 
 module.exports = router;
