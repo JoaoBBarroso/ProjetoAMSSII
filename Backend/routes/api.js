@@ -101,7 +101,7 @@ router.get('/food', (req, res, next) => {
   client.connect(err => {
     if (err) throw err;
     let collection = client.db("ProjetoAMSSII").collection("Products");
-    collection.find({}).toArray().then(v => {
+    collection.find({}).sort({'upc':1}).toArray().then(v => {
       var list = {
         A: 0,
         B: 0,
@@ -177,9 +177,9 @@ router.get('/categorize', (req, res, next) => {
   });
 });
 
-
 router.get('/categorize/:upc', (req, res, next) => {
   var upc = req.params['upc'];
+  var next = req.query.next;
   if (upc) {
     const client = new MongoClient(uri, {
       useNewUrlParser: true
@@ -188,12 +188,27 @@ router.get('/categorize/:upc', (req, res, next) => {
       if (err) res.send(500);
       let categories = client.db("ProjetoAMSSII").collection("Categories");
       let products = client.db("ProjetoAMSSII").collection("Products");
+      if (next) {
+        var p = products.find({ 'upc': {'$gt': upc}}).sort({'upc':1}).limit(1).toArray().then(result=>{
+          res.redirect("/api/categorize/"+result[0].upc)
+        })
+      } else {
+        products.findOne({
+          upc: upc
+        }).then(result => {
+          request.get(`https://world.openfoodfacts.org/api/v0/product/${result.upc}.json`, (err, response, body) => {
+            body = JSON.parse(body);
+            res.render("./foodCategorizer.mustache", {
+              product: result,
+              categories: body.product.categories_tags
+            });
+            client.close();
+          });
+        }).catch(err => {
+          res.send(500);
+        });
+      }
 
-      products.findOne({upc:upc}).then(result=>{
-        res.render("./foodDetail.mustache",{product:result});
-      }).catch(err => {
-        res.send(500);
-      })
     });
 
   } else {
@@ -201,6 +216,30 @@ router.get('/categorize/:upc', (req, res, next) => {
   }
 });
 
+router.post("/categorize", (req, res, next) => {
+  var upc = req.body["upc"];
+  var category = req.body["category"];
+  const client = new MongoClient(uri, {
+    useNewUrlParser: true
+  });
+  client.connect(err => {
+    if (err) res.send(500);
+    let products = client.db("ProjetoAMSSII").collection("Products");
+    products.updateOne({
+      upc: upc
+    }, {
+      $push: {
+        categories: category
+      }
+    }, (err, result) => {
+      console.log("Added Category");
+      if (err) res.send(500);
+      else {
+        res.send(200)
+      }
+    });
+  });
+});
 
 function getRecommended(upc) {
   return new Promise((resolve, reject) => {
@@ -226,8 +265,6 @@ function getRecommended(upc) {
     });
   });
 }
-
-
 
 /**
  * Método que calcula o indice saudável de um elemento, baseado nos seus dados nutricionais

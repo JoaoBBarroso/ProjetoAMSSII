@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
-import { configureFakeBackend } from './database/authBackend';
+import { configureFakeBackend } from './authDatabase/authBackend';
 import 'bootstrap/dist/css/bootstrap.css';
 configureFakeBackend();
 
