@@ -1,3 +1,8 @@
+
+
+
+
+
 // This optional code is used to register a service worker.
 // register() is not called by default.
 
@@ -12,12 +17,12 @@
 
 const isLocalhost = Boolean(
   window.location.hostname === 'localhost' ||
-    // [::1] is the IPv6 localhost address.
-    window.location.hostname === '[::1]' ||
-    // 127.0.0.1/8 is considered localhost for IPv4.
-    window.location.hostname.match(
-      /^127(?:\.(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)){3}$/
-    )
+  // [::1] is the IPv6 localhost address.
+  window.location.hostname === '[::1]' ||
+  // 127.0.0.1/8 is considered localhost for IPv4.
+  window.location.hostname.match(
+    /^127(?:\.(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)){3}$/
+  )
 );
 
 export function register(config) {
@@ -31,8 +36,33 @@ export function register(config) {
       return;
     }
 
+    // window.self.addEventListener('install', (event) => {
+    //   console.log('[Service Worker] Installing Service Worker ...', event);
+    //   event.waitUntil(
+    //     caches.open('static')
+    //       .then(function (cache) {
+    //         console.log('[Service Worker] Precaching App Shell');
+    //         cache.addAll([
+    //           '/',
+    //           '/index.html',
+    //           '/src/js/app.js',
+    //           '/src/js/feed.js',
+    //           '/src/js/promise.js',
+    //           '/src/js/fetch.js',
+    //           '/src/js/material.min.js',
+    //           '/src/css/app.css',
+    //           '/src/css/feed.css',
+    //           '/src/images/main-image.jpg',
+    //           'https://fonts.googleapis.com/css?family=Roboto:400,700',
+    //           'https://fonts.googleapis.com/icon?family=Material+Icons',
+    //           'https://cdnjs.cloudflare.com/ajax/libs/material-designlite/1.3.0/material.brown-amber.min.css'
+    //         ]);
+    //       })
+    //   )
+    // });
+
     window.addEventListener('load', () => {
-      const swUrl = `${process.env.PUBLIC_URL}/service-worker.js`;
+      const swUrl = `${process.env.PUBLIC_URL}/serviceWorker.js`;
 
       if (isLocalhost) {
         // This is running on localhost. Let's check if a service worker still exists or not.
@@ -43,7 +73,7 @@ export function register(config) {
         navigator.serviceWorker.ready.then(() => {
           console.log(
             'This web app is being served cache-first by a service ' +
-              'worker. To learn more, visit https://bit.ly/CRA-PWA'
+            'worker. To learn more, visit https://bit.ly/CRA-PWA'
           );
         });
       } else {
@@ -71,7 +101,7 @@ function registerValidSW(swUrl, config) {
               // content until all client tabs are closed.
               console.log(
                 'New content is available and will be used when all ' +
-                  'tabs for this page are closed. See https://bit.ly/CRA-PWA.'
+                'tabs for this page are closed. See https://bit.ly/CRA-PWA.'
               );
 
               // Execute callback
