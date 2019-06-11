@@ -81,7 +81,7 @@
                     upc: location.pathname.split("/").pop(),
                     category: newCategory
                 }).done(function () {
-                    alert("Added");
+                    
                 }).always(function () {
                     $(`#cat-${newCategory.replace(" ","-")}`).removeClass("btn-primary")
                         .addClass("btn-success");

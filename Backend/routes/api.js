@@ -5,7 +5,7 @@ const MongoClient = require('mongodb').MongoClient;
 const uri = "mongodb+srv://asmsii:asmsii@cluster0-9q1xc.mongodb.net/test?retryWrites=true";
 let nutrInfo = [];
 var request = require('request');
-
+var nutritionGrades = ["A", "B", "C", "D", "E"];
 const units = {
   /**
    * @param kj Kilojoule to convert in Kilocalorie
@@ -101,7 +101,9 @@ router.get('/food', (req, res, next) => {
   client.connect(err => {
     if (err) throw err;
     let collection = client.db("ProjetoAMSSII").collection("Products");
-    collection.find({}).sort({'upc':1}).toArray().then(v => {
+    collection.find({}).sort({
+      'upc': 1
+    }).toArray().then(v => {
       var list = {
         A: 0,
         B: 0,
@@ -189,8 +191,14 @@ router.get('/categorize/:upc', (req, res, next) => {
       let categories = client.db("ProjetoAMSSII").collection("Categories");
       let products = client.db("ProjetoAMSSII").collection("Products");
       if (next) {
-        var p = products.find({ 'upc': {'$gt': upc}}).sort({'upc':1}).limit(1).toArray().then(result=>{
-          res.redirect("/api/categorize/"+result[0].upc)
+        var p = products.find({
+          'upc': {
+            '$gt': upc
+          }
+        }).sort({
+          'upc': 1
+        }).limit(1).toArray().then(result => {
+          res.redirect("/api/categorize/" + result[0].upc)
         })
       } else {
         products.findOne({
@@ -237,6 +245,43 @@ router.post("/categorize", (req, res, next) => {
       else {
         res.send(200)
       }
+    });
+  });
+});
+
+router.get("/recommend/:upc", (req, res, next) => {
+  var upc = req.params['upc'];
+  const client = new MongoClient(uri, {
+    useNewUrlParser: true
+  });
+  client.connect(err => {
+    if (err) res.send(500);
+    let products = client.db("ProjetoAMSSII").collection("Products");
+    products.findOne({
+      upc: upc
+    }, (err, product) => {
+      if (product.nutritionGrade === "ND") {
+        res.sendStatus(500).send("We don't have a NutriScore for this yet")
+        return;
+      }
+      let ltGrades = nutritionGrades.slice(0, nutritionGrades.indexOf(product.nutritionGrade));
+      ltGrades.forEach(e=>{
+        ltGrades.push(e.toLowerCase());
+       });
+      products.find({
+        $and: [{
+          categories: {
+            $in: product.categories
+          }
+        }, {
+          nutritionGrade: {
+            $in: ltGrades
+          }
+        }]
+      }).sort({nutritionGrade:1}).toArray().then((results) => {
+        res.send(results);
+      });
+
     });
   });
 });
