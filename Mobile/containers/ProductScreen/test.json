@@ -1,0 +1,607 @@
+{
+    "product": {
+        "ingredients_text": "RICE NOODLES (RICE, WATER), SEASONING PACKET (PEANUT, SUGAR, SALT, CORN STARCH, SPICES [CHILI, CINNAMON, PEPPER, CUMIN, CLOVE], HYDRDLYZED SOY PROTEIN, GREEN ONIONS, CITRIC ACID, PEANUT OIL, SESAME OIL, NATURAL FLAVOR).",
+        "image_thumb_url": "https://static.openfoodfacts.org/images/products/073/762/806/4502/front_en.6.100.jpg",
+        "ingredients_from_palm_oil_n": 0,
+        "brands": "Thai Kitchen,Simply Asia",
+        "last_image_t": 1345799925,
+        "image_nutrition_small_url": "https://static.openfoodfacts.org/images/products/073/762/806/4502/nutrition_en.12.200.jpg",
+        "countries_lc": "en",
+        "nutrient_levels": {
+            "saturated-fat": "low",
+            "salt": "high",
+            "sugars": "high",
+            "fat": "moderate"
+        },
+        "origins_tags": ["thailand"],
+        "informers_tags": ["andre", "manu1400", "thierrym"],
+        "pnns_groups_1_tags": ["unknown", "missing-association"],
+        "pnns_groups_2": "unknown",
+        "id": "737628064502",
+        "creator": "openfoodfacts-contributors",
+        "nova_group": "4",
+        "max_imgid": "5",
+        "entry_dates_tags": ["2012-08-24", "2012-08", "2012"],
+        "emb_codes_orig": "",
+        "emb_codes_debug_tags": [],
+        "ingredients_text_debug": "RICE NOODLES (RICE, WATER), SEASONING PACKET (PEANUT, SUGAR, SALT, CORN STARCH, SPICES [CHILI, CINNAMON, PEPPER, CUMIN, CLOVE], HYDRDLYZED SOY PROTEIN, GREEN ONIONS, CITRIC ACID, PEANUT OIL, SESAME OIL, : NATURAL FLAVOR : ).",
+        "traces": "Peanuts",
+        "manufacturing_places": "",
+        "ingredients": [{
+            "rank": 1,
+            "id": "en:RICE NOODLES",
+            "text": "RICE NOODLES"
+        }, {
+            "text": "SEASONING PACKET",
+            "rank": 2,
+            "id": "en:SEASONING PACKET"
+        }, {
+            "text": "RICE",
+            "id": "en:rice"
+        }, {
+            "text": "WATER",
+            "id": "en:water"
+        }, {
+            "id": "en:peanut",
+            "text": "PEANUT"
+        }, {
+            "text": "SUGAR",
+            "id": "en:sugar"
+        }, {
+            "id": "en:salt",
+            "text": "SALT"
+        }, {
+            "text": "CORN STARCH",
+            "id": "en:corn-starch"
+        }, {
+            "text": "SPICES",
+            "id": "en:spice"
+        }, {
+            "text": "CHILI",
+            "id": "en:CHILI"
+        }, {
+            "text": "CINNAMON",
+            "id": "en:cinnamon"
+        }, {
+            "id": "en:pepper",
+            "text": "PEPPER"
+        }, {
+            "text": "CUMIN",
+            "id": "en:cumin-seeds"
+        }, {
+            "text": "CLOVE",
+            "id": "en:clove"
+        }, {
+            "text": "HYDRDLYZED SOY PROTEIN",
+            "id": "en:HYDRDLYZED SOY PROTEIN"
+        }, {
+            "id": "en:green-onion",
+            "text": "GREEN ONIONS"
+        }, {
+            "id": "en:citric-acid",
+            "text": "CITRIC ACID"
+        }, {
+            "id": "en:peanut-oil",
+            "text": "PEANUT OIL"
+        }, {
+            "id": "en:sesame-oil",
+            "text": "SESAME OIL"
+        }, {
+            "text": "NATURAL FLAVOR",
+            "id": "en:natural-flavouring"
+        }],
+        "ingredients_that_may_be_from_palm_oil_tags": [],
+        "additives_old_tags": ["en:e330"],
+        "emb_codes": "",
+        "product_name_en_debug_tags": [],
+        "nutrition_score_debug": " -- energy 4 + sat-fat 1 + fr-sat-fat-for-fats 1 + sugars 2 + sodium 8 - fruits 0% 0 - fiber 0 - proteins 5 -- fsa 15 -- fr 15",
+        "nucleotides_tags": [],
+        "cities_tags": [],
+        "manufacturing_places_tags": [],
+        "nucleotides_prev_tags": [],
+        "nutrition_score_beverage": 0,
+        "ingredients_text_with_allergens_en": "RICE NOODLES (RICE, WATER), SEASONING PACKET (<span class=\"allergen\">PEANUT</span>, SUGAR, SALT, CORN STARCH, SPICES [CHILI, CINNAMON, PEPPER, CUMIN, CLOVE], HYDRDLYZED SOY PROTEIN, GREEN ONIONS, CITRIC ACID, PEANUT OIL, SESAME OIL, NATURAL FLAVOR).",
+        "countries": "France, United States",
+        "selected_images": {
+            "nutrition": {
+                "display": {
+                    "en": "https://static.openfoodfacts.org/images/products/073/762/806/4502/nutrition_en.12.400.jpg"
+                },
+                "small": {
+                    "en": "https://static.openfoodfacts.org/images/products/073/762/806/4502/nutrition_en.12.200.jpg"
+                },
+                "thumb": {
+                    "en": "https://static.openfoodfacts.org/images/products/073/762/806/4502/nutrition_en.12.100.jpg"
+                }
+            },
+            "front": {
+                "thumb": {
+                    "en": "https://static.openfoodfacts.org/images/products/073/762/806/4502/front_en.6.100.jpg"
+                },
+                "small": {
+                    "en": "https://static.openfoodfacts.org/images/products/073/762/806/4502/front_en.6.200.jpg"
+                },
+                "display": {
+                    "en": "https://static.openfoodfacts.org/images/products/073/762/806/4502/front_en.6.400.jpg"
+                }
+            },
+            "ingredients": {
+                "thumb": {
+                    "en": "https://static.openfoodfacts.org/images/products/073/762/806/4502/ingredients_en.10.100.jpg"
+                },
+                "small": {
+                    "en": "https://static.openfoodfacts.org/images/products/073/762/806/4502/ingredients_en.10.200.jpg"
+                },
+                "display": {
+                    "en": "https://static.openfoodfacts.org/images/products/073/762/806/4502/ingredients_en.10.400.jpg"
+                }
+            }
+        },
+        "created_t": 1345799269,
+        "generic_name": "Rice Noodles",
+        "states_hierarchy": ["en:to-be-checked", "en:complete", "en:nutrition-facts-completed", "en:ingredients-completed", "en:expiration-date-to-be-completed", "en:packaging-code-to-be-completed", "en:characteristics-completed", "en:categories-completed", "en:brands-completed", "en:packaging-completed", "en:quantity-completed", "en:product-name-completed", "en:photos-validated", "en:photos-uploaded"],
+        "serving_size_debug_tags": [],
+        "labels_hierarchy": ["en:gluten-free"],
+        "nutriments": {
+            "carbohydrates_serving": 55,
+            "fat": 7,
+            "nutrition-score-uk_serving": 15,
+            "nutrition-score-fr_100g": 15,
+            "carbohydrates_value": 55,
+            "carbohydrates": 55,
+            "proteins_100g": 8.97,
+            "proteins": 7,
+            "energy_unit": "kcal",
+            "salt": 1.59766,
+            "nutrition-score-uk_100g": 15,
+            "nutrition-score-fr_serving": 15,
+            "nutrition-score-fr": 15,
+            "nutrition-score-uk": 15,
+            "fat_unit": "g",
+            "fiber_value": 0,
+            "sodium_unit": "mg",
+            "energy_value": 310,
+            "carbohydrates_unit": "g",
+            "fiber_100g": 0,
+            "salt_unit": "g",
+            "nova-group": 4,
+            "saturated-fat": 1,
+            "sodium_100g": 0.806,
+            "nova-group_serving": 4,
+            "sodium": 0.629,
+            "proteins_value": 7,
+            "sugars_100g": 12.8,
+            "proteins_unit": "g",
+            "fiber_unit": "g",
+            "fat_value": 7,
+            "fiber_serving": 0,
+            "sugars_serving": 10,
+            "energy_100g": 1660,
+            "sugars_unit": "g",
+            "energy_serving": 1297,
+            "fat_serving": 7,
+            "saturated-fat_value": 1,
+            "saturated-fat_serving": 1,
+            "salt_serving": 1.59766,
+            "carbohydrates_100g": 70.5,
+            "salt_100g": 2.05,
+            "sodium_serving": 0.629,
+            "proteins_serving": 7,
+            "salt_value": 1.59766,
+            "saturated-fat_unit": "g",
+            "energy": 1297,
+            "nova-group_100g": 5.13,
+            "saturated-fat_100g": 1.28,
+            "sugars_value": 10,
+            "fat_100g": 8.97,
+            "sodium_value": 0.629,
+            "fiber": 0,
+            "sugars": 10
+        },
+        "interface_version_modified": "20120622",
+        "image_ingredients_thumb_url": "https://static.openfoodfacts.org/images/products/073/762/806/4502/ingredients_en.10.100.jpg",
+        "nutrition_data_prepared_per": "100g",
+        "completed_t": 1355184837,
+        "image_front_url": "https://static.openfoodfacts.org/images/products/073/762/806/4502/front_en.6.400.jpg",
+        "labels_lc": "en",
+        "image_nutrition_thumb_url": "https://static.openfoodfacts.org/images/products/073/762/806/4502/nutrition_en.12.100.jpg",
+        "additives_debug_tags": [],
+        "image_nutrition_url": "https://static.openfoodfacts.org/images/products/073/762/806/4502/nutrition_en.12.400.jpg",
+        "photographers_tags": ["openfoodfacts-contributors", "andre"],
+        "last_image_dates_tags": ["2012-08-24", "2012-08", "2012"],
+        "nutrition_data": "on",
+        "countries_tags": ["en:france", "en:united-states"],
+        "origins_debug_tags": [],
+        "no_nutrition_data": "",
+        "packaging": "Cellophane,Carton",
+        "manufacturing_places_debug_tags": [],
+        "editors": ["", "thierrym", "manu1400", "andre", "upcbot"],
+        "unknown_nutrients_tags": [],
+        "quantity_debug_tags": [],
+        "languages": {
+            "en:english": 6
+        },
+        "packaging_tags": ["cellophane", "carton"],
+        "ingredients_debug": ["RICE NOODLES ", "(", "(", null, null, "RICE", ",", null, null, null, " WATER)", ",", null, null, null, " SEASONING PACKET ", "(", "(", null, null, "PEANUT", ",", null, null, null, " SUGAR", ",", null, null, null, " SALT", ",", null, null, null, " CORN STARCH", ",", null, null, null, " SPICES ", "[", "[", null, null, "CHILI", ",", null, null, null, " CINNAMON", ",", null, null, null, " PEPPER", ",", null, null, null, " CUMIN", ",", null, null, null, " CLOVE]", ",", null, null, null, " HYDRDLYZED SOY PROTEIN", ",", null, null, null, " GREEN ONIONS", ",", null, null, null, " CITRIC ACID", ",", null, null, null, " PEANUT OIL", ",", null, null, null, " SESAME OIL", ",", null, null, null, " ", ":", ":", null, null, " NATURAL FLAVOR ", ":", ":", null, null, " )."],
+        "_id": "0737628064502",
+        "states": "en:to-be-checked, en:complete, en:nutrition-facts-completed, en:ingredients-completed, en:expiration-date-to-be-completed, en:packaging-code-to-be-completed, en:characteristics-completed, en:categories-completed, en:brands-completed, en:packaging-completed, en:quantity-completed, en:product-name-completed, en:photos-validated, en:photos-uploaded",
+        "image_front_small_url": "https://static.openfoodfacts.org/images/products/073/762/806/4502/front_en.6.200.jpg",
+        "ingredients_from_or_that_may_be_from_palm_oil_n": 0,
+        "sources": [{
+            "images": [],
+            "url": "https://api.nal.usda.gov/ndb/reports/?ndbno=45108002&type=f&format=json&api_key=DEMO_KEY",
+            "import_t": 1489067409,
+            "id": "usda-ndb",
+            "fields": ["brands", "countries"]
+        }],
+        "last_edit_dates_tags": ["2018-04-25", "2018-04", "2018"],
+        "ingredients_n_tags": ["20", "11-20"],
+        "debug_param_sorted_langs": ["en"],
+        "pnns_groups_2_tags": ["unknown", "missing-association"],
+        "lang_debug_tags": [],
+        "quality_tags": ["ingredients-en-4-consonants"],
+        "states_tags": ["en:to-be-checked", "en:complete", "en:nutrition-facts-completed", "en:ingredients-completed", "en:expiration-date-to-be-completed", "en:packaging-code-to-be-completed", "en:characteristics-completed", "en:categories-completed", "en:brands-completed", "en:packaging-completed", "en:quantity-completed", "en:product-name-completed", "en:photos-validated", "en:photos-uploaded"],
+        "ingredients_hierarchy": ["en:RICE NOODLES", "en:SEASONING PACKET", "en:rice", "en:water", "en:peanut", "en:nut", "en:sugar", "en:salt", "en:corn-starch", "en:starch", "en:spice", "en:CHILI", "en:cinnamon", "en:spice", "en:pepper", "en:seed", "en:vegetable", "en:cumin-seeds", "en:seed", "en:clove", "en:spice", "en:HYDRDLYZED SOY PROTEIN", "en:green-onion", "en:onion", "en:citric-acid", "en:peanut-oil", "en:vegetable-oil", "en:oil-and-vegetable-fat", "en:oil", "en:sesame-oil", "en:vegetable-oil", "en:oil-and-vegetable-fat", "en:oil", "en:natural-flavouring", "en:flavouring"],
+        "correctors": ["andre", "thierrym"],
+        "additives_prev_original_tags": ["en:e330"],
+        "nutrition_data_per": "serving",
+        "generic_name_en_debug_tags": [],
+        "ingredients_from_palm_oil_tags": [],
+        "ingredients_original_tags": ["en:RICE NOODLES", "en:SEASONING PACKET", "en:rice", "en:water", "en:peanut", "en:sugar", "en:salt", "en:corn-starch", "en:spice", "en:CHILI", "en:cinnamon", "en:pepper", "en:cumin-seeds", "en:clove", "en:HYDRDLYZED SOY PROTEIN", "en:green-onion", "en:citric-acid", "en:peanut-oil", "en:sesame-oil", "en:natural-flavouring"],
+        "stores_tags": [],
+        "product_name_en": "Stir-Fry Rice Noodles",
+        "traces_hierarchy": ["en:peanuts"],
+        "allergens_from_ingredients": "PEANUT",
+        "product_name": "Stir-Fry Rice Noodles",
+        "nova_groups_tags": ["en:4-ultra-processed-food-and-drink-products"],
+        "pnns_groups_1": "unknown",
+        "rev": 18,
+        "amino_acids_prev_tags": [],
+        "languages_codes": {
+            "en": 6
+        },
+        "correctors_tags": ["andre", "thierrym", "usda-ndb-import", "smartchef"],
+        "nova_groups": "4",
+        "origins": "Thailand",
+        "traces_from_ingredients": "",
+        "purchase_places_debug_tags": [],
+        "labels_prev_tags": ["en:gluten-free"],
+        "vitamins_tags": [],
+        "additives_prev_tags": ["en:e330"],
+        "unknown_ingredients_n": 4,
+        "image_ingredients_url": "https://static.openfoodfacts.org/images/products/073/762/806/4502/ingredients_en.10.400.jpg",
+        "editors_tags": ["smartchef", "openfoodfacts-contributors", "manu1400", "usda-ndb-import", "andre", "upcbot", "thierrym"],
+        "codes_tags": ["code-13", "0737628064502", "073762806450x", "07376280645xx", "0737628064xxx", "073762806xxxx", "07376280xxxxx", "0737628xxxxxx", "073762xxxxxxx", "07376xxxxxxxx", "0737xxxxxxxxx", "073xxxxxxxxxx", "07xxxxxxxxxxx", "0xxxxxxxxxxxx"],
+        "photographers": ["andre"],
+        "emb_codes_tags": [],
+        "additives_n": 1,
+        "categories_lc": "en",
+        "serving_quantity": 78,
+        "ingredients_that_may_be_from_palm_oil_n": 0,
+        "amino_acids_tags": [],
+        "image_ingredients_small_url": "https://static.openfoodfacts.org/images/products/073/762/806/4502/ingredients_en.10.200.jpg",
+        "minerals_tags": [],
+        "nutrient_levels_tags": ["en:fat-in-moderate-quantity", "en:saturated-fat-in-low-quantity", "en:sugars-in-high-quantity", "en:salt-in-high-quantity"],
+        "last_editor": "smartchef",
+        "ingredients_text_en": "RICE NOODLES (RICE, WATER), SEASONING PACKET (PEANUT, SUGAR, SALT, CORN STARCH, SPICES [CHILI, CINNAMON, PEPPER, CUMIN, CLOVE], HYDRDLYZED SOY PROTEIN, GREEN ONIONS, CITRIC ACID, PEANUT OIL, SESAME OIL, NATURAL FLAVOR).",
+        "brands_debug_tags": [],
+        "serving_size": "78 g",
+        "allergens_tags": ["en:peanuts"],
+        "languages_hierarchy": ["en:english"],
+        "languages_tags": ["en:english", "en:1"],
+        "new_additives_n": 1,
+        "countries_debug_tags": [],
+        "nutrition_data_prepared_per_debug_tags": [],
+        "last_modified_t": 1524679961,
+        "stores_debug_tags": [],
+        "image_url": "https://static.openfoodfacts.org/images/products/073/762/806/4502/front_en.6.400.jpg",
+        "informers": ["andre", "manu1400", "thierrym"],
+        "additives_old_n": 1,
+        "last_modified_by": "smartchef",
+        "additives_original_tags": ["en:e330"],
+        "nutrition_data_per_debug_tags": [],
+        "categories": "Rice Noodles",
+        "additives_tags_n": null,
+        "ingredients_tags": ["en:rice-noodles", "en:seasoning-packet", "en:rice", "en:water", "en:peanut", "en:nut", "en:sugar", "en:salt", "en:corn-starch", "en:starch", "en:spice", "en:chili", "en:cinnamon", "en:spice", "en:pepper", "en:seed", "en:vegetable", "en:cumin-seeds", "en:seed", "en:clove", "en:spice", "en:hydrdlyzed-soy-protein", "en:green-onion", "en:onion", "en:citric-acid", "en:peanut-oil", "en:vegetable-oil", "en:oil-and-vegetable-fat", "en:oil", "en:sesame-oil", "en:vegetable-oil", "en:oil-and-vegetable-fat", "en:oil", "en:natural-flavouring", "en:flavouring"],
+        "purchase_places_tags": [],
+        "images": {
+            "5": {
+                "sizes": {
+                    "100": {
+                        "h": 100,
+                        "w": 54
+                    },
+                    "400": {
+                        "h": 400,
+                        "w": 216
+                    },
+                    "full": {
+                        "w": 870,
+                        "h": 1611
+                    }
+                },
+                "uploader": "andre",
+                "uploaded_t": 1345799925
+            },
+            "3": {
+                "sizes": {
+                    "100": {
+                        "w": 100,
+                        "h": 72
+                    },
+                    "full": {
+                        "w": 1281,
+                        "h": 927
+                    },
+                    "400": {
+                        "w": 400,
+                        "h": 289
+                    }
+                },
+                "uploader": "andre",
+                "uploaded_t": 1345799558
+            },
+            "front_en": {
+                "sizes": {
+                    "full": {
+                        "h": 1812,
+                        "w": 1311
+                    },
+                    "400": {
+                        "h": 400,
+                        "w": 289
+                    },
+                    "200": {
+                        "h": 200,
+                        "w": 145
+                    },
+                    "100": {
+                        "h": 100,
+                        "w": 72
+                    }
+                },
+                "normalize": null,
+                "white_magic": null,
+                "geometry": "0x0--4--4",
+                "rev": "6",
+                "imgid": "2"
+            },
+            "2": {
+                "uploader": "andre",
+                "sizes": {
+                    "100": {
+                        "w": 72,
+                        "h": 100
+                    },
+                    "400": {
+                        "w": 289,
+                        "h": 400
+                    },
+                    "full": {
+                        "w": 1311,
+                        "h": 1812
+                    }
+                },
+                "uploaded_t": 1345799309
+            },
+            "1": {
+                "uploaded_t": 1345799270,
+                "uploader": "openfoodfacts-contributors",
+                "sizes": {
+                    "100": {
+                        "w": 100,
+                        "h": 71
+                    },
+                    "full": {
+                        "w": 1536,
+                        "h": 1089
+                    },
+                    "400": {
+                        "w": 400,
+                        "h": 284
+                    }
+                }
+            },
+            "front": {
+                "sizes": {
+                    "full": {
+                        "h": 1812,
+                        "w": 1311
+                    },
+                    "400": {
+                        "h": 400,
+                        "w": 289
+                    },
+                    "200": {
+                        "h": 200,
+                        "w": 145
+                    },
+                    "100": {
+                        "h": 100,
+                        "w": 72
+                    }
+                },
+                "normalize": null,
+                "white_magic": null,
+                "geometry": "0x0--4--4",
+                "rev": "6",
+                "imgid": "2"
+            },
+            "ingredients_en": {
+                "normalize": "checked",
+                "white_magic": null,
+                "geometry": "0x0--3--3",
+                "sizes": {
+                    "full": {
+                        "h": 927,
+                        "w": 1281
+                    },
+                    "400": {
+                        "h": 289,
+                        "w": 400
+                    },
+                    "200": {
+                        "h": 145,
+                        "w": 200
+                    },
+                    "100": {
+                        "w": 100,
+                        "h": 72
+                    }
+                },
+                "imgid": "4",
+                "rev": "10"
+            },
+            "ingredients": {
+                "normalize": "checked",
+                "white_magic": null,
+                "geometry": "0x0--3--3",
+                "sizes": {
+                    "full": {
+                        "h": 927,
+                        "w": 1281
+                    },
+                    "400": {
+                        "h": 289,
+                        "w": 400
+                    },
+                    "200": {
+                        "h": 145,
+                        "w": 200
+                    },
+                    "100": {
+                        "w": 100,
+                        "h": 72
+                    }
+                },
+                "imgid": "4",
+                "rev": "10"
+            },
+            "nutrition_en": {
+                "imgid": "5",
+                "rev": "12",
+                "sizes": {
+                    "200": {
+                        "h": 200,
+                        "w": 108
+                    },
+                    "full": {
+                        "h": 1611,
+                        "w": 870
+                    },
+                    "400": {
+                        "w": 216,
+                        "h": 400
+                    },
+                    "100": {
+                        "h": 100,
+                        "w": 54
+                    }
+                },
+                "white_magic": null,
+                "geometry": "0x0--4--4",
+                "normalize": "checked"
+            },
+            "nutrition": {
+                "imgid": "5",
+                "rev": "12",
+                "sizes": {
+                    "200": {
+                        "h": 200,
+                        "w": 108
+                    },
+                    "full": {
+                        "h": 1611,
+                        "w": 870
+                    },
+                    "400": {
+                        "w": 216,
+                        "h": 400
+                    },
+                    "100": {
+                        "h": 100,
+                        "w": 54
+                    }
+                },
+                "white_magic": null,
+                "geometry": "0x0--4--4",
+                "normalize": "checked"
+            },
+            "4": {
+                "uploaded_t": 1345799666,
+                "sizes": {
+                    "100": {
+                        "h": 72,
+                        "w": 100
+                    },
+                    "400": {
+                        "w": 400,
+                        "h": 289
+                    },
+                    "full": {
+                        "w": 1281,
+                        "h": 927
+                    }
+                },
+                "uploader": "andre"
+            }
+        },
+        "allergens_hierarchy": ["en:peanuts"],
+        "traces_tags": ["en:peanuts"],
+        "image_front_thumb_url": "https://static.openfoodfacts.org/images/products/073/762/806/4502/front_en.6.100.jpg",
+        "ingredients_ids_debug": ["rice-noodles", "rice", "water", "seasoning-packet", "peanut", "sugar", "salt", "corn-starch", "spices", "chili", "cinnamon", "pepper", "cumin", "clove", "hydrdlyzed-soy-protein", "green-onions", "citric-acid", "peanut-oil", "sesame-oil", "natural-flavor"],
+        "categories_tags": ["en:rice-noodles"],
+        "scans_n": 4,
+        "additives_tags": ["en:e330"],
+        "purchase_places": "",
+        "vitamins_prev_tags": [],
+        "ingredients_text_en_debug_tags": [],
+        "nutrition_grades": "d",
+        "expiration_date": "",
+        "nutrition_score_warning_no_fruits_vegetables_nuts": 1,
+        "ingredients_text_with_allergens": "RICE NOODLES (RICE, WATER), SEASONING PACKET (<span class=\"allergen\">PEANUT</span>, SUGAR, SALT, CORN STARCH, SPICES [CHILI, CINNAMON, PEPPER, CUMIN, CLOVE], HYDRDLYZED SOY PROTEIN, GREEN ONIONS, CITRIC ACID, PEANUT OIL, SESAME OIL, NATURAL FLAVOR).",
+        "emb_codes_20141016": "",
+        "packaging_debug_tags": [],
+        "nutrition_data_prepared": "",
+        "additives": " [ rice-noodles -> en:rice-noodles  ]  [ noodles -> en:noodles  ]  [ rice -> en:rice  ]  [ water -> en:water  ]  [ seasoning-packet -> en:seasoning-packet  ]  [ packet -> en:packet  ]  [ peanut -> en:peanut  ]  [ sugar -> en:sugar  ]  [ salt -> en:salt  ]  [ corn-starch -> en:corn-starch  ]  [ starch -> en:starch  ]  [ spices -> en:spices  ]  [ chili -> en:chili  ]  [ cinnamon -> en:cinnamon  ]  [ pepper -> en:pepper  ]  [ cumin -> en:cumin  ]  [ clove -> en:clove  ]  [ hydrdlyzed-soy-protein -> en:hydrdlyzed-soy-protein  ]  [ soy-protein -> en:soy-protein  ]  [ protein -> en:protein  ]  [ green-onions -> en:green-onions  ]  [ onions -> en:onions  ]  [ citric-acid -> en:e330  -> exists  -- ok  ]  [ peanut-oil -> en:peanut-oil  ]  [ oil -> en:oil  ]  [ sesame-oil -> en:sesame-oil  ]  [ oil -> en:oil  ]  [ natural-flavor -> en:natural-flavor  ]  [ flavor -> en:flavor  ] ",
+        "interface_version_created": "20120622",
+        "ingredients_n": "20",
+        "nutrition_grade_fr": "d",
+        "stores": "",
+        "traces_debug_tags": [],
+        "generic_name_en": "Rice Noodles",
+        "allergens": "",
+        "expiration_date_debug_tags": [],
+        "checkers": [],
+        "categories_hierarchy": ["en:Rice Noodles"],
+        "fruits-vegetables-nuts_100g_estimate": 0,
+        "minerals_prev_tags": [],
+        "labels_tags": ["en:gluten-free"],
+        "_keywords": ["asia", "noodle", "simply", "thai", "stir-fry", "thailand", "rice", "gluten-free", "kitchen"],
+        "labels": "Gluten-free",
+        "additives_prev_n": 1,
+        "code": "0737628064502",
+        "checkers_tags": [],
+        "quantity": "155 g",
+        "complete": 1,
+        "unique_scans_n": 3,
+        "sortkey": 1524679961,
+        "link_debug_tags": [],
+        "countries_hierarchy": ["en:france", "en:united-states"],
+        "product_quantity": 155,
+        "nutrition_grades_tags": ["d"],
+        "image_small_url": "https://static.openfoodfacts.org/images/products/073/762/806/4502/front_en.6.200.jpg",
+        "additives_prev": " [ rice-noodles -> en:rice-noodles  ]  [ noodles -> en:noodles  ]  [ rice -> en:rice  ]  [ water -> en:water  ]  [ seasoning-packet -> en:seasoning-packet  ]  [ packet -> en:packet  ]  [ peanut -> en:peanut  ]  [ sugar -> en:sugar  ]  [ salt -> en:salt  ]  [ corn-starch -> en:corn-starch  ]  [ starch -> en:starch  ]  [ spices -> en:spices  ]  [ chili -> en:chili  ]  [ cinnamon -> en:cinnamon  ]  [ pepper -> en:pepper  ]  [ cumin -> en:cumin  ]  [ clove -> en:clove  ]  [ hydrdlyzed-soy-protein -> en:hydrdlyzed-soy-protein  ]  [ soy-protein -> en:soy-protein  ]  [ protein -> en:protein  ]  [ green-onions -> en:green-onions  ]  [ onions -> en:onions  ]  [ citric-acid -> en:e330  -> exists  -- ok  ]  [ peanut-oil -> en:peanut-oil  ]  [ oil -> en:oil  ]  [ sesame-oil -> en:sesame-oil  ]  [ oil -> en:oil  ]  [ natural-flavor -> en:natural-flavor  ]  [ flavor -> en:flavor  ] ",
+        "lc": "en",
+        "nova_group_debug": " -- ingredients/en:starch : 3 -- ingredients/en:flavouring : 4",
+        "misc_tags": ["en:nutrition-no-fruits-vegetables-nuts", "en:nutrition-no-fiber-or-fruits-vegetables-nuts", "en:nutriscore-computed"],
+        "update_key": "qua7",
+        "brands_tags": ["thai-kitchen", "simply-asia"],
+        "link": "",
+        "labels_prev_hierarchy": ["en:gluten-free"],
+        "lang": "en"
+    },
+    "status": 1,
+    "code": "0737628064502",
+    "status_verbose": "product found"
+}

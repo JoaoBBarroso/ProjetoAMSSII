@@ -1,14 +1,14 @@
 import { createStackNavigator, createAppContainer } from 'react-navigation';
 import Home from './containers/HomeScreen';
-import Login from './containers/LoginScreen';
+import Scanning from './containers/ScanningScreen';
+import Product from './containers/ProductScreen';
 
 const AppNavigator = createStackNavigator({
     Home: { screen: Home },
-    Login: { screen: Login },
+    Scanning: { screen: Scanning },
+    Product: { screen: Product },
 }, {
-        initialRouteName: 'Login'
+        initialRouteName: 'Home'
     });
 
-const AppContainer = createAppContainer(AppNavigator);
-
-export default AppContainer;
+export default createAppContainer(AppNavigator);
