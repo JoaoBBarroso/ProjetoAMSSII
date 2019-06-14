@@ -45,5 +45,6 @@ const styles = {
         color: 'black',
         fontSize: 40,
         fontWeight: 'bold'
+        
     }
 }

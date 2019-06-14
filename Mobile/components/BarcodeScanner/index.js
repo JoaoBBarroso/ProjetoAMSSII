@@ -59,8 +59,8 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     width: '100%',
-    margin: 0,
-    position: "absolute"
+    height: '100%',
+    padding: 0
   },
   description: {
     fontSize: 24,
