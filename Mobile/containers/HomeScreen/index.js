@@ -30,12 +30,14 @@ export default class HomeScreen extends Component {
                     onPress={this.handleScannerPress}
                     style={styles.button}
                 />
-                
+
                 <Button
                     title="View last scanned product"
                     style={styles.button}
                     onPress={this.handleProductPress}
+                    containerStyle={styles.button}
                 />
+
             </View>
         </View>
     }
@@ -55,6 +57,6 @@ const styles = StyleSheet.create({
         justifyContent: 'space-around',
     },
     button: {
-        marginTop: '1em',
+        marginTop:10
     }
 });
