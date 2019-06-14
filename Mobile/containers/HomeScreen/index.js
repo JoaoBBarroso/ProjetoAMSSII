@@ -48,8 +48,11 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: '#f7f7f7',
         alignItems: 'center',
-        // width: '100%',
-        // height: '100%'
+         width: '100%',
+         height: '100%',
+         paddingRight:0,
+         paddingLeft:0
+         
     },
     homeButtons: {
         marginTop: 15,
