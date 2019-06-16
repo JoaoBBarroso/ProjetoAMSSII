@@ -10,7 +10,7 @@ export default class ScanningScreen extends Component {
             backgroundColor: '#D8D8F6',
         },
         headerTintColor: '#000000',
-
+        
     };
 
     transitionProductInfo = (data) => {
@@ -27,7 +27,10 @@ export default class ScanningScreen extends Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#f7f7f7',
+        backgroundColor: '#000',
+        width: '100%',
+        height: '100%',
+        padding: 0
     },
     appHeader: {
         backgroundColor: '#D8D8F6',

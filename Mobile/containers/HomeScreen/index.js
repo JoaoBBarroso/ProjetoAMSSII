@@ -40,6 +40,7 @@ export default class HomeScreen extends Component {
                     titleStyle={{ color: '#000000' }}
                     containerStyle={{ marginTop: 25 }}
                 />
+
             </View>
         </View>
     }

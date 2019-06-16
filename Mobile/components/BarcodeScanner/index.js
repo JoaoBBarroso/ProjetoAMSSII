@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Text, View, StyleSheet, Button } from 'react-native';
+import { Text, View, StyleSheet, Button, Dimensions } from 'react-native';
 import Constants from 'expo-constants';
 import * as Permissions from 'expo-permissions';
 import { BarCodeScanner } from 'expo-barcode-scanner';
@@ -30,11 +30,16 @@ export default class BarcodeScanner extends Component {
       return <Text>No access to camera</Text>;
     }
     return (
-      <View style={{ flex: 1, justifyContent: 'flex-end' }}>
+      <View style={{ flex: 1}}>
         <BarCodeScanner
           onBarCodeScanned={scanned ? undefined : this.handleBarCodeScanned}
-          style={StyleSheet.absoluteFillObject}
-        />
+          style={[StyleSheet.absoluteFillObject, styles.container]}
+        >
+          <Text style={styles.description}>Scan your barcode</Text>
+          <View
+            style={styles.bar}
+          />
+        </BarCodeScanner>
         {scanned && (
           <Button title={'Tap to Scan Again'} onPress={() => this.setState({ scanned: false })} />
         )}
@@ -48,3 +53,28 @@ export default class BarcodeScanner extends Component {
     this.props.transition(data);
   };
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    width: '100%',
+    height: '100%',
+    padding: 0
+  },
+  description: {
+    fontSize: 24,
+    marginTop: '15%',
+    textAlign: 'center',
+    width: '70%',
+    color: 'white',
+  },
+  bar: {
+    marginTop: '45%',
+    marginBottom: '45%',
+    width: '90%',
+    height: 20,
+    borderBottomColor: 'red',
+    borderBottomWidth: 5,
+  }
+});
