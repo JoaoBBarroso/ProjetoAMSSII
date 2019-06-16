@@ -45,6 +45,6 @@ export default class BarcodeScanner extends Component {
   handleBarCodeScanned = ({ type, data }) => {
     this.setState({ scanned: true });
     alert(`Bar code with type ${type} and data ${data} has been scanned!`);
-    this.props.transition();
+    this.props.transition(data);
   };
 }

@@ -13,8 +13,8 @@ export default class ScanningScreen extends Component {
 
     };
 
-    transitionProductInfo = () => {
-        this.props.navigation.navigate('Product');
+    transitionProductInfo = (data) => {
+        this.props.navigation.navigate('Product', { upc: data });
     }
 
     render() {

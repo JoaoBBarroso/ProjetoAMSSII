@@ -28,13 +28,17 @@ export default class HomeScreen extends Component {
                 <Button
                     title="Scan a product!"
                     onPress={this.handleScannerPress}
-                    style={styles.button}
+                    buttonStyle={{ backgroundColor: '#D8D8F6' }}
+                    titleStyle={{ color: '#000000' }}
+                    containerStyle={{ marginTop: 25 }}
+                   
                 />
-                
                 <Button
                     title="View last scanned product"
-                    style={styles.button}
                     onPress={this.handleProductPress}
+                    buttonStyle={{ backgroundColor: '#D8D8F6' }}
+                    titleStyle={{ color: '#000000' }}
+                    containerStyle={{ marginTop: 25 }}
                 />
             </View>
         </View>
@@ -47,14 +51,11 @@ const styles = StyleSheet.create({
         backgroundColor: '#f7f7f7',
         alignItems: 'center',
         // width: '100%',
-        // height: '100%'
+        height: '100%'
     },
     homeButtons: {
-        marginTop: 15,
+        marginTop: 20,
         flexDirection: 'column',
         justifyContent: 'space-around',
-    },
-    button: {
-        marginTop: '1em',
     }
 });
