@@ -1,23 +1,19 @@
 import React, { Component } from "react";
-import { StyleSheet, Text, View, Image } from 'react-native';
-import { Card, Button, Icon } from 'react-native-elements';
-import info from './test.json';
-
-const test = require('./test.json');
+import { StyleSheet, View, Image, ScrollView } from 'react-native';
+import { Card, Button, Icon, ListItem, Text } from 'react-native-elements';
 
 export default class MoreInfoScreen extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            productData: this.props.productData || undefined,
-            collapseIngredients: false,
-            collapseNutrients: false
+            nutrientsList: null,
+            ingredientsList: null
         };
     }
 
     static navigationOptions = {
-        title: 'Scanned Product Information',
+        title: 'More Information',
         headerStyle: {
             backgroundColor: '#D8D8F6',
         },
@@ -25,67 +21,79 @@ export default class MoreInfoScreen extends Component {
 
     };
 
-    getNutriscoreGrade = (grade) => {
-        let uppercaseGrade = grade.toUpperCase();
-
-        let requiredGrade = null
-        switch (uppercaseGrade) {
-            case 'A':
-                requiredGrade = require(`../../assets/nutriscoreA.png`);
-                break;
-            case 'B':
-                requiredGrade = require(`../../assets/nutriscoreB.png`);
-                break;
-            case 'C':
-                requiredGrade = require(`../../assets/nutriscoreC.png`);
-                break;
-            case 'D':
-                requiredGrade = require(`../../assets/nutriscoreD.png`);
-                break;
-            case 'E':
-                requiredGrade = require(`../../assets/nutriscoreE.png`);
-                break;
-            default:
-                requiredGrade = null;
-                break;
+    componentDidMount = () => {
+        const productData = this.props.navigation.getParam('productData', null);
+        let that = this
+        if (productData !== null) {
+            that.setState({
+                nutrientsList: productData.nutrients,
+                ingredientsList: productData.ingredients
+            })
         }
-
-        return requiredGrade;
     }
 
     render() {
-        console.log(test)
-        let productGrade = test.product.nutrition_grades;
-        return <View style={styles.container}>
+        const { nutrientsList, ingredientsList } = this.state;
 
-            <View style={styles.homeButtons}>
-                <Card
-                    title={test.product.brands}
-                    image={{uri: test.product.image_front_url}}>
-                    <Text style={{ marginBottom: 10 }}>
-                        Code: {test.product.id}
-                    </Text>
-                    <Image source={this.getNutriscoreGrade(test.product.nutrition_grades)}></Image>
-                    
-                </Card>
+        if (!nutrientsList || !ingredientsList) return null;
+
+        console.log(nutrientsList, ingredientsList);
+        return <ScrollView style={styles.container}>
+            <View style={styles.infoContainer}>
+                <Text h3 style={styles.title}>Nutrients</Text>
+                {
+                    Object.entries(nutrientsList).map((nutrient, i) => (
+                        <Text key={`nutrient_${i}`} style={styles.infoText}>
+                            {`${nutrient[0]}: ${nutrient[1]}`}
+                        </Text>
+                    ))
+                }
             </View>
+            <View style={styles.infoContainer}>
+                <Text h3 style={styles.title}>Ingredients</Text>
+                {
+                    ingredientsList.map((ingredient, i) => (
+                        <Text key={`ingredient_${i}`} style={styles.infoText}>
+                            {ingredient.text}
+                        </Text>
 
-        </View>
+
+                    ))
+                }
+            </View>
+            {/* {
+                Object.entries(nutrientsList).map((nutrient, i) => (
+                    <ListItem
+                        key={i}
+                        title={`${nutrient[0]}: ${nutrient[1]}`}
+                    />
+                ))
+            }
+            {
+                ingredientsList.map((ingredient, i) => (
+                    <ListItem
+                        key={i}
+                        title={ingredient.text}
+                    />
+                ))
+            } */}
+        </ScrollView>
     }
 };
 
-//TO CHANGE
 const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#f7f7f7',
-        alignItems: 'center',
     },
-    homeButtons: {
-        flexDirection: 'column',
-        justifyContent: 'space-between',
+    title: {
+        textAlign: 'center'
     },
-    button: {
-        marginTop: 15,
+    infoContainer: {
+        marginTop: 10,
+        fontSize: 34
+    },
+    infoText: {
+        marginLeft: 10
     }
 });

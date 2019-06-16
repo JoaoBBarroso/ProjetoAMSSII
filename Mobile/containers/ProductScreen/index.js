@@ -1,17 +1,18 @@
 import React, { Component } from "react";
-import { StyleSheet, Text, View, Image } from 'react-native';
+import { StyleSheet, Text, View, Image, } from 'react-native';
 import { Card, Button, Icon } from 'react-native-elements';
-import info from './test.json';
-import { nullLiteral } from "@babel/types";
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { searchProduct } from '../../Redux/ProductScanningActions';
+import Loader from '../../components/Loader';
 
-const test = require('./test.json');
-
-export default class ProductScreen extends Component {
+class ProductScreen extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
             productData: this.props.productData || undefined,
+            isLoading: false
         };
     }
 
@@ -26,31 +27,34 @@ export default class ProductScreen extends Component {
 
     componentDidMount = () => {
         const upc = this.props.navigation.getParam('upc', null);
-        console.log("upc:", upc);
+        let that = this;
+        this.setState({ isLoading: true })
 
         if (upc !== null) {
-            // let productInfo = this.getProduct(upc);
-            console.log(productInfo)
+
+            this.getProduct(upc).then(productData => {
+                this.setState({ productData, isLoading: false })
+            }).catch(function (err) {
+
+                console.log(err)
+                that.setState({ isLoading: false, error: "your product doesn't exist" });
+            });
+
         }
     }
 
     async getProduct(upc) {
+        let response = await fetch(`http://192.168.1.92:3001/api/food/${upc}`, {
+            method: 'GET',
+            mode: 'cors',
+            cache: 'default'
+        });
+        let data = await response.json()
+        return data;
 
-        try {
-            let response = await fetch(`http://localhost:3001/api/food/${upc}`, {
-                method: 'GET',
-                mode: 'cors',
-                cache: 'default'
-            }
-            );
-            let responseJson = await response.json();
-
-            return responseJson;
-        } catch (error) {
-            console.error(error);
-        }
 
         // fetch(`http://localhost:3001/api/food/${upc}`,
+        // fetch(`http://192.168.1.92:3001/api/food/${upc}`,
         //     {
         //         method: 'GET',
         //         mode: 'cors',
@@ -99,28 +103,40 @@ export default class ProductScreen extends Component {
         return requiredGrade;
     }
 
+    transitionMoreInformation = () => {
+        this.props.navigation.navigate('MoreInformation', { productData: this.state.productData });
+    }
+
     render() {
 
-        let productGrade = test.product.nutrition_grades;
+        // const { isLoading, isLoaded, productData } = this.props;
+        const { productData, isLoading } = this.state;
+
+        if (isLoading) return <Loader />;
+        if (!productData) return null; // If it is not loading and its not loaded, then return nothing.
+
         return <View style={styles.container}>
 
             <View style={styles.homeButtons}>
                 <Card
-                    title={test.product.brands}
-                    image={{ uri: test.product.image_front_url }}>
+                    title={productData.brand}
+                    image={{ uri: productData.img }}>
                     <Text style={{ marginBottom: 10 }}>
-                        Code: {test.product.id}
+                        Code: {productData.upc}
                     </Text>
-                    <Image source={this.getNutriscoreGrade(test.product.nutrition_grades)}></Image>
+                    <Image source={this.getNutriscoreGrade(productData.nutritionGrade)}></Image>
                     <Button
                         icon={<Icon name='code' color='#000000' />}
                         buttonStyle={{ backgroundColor: '#D8D8F6' }}
                         titleStyle={{ color: '#000000' }}
+                        onPress={this.transitionMoreInformation}
                         title='More info' />
                 </Card>
             </View>
 
         </View>
+
+
     }
 };
 
@@ -139,3 +155,22 @@ const styles = StyleSheet.create({
         marginTop: 15,
     }
 });
+
+const mapStateToProps = (state) => {
+    const { productData, isLoaded, isLoading, error } = state;
+    return {
+        productData,
+        isLoaded,
+        isLoading,
+        error
+    };
+};
+
+const mapDispatchToProps = dispatch => (
+    bindActionCreators({
+        searchProduct,
+    }, dispatch)
+);
+
+export default connect(mapStateToProps, mapDispatchToProps)(ProductScreen);
+
