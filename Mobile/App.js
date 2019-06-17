@@ -1,3 +1,4 @@
+
 import React, { Component } from "react";
 import { StyleSheet, Text, View } from 'react-native';
 import { Provider } from 'react-redux'
@@ -34,3 +35,53 @@ export default class App extends Component {
     );
   }
 }
+
+// import React, { Component } from "react";
+// import { StyleSheet, Text, View } from 'react-native';
+// import { Provider } from 'react-redux'
+// import { createReduxStore, persistedReduxStore } from './configureStore';
+// import productReducer from './Redux/ProductScanning';
+// import InitialNavigator from './InitialNavigator';
+// import { PersistGate } from 'redux-persist/integration/react';
+// import Loader from './components/Loader';
+// import { readSearchedProduct } from "./Redux/storage/productScanning";
+// import { loadData } from "./Redux/actions/creators";
+
+// let store = createReduxStore();
+// let persistor = persistedReduxStore();
+
+// readSearchedProduct().then(searchedProduct => {
+//   store.dispatch(loadData(searchedProduct));
+// });
+
+
+// export default class App extends Component {
+
+//   constructor(props) {
+//     super(props)
+//     // state = {
+//     //   productData: null,
+//     //   isLoading: false,
+//     //   isLoaded: false,
+//     //   error: null,
+//     // }
+//   }
+
+//   render() {
+//     return (
+//       <Provider store={store}>
+//         <PersistGate loading={<Loader />} persistor={persistor}>
+//           <InitialNavigator
+//           // screenProps={{
+//           //   productData: this.state.productData,
+//           //   isLoading: this.state.isLoading,
+//           //   isLoaded: this.state.isLoaded,
+//           //   error: this.state.error,
+//           // }} 
+//           />
+//         </PersistGate>
+
+//       </Provider>
+//     );
+//   }
+// }

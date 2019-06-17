@@ -23,7 +23,7 @@ export default class HomeScreen extends Component {
     };
 
     render() {
-        return <View style={styles.container}>
+        return <View nativeID={'root'} style={styles.container}>
             <View style={styles.homeButtons}>
                 <Button
                     title="Scan a product!"
