@@ -13,7 +13,7 @@ function saveSearchedProduct(state) {
 }
 
 function searchProduct(upc) {
-    return fetch(`http://192.168.1.92:3001/api/food/${upc}`, {
+    return fetch(`http://89.115.148.193/api/Food/${upc}`, {
         method: 'GET',
         mode: 'cors',
         credentials: 'include'

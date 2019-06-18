@@ -44,7 +44,7 @@ class ProductScreen extends Component {
     }
 
     async getProduct(upc) {
-        let response = await fetch(`http://192.168.1.92:3001/api/food/${upc}`, {
+        let response = await fetch(`http://89.115.148.193/api/Food/${upc}`, {
             method: 'GET',
             mode: 'cors',
             cache: 'default'

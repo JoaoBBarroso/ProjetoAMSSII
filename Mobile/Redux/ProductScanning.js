@@ -41,7 +41,7 @@ export default function reducer(state = initialState, action) {
             const { productData } = state;
             const upc = action.payload;
 
-            productData = fetch(`http://192.168.1.92:3001/api/food/${upc}`, {
+            productData = fetch(`http://89.115.148.193/api/Food/${upc}`, {
                 method: 'GET',
                 mode: 'cors',
                 credentials: 'include'
@@ -84,7 +84,7 @@ function fetchFailure(error) {
 export function searchProduct(upc) {
     return dispatch => {
         dispatch(fetchRequest());
-        fetch(`http://192.168.1.92:3001/api/food/${upc}`, {
+        fetch(`http://89.115.148.193/api/Food/${upc}`, {
             method: 'GET',
             mode: 'cors',
             credentials: 'include'
