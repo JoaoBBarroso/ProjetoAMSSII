@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, ImageBackground } from 'react-native';
+import { View, Text, ImageBackground, Image } from 'react-native';
 
 export default class SplashScreen extends React.Component {
     performTimeConsumingTask = async () => {
@@ -23,13 +23,19 @@ export default class SplashScreen extends React.Component {
 
     render() {
         return (
-            <ImageBackground source={require("../../assets/healthy-food.jpg")} style={{ width: '100%', height: '100%' }}>
+            // <ImageBackground source={require("../../assets/healthy-food.jpg")} style={{ width: '100%', height: '100%' }}>
+            //     <View style={styles.viewStyles}>
+            //         <Text style={styles.textStyles}>
+            //             Healthy Scanning
+            //         </Text>
+            //     </View>
+            // </ImageBackground>
+
+            <View style={{ width: '100%', height: '100%' }}>
                 <View style={styles.viewStyles}>
-                    <Text style={styles.textStyles}>
-                        Healthy Scanning
-                    </Text>
+                    <Image source={require("../../assets/logo2.png")} ></Image>
                 </View>
-            </ImageBackground>
+            </View>
 
         );
     }
@@ -45,6 +51,6 @@ const styles = {
         color: 'black',
         fontSize: 40,
         fontWeight: 'bold'
-        
+
     }
 }
