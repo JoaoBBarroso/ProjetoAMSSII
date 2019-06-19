@@ -279,7 +279,7 @@ router.get("/recommend/:upc", (req, res, next) => {
           }
         }]
       }).sort({nutritionGrade:1}).toArray().then((results) => {
-        res.send(results);
+        res.send(results.slice(0,10));
       });
 
     });

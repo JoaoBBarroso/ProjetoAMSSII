@@ -37,7 +37,7 @@ class ProductPage extends React.Component {
             })
             .then(function (productData) {
                 console.log(productData);
-                that.setState({ productData, loading: false })
+                that.setState({ productData, loading: false });
             }).catch(function (err) {
                 that.setState({ loading: false, error: "your product doesn't exist" });
             });

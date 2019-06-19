@@ -15,9 +15,10 @@ export default class MoreInfoScreen extends Component {
     static navigationOptions = {
         title: 'More Information',
         headerStyle: {
-            backgroundColor: '#D8D8F6',
+            backgroundColor: '#5B8C2A',
         },
-        headerTintColor: '#000000',
+        headerTintColor: '#fff',
+
 
     };
 

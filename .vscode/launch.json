@@ -3,12 +3,27 @@
     // Hover to view descriptions of existing attributes.
     // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
-    "configurations": [
+    "configurations": [{
+            "type": "node",
+            "request": "launch",
+            "name": "Server",
+            "program": "${workspaceFolder}/Backend/bin/www"
+            // "program": "${workspaceFolder}/Backend/app.js"
+        }, {
+            "name": "Client Frontend",
+            "type": "chrome",
+            "request": "launch",
+            "url": "http://localhost:3000",
+            "webRoot": "${workspaceFolder}/Frontend/src",
+            "sourceMapPathOverrides": {
+                "webpack:///src/*": "${webRoot}/*"
+            }
+        },
         {
             "type": "node",
             "request": "launch",
-            "name": "Launch Program",
-            "program": "${workspaceFolder}/Backend/bin/www"
+            "name": "Client Mobile",
+            "program": "${workspaceFolder}/Mobile/app.js"
             // "program": "${workspaceFolder}/Backend/app.js"
         }
     ]

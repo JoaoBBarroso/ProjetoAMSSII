@@ -7,9 +7,10 @@ export default class ScanningScreen extends Component {
     static navigationOptions = {
         title: 'Scan a product!',
         headerStyle: {
-            backgroundColor: '#D8D8F6',
+            backgroundColor: '#5B8C2A',
         },
-        headerTintColor: '#000000',
+        headerTintColor: '#fff',
+
         
     };
 
@@ -33,7 +34,7 @@ const styles = StyleSheet.create({
         padding: 0
     },
     appHeader: {
-        backgroundColor: '#D8D8F6',
+        backgroundColor: '#5B8C2A',
         justifyContent: 'space-around',
     }
 });

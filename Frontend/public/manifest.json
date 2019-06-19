@@ -36,7 +36,7 @@
   "start_url": "/",
   "display": "standalone",
   "orientation": "portrait-primary",
-  "theme_color": "#D8D8F6",
+  "theme_color": "#5B8C2A",
   "background_color": "#f7f7f7",
   "description": "A simple barcode scanning app."
 }

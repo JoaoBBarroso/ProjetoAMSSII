@@ -1,14 +1,14 @@
 import React, { Component } from "react";
 import { StyleSheet, Text, View, Spacer } from 'react-native';
-import { Header, Button } from 'react-native-elements';
+import { Header, Button, Icon } from 'react-native-elements';
 
 export default class HomeScreen extends Component {
     static navigationOptions = {
         title: 'Healthy Scanning',
         headerStyle: {
-            backgroundColor: '#D8D8F6',
+            backgroundColor: '#5B8C2A',
         },
-        headerTintColor: '#000000',
+        headerTintColor: '#fff',
 
     };
 
@@ -25,20 +25,42 @@ export default class HomeScreen extends Component {
     render() {
         return <View nativeID={'root'} style={styles.container}>
             <View style={styles.homeButtons}>
-                <Button
+                {/* <Button
                     title="Scan a product!"
                     onPress={this.handleScannerPress}
                     buttonStyle={{ backgroundColor: '#D8D8F6' }}
                     titleStyle={{ color: '#000000' }}
                     containerStyle={{ marginTop: 25 }}
-                   
+
                 />
+
                 <Button
                     title="View last scanned product"
                     onPress={this.handleProductPress}
                     buttonStyle={{ backgroundColor: '#D8D8F6' }}
                     titleStyle={{ color: '#000000' }}
                     containerStyle={{ marginTop: 25 }}
+                /> */}
+
+                <Button
+                    title="Scan a Product! "
+                    icon={{
+                        name: "barcode",
+                        type:"font-awesome",
+                        color:'#f50',
+                        size: 18,
+                        color: "white"
+                      }}
+                    onPress={this.handleScannerPress}
+                    buttonStyle={{ backgroundColor: '#F2A413' }}
+                    raised={true}
+                />
+                <Button
+                    title="View last scanned product"
+                    onPress={this.handleProductPress}
+                    buttonStyle={{ backgroundColor: '#F2A413' }}
+                    containerStyle={{ marginTop: 25 }}
+                    raised={true}
                 />
 
             </View>
@@ -57,6 +79,6 @@ const styles = StyleSheet.create({
     homeButtons: {
         marginTop: 20,
         flexDirection: 'column',
-        justifyContent: 'space-around',
+        justifyContent: 'space-around'
     }
 });
