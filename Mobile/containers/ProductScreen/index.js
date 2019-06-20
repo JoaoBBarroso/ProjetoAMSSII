@@ -122,10 +122,10 @@ class ProductScreen extends Component {
                 <Card
                     title={productData.brand}
                     image={{ uri: productData.img }}>
-                    <Image source={this.getNutriscoreGrade(productData.nutritionGrade)}></Image>
-                    <Text style={{ marginBottom: 10 }}>
+                    <Text style={{ marginBottom: 10, color:"gray" }}>
                         Code: {productData.upc}
                     </Text>
+                    <Image source={this.getNutriscoreGrade(productData.nutritionGrade)}></Image>
                     <Button
                         icon={<Icon name='code' color='#000000' />}
                         buttonStyle={{ backgroundColor: '#D8D8F6' }}
