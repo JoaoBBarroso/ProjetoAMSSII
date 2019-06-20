@@ -13,18 +13,22 @@ function saveSearchedProduct(state) {
 }
 
 function searchProduct(upc) {
-    return fetch(`http://89.115.148.193/api/Food/${upc}`, {
+    let data = fetch(`http://89.115.148.193/api/Food/${upc}`, {
         method: 'GET',
         mode: 'cors',
         credentials: 'include'
     })
         .then((response) => response.json())
         .then((productData) => {
-            console.log(productData)
+            console.log('data', productData)
             productSearchState(productData);
             saveSearchedProduct(productSearchState(productData));
+            return productData;
         })
-        .catch((error) => console.log(erros));
+        .catch((error) => console.log(error));
+
+    console.log(data);
+    return data;
 }
 
 const reducer = (state = [], action) => {

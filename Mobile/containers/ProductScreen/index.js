@@ -2,8 +2,7 @@ import React, { Component } from "react";
 import { StyleSheet, Text, View, Image, } from 'react-native';
 import { Card, Button, Icon } from 'react-native-elements';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import { searchProduct } from '../../Redux/ProductScanningActions';
+import { searchProduct } from '../../Redux/ProductScanning';
 import Loader from '../../components/Loader';
 
 class ProductScreen extends Component {
@@ -11,7 +10,7 @@ class ProductScreen extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            productData: this.props.productData || undefined,
+            // productData: this.props.productData || [],
             isLoading: false
         };
     }
@@ -32,48 +31,8 @@ class ProductScreen extends Component {
         this.setState({ isLoading: true })
 
         if (upc !== null) {
-
-            this.getProduct(upc).then(productData => {
-                this.setState({ productData, isLoading: false })
-            }).catch(function (err) {
-
-                console.log(err)
-                that.setState({ isLoading: false, error: "your product doesn't exist" });
-            });
-
+            this.props.searchProduct(upc);
         }
-    }
-
-    async getProduct(upc) {
-        let response = await fetch(`http://89.115.148.193/api/Food/${upc}`, {
-            method: 'GET',
-            mode: 'cors',
-            cache: 'default'
-        });
-        let data = await response.json()
-        return data;
-
-
-        // fetch(`http://localhost:3001/api/food/${upc}`,
-        // fetch(`http://192.168.1.92:3001/api/food/${upc}`,
-        //     {
-        //         method: 'GET',
-        //         mode: 'cors',
-        //         cache: 'default'
-        //     })
-        //     .then(function (response) {
-        //         console.log(response)
-        //         return response.json();
-        //     })
-        //     .then(function (productData) {
-        //         console.log(productData);
-        //         that.setState({ productData, loading: false })
-        //         return productData;
-        //     }).catch(function (err) {
-        //         console.log(err)
-        //         that.setState({ loading: false, error: "your product doesn't exist" });
-        //     });
-
     }
 
     getNutriscoreGrade = (grade) => {
@@ -110,8 +69,7 @@ class ProductScreen extends Component {
 
     render() {
 
-        // const { isLoading, isLoaded, productData } = this.props;
-        const { productData, isLoading } = this.state;
+        const { isLoading, productData } = this.props;
 
         if (isLoading) return <Loader />;
         if (!productData) return null; // If it is not loading and its not loaded, then return nothing.
@@ -128,7 +86,7 @@ class ProductScreen extends Component {
                     <Image source={this.getNutriscoreGrade(productData.nutritionGrade)}></Image>
                     <Button
                         icon={<Icon name='code' color='#000000' />}
-                        buttonStyle={{ backgroundColor: '#D8D8F6' }}
+                        buttonStyle={{ backgroundColor: '#5B8C2A' }}
                         titleStyle={{ color: '#000000' }}
                         onPress={this.transitionMoreInformation}
                         title='More info' />
@@ -158,8 +116,9 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = (state) => {
-    const { productData, isLoaded, isLoading, error } = state;
+    const { productData, isLoaded, isLoading, error, searchHistory } = state;
     return {
+        searchHistory,
         productData,
         isLoaded,
         isLoading,
@@ -167,11 +126,13 @@ const mapStateToProps = (state) => {
     };
 };
 
-const mapDispatchToProps = dispatch => (
-    bindActionCreators({
-        searchProduct,
-    }, dispatch)
-);
+const mapDispatchToProps = dispatch => {
+    return {
+        searchProduct: upc => {
+            dispatch(searchProduct(upc));
+        }
+    };
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProductScreen);
 
@@ -199,9 +160,10 @@ export default connect(mapStateToProps, mapDispatchToProps)(ProductScreen);
 //     static navigationOptions = {
 //         title: 'Scanned Product Information',
 //         headerStyle: {
-//             backgroundColor: '#D8D8F6',
+//             backgroundColor: '#5B8C2A',
 //         },
-//         headerTintColor: '#000000',
+//         headerTintColor: '#fff',
+
 
 //     };
 
@@ -308,7 +270,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(ProductScreen);
 //                     <Image source={this.getNutriscoreGrade(productData.nutritionGrade)}></Image>
 //                     <Button
 //                         icon={<Icon name='code' color='#000000' />}
-//                         buttonStyle={{ backgroundColor: '#D8D8F6' }}
+//                         buttonStyle={{ backgroundColor: '#5B8C2A' }}
 //                         titleStyle={{ color: '#000000' }}
 //                         onPress={this.transitionMoreInformation}
 //                         title='More info' />
