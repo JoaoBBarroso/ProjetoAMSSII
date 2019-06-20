@@ -1,15 +1,16 @@
 
-
+import { writeSearchedProduct } from "./storage/productScanning";
 
 const FETCH_REQUEST = 'ProductScanning/FETCH_REQUEST';
 const FETCH_SUCCESS = 'ProductScanning/FETCH_SUCCESS';
 const FETCH_FAILURE = 'ProductScanning/FETCH_FAILURE';
-const SEARCH_PRODUCT = 'ProductScanning/SEARCH_PRODUCT';
-
+const ADD_HISTORY = 'ProductScanning/ADD_HISTORY';
+export const SEARCH_PRODUCT = 'SEARCH_PRODUCT';
 
 const initialState = {
+    searchHistory: [],
     productData: null,
-    isLoading: false,
+    isLoading: true,
     isLoaded: false,
     error: null
 }
@@ -37,24 +38,28 @@ export default function reducer(state = initialState, action) {
                 isLoaded: true,
                 error: action.payload
             }
-        case SEARCH_PRODUCT:
-            const { productData } = state;
-            const upc = action.payload;
+        case ADD_HISTORY:
 
-            productData = fetch(`http://89.115.148.193/api/Food/${upc}`, {
-                method: 'GET',
-                mode: 'cors',
-                credentials: 'include'
+            const { searchHistory } = state;
+            let newProduct = action.payload;
+            let historyCheck = JSON.parse(JSON.stringify(searchHistory)); 
+
+            let check = false;
+            historyCheck.map((elem) => {
+                if (elem.upc === newProduct.upc) {
+                    check = true;
+                }
             })
-                .then((response) => response.json())
-                .then((data) => {
-                    console.log(data);
-                    return data;
-                })
-                .catch((error) => dispatch(fetchFailure(error)));
 
-            const newState = { productData }
-            return newState;
+            if(!check){
+                historyCheck.push(newProduct);
+            }
+
+            return {
+                ...state,
+                searchHistory: historyCheck
+            }
+
         default:
             return state;
     }
@@ -74,11 +79,23 @@ function fetchSuccess(data, prop) {
     }
 }
 
+function addToHistory(data) {
+    return {
+        type: ADD_HISTORY,
+        payload: data
+    }
+}
+
 function fetchFailure(error) {
     return {
         type: FETCH_FAILURE,
         payload: error
     }
+}
+
+function saveSearchedProduct(state) {
+    writeSearchedProduct(state);
+    return state;
 }
 
 export function searchProduct(upc) {
@@ -91,8 +108,9 @@ export function searchProduct(upc) {
         })
             .then((response) => response.json())
             .then((productData) => {
-                console.log(productData)
-                dispatch(fetchSuccess(productData, 'productData'))
+
+                dispatch(addToHistory(productData));
+                dispatch(fetchSuccess(productData, 'productData'));
             })
             .catch((error) => dispatch(fetchFailure(error)));
     }
