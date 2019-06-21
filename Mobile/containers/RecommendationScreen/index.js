@@ -35,13 +35,13 @@ class RecommendationScreen extends Component {
         return <View nativeID={'root'} style={styles.container}>
             <Card>
                 <View style={{ flexDirection: 'row' }}>
-                    <Image source={{ uri: "http://via.placeholder.com/150x150" }}
-                        style={{ height: 75, width: 75, marginRight: 5, borderRadius:50 }}
+                    <Image source={{ uri: productData.img }}
+                        style={{ height: 75, width: 75, marginRight: 10, borderRadius:50 }}
                     ></Image>
                     <View style={{ flexDirection: 'column' }}>
-                        <Text h3>Product Data</Text>
+                        <Text h3>{productData.name}</Text>
                         <Text>
-                            Code: 0987654321
+                            Code: {productData.upc}
                     </Text>
                     </View>
                 </View>
@@ -80,11 +80,23 @@ const styles = StyleSheet.create({
 
 
 const mapStateToProps = (state) => {
-    const { searchHistory } = state;
+    const { productData, isLoaded, isLoading, error, searchHistory } = state;
     return {
         searchHistory,
+        productData,
+        isLoaded,
+        isLoading,
+        error
+    };
+};
+
+const mapDispatchToProps = dispatch => {
+    return {
+        searchProduct: upc => {
+            dispatch(searchProduct(upc));
+        }
     };
 };
 
 
-export default connect(mapStateToProps)(RecommendationScreen);
+export default connect(mapStateToProps, mapDispatchToProps)(RecommendationScreen);

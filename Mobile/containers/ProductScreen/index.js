@@ -82,7 +82,7 @@ class ProductScreen extends Component {
                 <Card
                     image={{ uri: productData.img }}
                     imageProps={{ resizeMode: "cover" }}>
-                    <Text h3>{productData.brand}</Text>
+                    <Text h3>{productData.name}</Text>
                     <Text style={{ marginBottom: 10, color: "gray" }}>
                         Code: {productData.upc}
                     </Text>
