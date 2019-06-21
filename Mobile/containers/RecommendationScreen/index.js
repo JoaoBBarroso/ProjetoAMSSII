@@ -36,7 +36,7 @@ class RecommendationScreen extends Component {
             <Card>
                 <View style={{ flexDirection: 'row' }}>
                     <Image source={{ uri: "http://via.placeholder.com/150x150" }}
-                        style={{ height: 75, width: 75, marginRight: 5 }}
+                        style={{ height: 75, width: 75, marginRight: 5, borderRadius:50 }}
                     ></Image>
                     <View style={{ flexDirection: 'column' }}>
                         <Text h3>Product Data</Text>
