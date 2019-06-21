@@ -33,7 +33,7 @@ class RecommendationScreen extends Component {
         // if (!productData) return null; // If it is not loading and its not loaded, then return nothing.
 
         return <View nativeID={'root'} style={styles.container}>
-            <Card>
+            <Card style={{width:'90%'}}>
                 <View style={{ flexDirection: 'row' }}>
                     <Image source={{ uri: productData.img }}
                         style={{ height: 75, width: 75, marginRight: 10, borderRadius: 50 }}
