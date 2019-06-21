@@ -13,7 +13,7 @@ class HomeScreen extends Component {
     }
 
     static navigationOptions = {
-        title: 'NUTRIIENT',
+        title: 'NUTRIEAT',
         headerStyle: {
             backgroundColor: '#5B8C2A',
         },

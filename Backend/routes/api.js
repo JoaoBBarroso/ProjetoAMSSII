@@ -42,6 +42,10 @@ router.get('/food/:upc', (req, res, next) => {
   var upc = req.params['upc'];
   if (upc) {
     request.get(`https://world.openfoodfacts.org/api/v0/product/${upc}.json`, (err, response, body) => {
+      if(err){
+        res.send(500);
+        return;
+      }
       if (!err & response.statusCode === 200) {
         const client = new MongoClient(uri, {
           useNewUrlParser: true
@@ -50,6 +54,7 @@ router.get('/food/:upc', (req, res, next) => {
         if (!body.product) {
           res.send(500);
           client.close();
+          return;
         }
         body = {
           status: body["status_verbose"],
@@ -372,6 +377,7 @@ function getRecommended(upc) {
 }
 
 function ETLCategories(categories) {
+  if(!categories) return [];
   const capitalize = (s) => {
     if (typeof s !== 'string') return ''
     return s.charAt(0).toUpperCase() + s.slice(1)
