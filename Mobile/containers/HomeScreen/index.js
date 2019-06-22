@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { StyleSheet, View, Spacer } from 'react-native';
+import { StyleSheet, View, ScrollView, Spacer } from 'react-native';
 import { Header, Button, Icon, Input, Divider, ListItem, Text } from 'react-native-elements';
 import { connect } from 'react-redux';
 
@@ -34,9 +34,7 @@ class HomeScreen extends Component {
 
     render() {
 
-        const { searchHistory } = this.props;
-
-        console.log(searchHistory)
+        const { searchHistory, favourites } = this.props;
 
         return <View nativeID={'root'} style={styles.container}>
             <View style={styles.home}>
@@ -91,8 +89,27 @@ class HomeScreen extends Component {
                             :
                             <ListItem
                                 key={'empty_list'}
-                                title={"No items searched yet"}
+                                title={"No products searched yet"}
                                 subtitle={"scan or search any product"}
+                            />
+                    }
+                </View>
+                <View style={{ flex: 6 }}>
+                    {
+                        favourites.length !== 0 ?
+                            favourites.map((elem, i) => (
+                                <ListItem
+                                    key={i}
+                                    leftAvatar={{ source: { uri: elem.img } }}
+                                    title={elem.brand}
+                                    subtitle={elem.upc}
+                                />
+                            ))
+                            :
+                            <ListItem
+                                key={'empty_list'}
+                                title={"No products favourited yet"}
+                                subtitle={"Add products to your 'favourite' list"}
                             />
                     }
                 </View>
@@ -118,9 +135,9 @@ const styles = StyleSheet.create({
 
 
 const mapStateToProps = (state) => {
-    const { searchHistory } = state;
+    const { searchHistory, favourites } = state;
     return {
-        searchHistory,
+        searchHistory, favourites
     };
 };
 
