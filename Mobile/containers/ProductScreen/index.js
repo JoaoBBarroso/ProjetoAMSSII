@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import { StyleSheet, Text, View, Image, } from 'react-native';
-import { Card, Button, Icon } from 'react-native-elements';
+import { StyleSheet, View, Image, } from 'react-native';
+import { Card, Button, Icon, Text } from 'react-native-elements';
 import { connect } from 'react-redux';
 import { searchProduct } from '../../Redux/ProductScanning';
 import Loader from '../../components/Loader';
@@ -67,6 +67,9 @@ class ProductScreen extends Component {
     transitionMoreInformation = () => {
         this.props.navigation.navigate('MoreInformation', { productData: this.state.productData });
     }
+    transitionRecommendation = () => {
+        this.props.navigation.navigate('Recommendation', { productData: this.state.productData });
+    }
 
     render() {
 
@@ -81,7 +84,6 @@ class ProductScreen extends Component {
         if (isLoading) return <Loader />;
         if (!productData) return null; // If it is not loading and its not loaded, then return nothing.
 
-
         return <View style={styles.container}>
             <View style={styles.homeButtons}>
                 {
@@ -94,20 +96,30 @@ class ProductScreen extends Component {
                             <Text style={{ color: "#333333", fontSize: 18, marginBottom: 5, marginLeft: 5, marginTop: 5 }}>Some error occured searching for the item</Text>
                         </View>
                         :
-                        <Card
-                            title={productData.brand}
-                            image={{ uri: productData.img }}>
-                            <Image source={this.getNutriscoreGrade(productData.nutritionGrade)}></Image>
-                            <Text style={{ marginBottom: 10 }}>
-                                UPC Code: {productData.upc}
-                            </Text>
-                            <Button
-                                icon={<Icon name='code' color='#fff' />}
-                                buttonStyle={{ backgroundColor: '#5B8C2A' }}
-                                titleStyle={{ color: '#fff' }}
-                                onPress={this.transitionMoreInformation}
-                                title=' More info' />
-                        </Card>
+                        <View>
+                            <Card
+                                image={{ uri: productData.img }}
+                                imageProps={{ resizeMode: "cover" }}>
+                                <Text h3>{productData.name}</Text>
+                                <Text style={{ marginBottom: 10, color: "gray" }}>
+                                    Code: {productData.upc}
+                                </Text>
+                                <Image source={this.getNutriscoreGrade(productData.nutritionGrade)} ></Image>
+                            </Card>
+                            <View style={{ flex: 1, alignItems: 'center', flexDirection: "row", justifyContent: "space-between" }}>
+                                <Button
+                                    icon={<Icon name='code' color='#fff' />}
+                                    buttonStyle={[{ backgroundColor: '#F2A413' }, styles.button]}
+                                    titleStyle={{ color: '#fff' }}
+                                    onPress={this.transitionMoreInformation}
+                                    title='More info' />
+                                <Button
+                                    buttonStyle={[{ backgroundColor: '#5B8C2A' }, styles.button]}
+                                    titleStyle={{ color: '#fff' }}
+                                    onPress={this.transitionRecommendation}
+                                    title='Healthier Alternative' />
+                            </View>
+                        </View>
                 }
 
             </View>
@@ -129,7 +141,7 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
     },
     button: {
-        marginTop: 15,
+        marginTop: 5,
     }
 });
 

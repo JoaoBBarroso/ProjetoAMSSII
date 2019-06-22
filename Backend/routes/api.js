@@ -42,6 +42,10 @@ router.get('/food/:upc', (req, res, next) => {
   var upc = req.params['upc'];
   if (upc) {
     request.get(`https://world.openfoodfacts.org/api/v0/product/${upc}.json`, (err, response, body) => {
+      if(err){
+        res.send(500);
+        return;
+      }
       if (!err & response.statusCode === 200) {
         const client = new MongoClient(uri, {
           useNewUrlParser: true
@@ -50,6 +54,7 @@ router.get('/food/:upc', (req, res, next) => {
         if (!body.product) {
           res.send(500);
           client.close();
+          return;
         }
         body = {
           status: body["status_verbose"],
@@ -61,6 +66,7 @@ router.get('/food/:upc', (req, res, next) => {
           name: body.product["product_name"] !== "" ? body.product["product_name"] : body.product.generic_name,
           upc: body.product.id,
           img: body.product.image_front_url ? body.product.image_front_url : body.product.image_thumb_url,
+          categories: ETLCategories(body.product["categories_tags"])
         };
 
         client.connect(err => {
@@ -175,7 +181,64 @@ router.get('/categorize', (req, res, next) => {
   client.connect(err => {
     if (err) throw err;
     let collection = client.db("ProjetoAMSSII").collection("Products");
+    collection.find({}).toArray().then(async result => {
+      console.log(`Fetched ${result.length} results`);
+      for (let i = 0; i < result.length; i++) {
+        await new Promise((resolve, reject) => {
+          setTimeout(async () => {
+            try {
+              let pd = await new Promise((resolve, reject) => {
+                request.get(`https://world.openfoodfacts.org/api/v0/product/${result[i].upc}.json`, (err, response, body) => {
+                  if (err) {
+                    reject(err)
+                  } else {
+                    body = JSON.parse(body);
+                    if (!body.product) {
+                      reject("No Product");
+                    } else {
+                      body = {
+                        status: body["status_verbose"],
+                        sources: body.product.sources ? "" : body.product.sources,
+                        ingredients: body.product.ingredients,
+                        nutritionGrade: body.product.nutrition_grades,
+                        nutrients: body.product.nutriments,
+                        brand: body.product.brands,
+                        name: body.product["product_name"] !== "" ? body.product["product_name"] : body.product.generic_name,
+                        upc: body.product.id,
+                        img: body.product.image_front_url ? body.product.image_front_url : body.product.image_thumb_url,
+                        categories: ETLCategories(body.product["categories_tags"])
+                      };
+                      resolve(body);
+                    }
+                  }
+                });
+              });
+              console.log(`[${i+1}/${result.length}][${pd.upc}] Product Fetched`);
+              console.log(`[${i+1}/${result.length}][${pd.upc}] Found ${pd.categories.length} Categories`);
+              if (pd.categories.length>0) {
+                collection.updateOne({
+                  upc: pd.upc
+                }, {
+                  $push: {
+                    categories: {
+                      "$each": pd.categories
+                    }
+                  }
+                }, (result) => {
+                  console.log(`[${pd.upc}] Updated Product`);
+                });
+              }
 
+            } catch (error) {
+              console.log(`We found an error (${error}) with this product ${result[i].upc}, but let's continue...`);
+            }
+            resolve("");
+          }, 2000);
+        });
+
+      }
+      res.send(200)
+    });
   });
 });
 
@@ -265,9 +328,9 @@ router.get("/recommend/:upc", (req, res, next) => {
         return;
       }
       let ltGrades = nutritionGrades.slice(0, nutritionGrades.indexOf(product.nutritionGrade));
-      ltGrades.forEach(e=>{
+      ltGrades.forEach(e => {
         ltGrades.push(e.toLowerCase());
-       });
+      });
       products.find({
         $and: [{
           categories: {
@@ -278,8 +341,10 @@ router.get("/recommend/:upc", (req, res, next) => {
             $in: ltGrades
           }
         }]
-      }).sort({nutritionGrade:1}).toArray().then((results) => {
-        res.send(results.slice(0,10));
+      }).sort({
+        nutritionGrade: 1
+      }).toArray().then((results) => {
+        res.send(results.slice(0, 10));
       });
 
     });
@@ -309,6 +374,30 @@ function getRecommended(upc) {
       });
     });
   });
+}
+
+function ETLCategories(categories) {
+  if(!categories) return [];
+  const capitalize = (s) => {
+    if (typeof s !== 'string') return ''
+    return s.charAt(0).toUpperCase() + s.slice(1)
+  }
+  categories = categories.filter(element => {
+    return element.startsWith("en")
+  });
+
+  categories = categories.map(element => {
+    element = element.replace("en:", "");
+    element = element.replace(/-/g, " ");
+    element = element.split(" ");
+    for (let i = 0; i < element.length; i++) {
+      element[i] = capitalize(element[i]);
+    }
+    return element.join(" ");
+
+  });
+
+  return categories
 }
 
 /**
