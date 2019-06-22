@@ -27,13 +27,16 @@ class HomeScreen extends Component {
 
     handleProductPress = () => {
         this.props.navigation.navigate('Product', { upc: this.state.upcToSearch });
+        this.setState({
+            upcToSearch: ""
+        })
     };
 
     render() {
 
         const { searchHistory } = this.props;
+
         console.log(searchHistory)
-        console.log(this.state.upcToSearch)
 
         return <View nativeID={'root'} style={styles.container}>
             <View style={styles.home}>
@@ -41,7 +44,8 @@ class HomeScreen extends Component {
                     <View style={{ flex: 4 }}>
                         <Input
                             placeholder='Enter a barcode'
-                            onChangeText={(text) => this.setState({upcToSearch: text})}
+                            value={this.state.upcToSearch}
+                            onChangeText={(text) => this.setState({ upcToSearch: text })}
                         />
                     </View>
                     <View style={{ flex: 1 }}>
@@ -72,27 +76,24 @@ class HomeScreen extends Component {
                     </View>
                 </View>
 
-                <Text style={{color:"grey", fontSize:18, marginBottom:5, marginLeft:5 }}>History</Text>
-                <View style={{flex:6}}>
-                    {/* {
-                        list.map((l, i) => (
-                            <ListItem
-                                key={i}
-                                leftAvatar={{ source: { uri: l.avatar_url } }}
-                                title={l.name}
-                                subtitle={l.subtitle}
-                            />
-                        ))
-                    } */}
+                <Text style={{ color: "grey", fontSize: 18, marginBottom: 5, marginLeft: 5 }}>History</Text>
+                <View style={{ flex: 6 }}>
                     {
-                        searchHistory.map((elem, i) => (
+                        searchHistory.length !== 0 ?
+                            searchHistory.map((elem, i) => (
+                                <ListItem
+                                    key={i}
+                                    leftAvatar={{ source: { uri: elem.img } }}
+                                    title={elem.brand}
+                                    subtitle={elem.upc}
+                                />
+                            ))
+                            :
                             <ListItem
-                                key={i}
-                                leftAvatar={{ source: { uri: elem.img } }}
-                                title={elem.brand}
-                                subtitle={elem.upc}
+                                key={'empty_list'}
+                                title={"No items searched yet"}
+                                subtitle={"scan or search any product"}
                             />
-                        ))
                     }
                 </View>
             </View>

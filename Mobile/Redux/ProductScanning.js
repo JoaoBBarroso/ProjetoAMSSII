@@ -42,7 +42,7 @@ export default function reducer(state = initialState, action) {
 
             const { searchHistory } = state;
             let newProduct = action.payload;
-            let historyCheck = JSON.parse(JSON.stringify(searchHistory)); 
+            let historyCheck = JSON.parse(JSON.stringify(searchHistory));
 
             let check = false;
             historyCheck.map((elem) => {
@@ -51,7 +51,8 @@ export default function reducer(state = initialState, action) {
                 }
             })
 
-            if(!check){
+            if (!check) {
+                console.log(newProduct)
                 historyCheck.push(newProduct);
             }
 
@@ -80,6 +81,7 @@ function fetchSuccess(data, prop) {
 }
 
 function addToHistory(data) {
+    console.log(data)
     return {
         type: ADD_HISTORY,
         payload: data
@@ -108,12 +110,12 @@ export function searchProduct(upc) {
         })
             .then((response) => response.json())
             .then((productData) => {
-
                 dispatch(addToHistory(productData));
                 dispatch(fetchSuccess(productData, 'productData'));
             })
             .catch((error) => dispatch(fetchFailure(error)));
     }
 }
+
 
 

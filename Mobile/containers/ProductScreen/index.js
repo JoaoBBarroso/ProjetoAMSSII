@@ -31,6 +31,7 @@ class ProductScreen extends Component {
         this.setState({ isLoading: true })
 
         if (upc !== null) {
+            console.log(upc)
             this.props.searchProduct(upc);
         }
     }
@@ -69,30 +70,47 @@ class ProductScreen extends Component {
 
     render() {
 
-        const { isLoading, productData } = this.props;
+        const {
+            isLoading,
+            productData,
+            error
+        } = this.props;
+
+        console.log(error)
 
         if (isLoading) return <Loader />;
         if (!productData) return null; // If it is not loading and its not loaded, then return nothing.
 
+
         return <View style={styles.container}>
-
             <View style={styles.homeButtons}>
-                <Card
-                    title={productData.brand}
-                    image={{ uri: productData.img }}>
-                    <Image source={this.getNutriscoreGrade(productData.nutritionGrade)}></Image>
-                    <Text style={{ marginBottom: 10 }}>
-                        Code: {productData.upc}
-                    </Text>
-                    <Button
-                        icon={<Icon name='code' color='#000000' />}
-                        buttonStyle={{ backgroundColor: '#5B8C2A' }}
-                        titleStyle={{ color: '#000000' }}
-                        onPress={this.transitionMoreInformation}
-                        title='More info' />
-                </Card>
-            </View>
+                {
+                    error ?
+                        <View>
+                            <Icon
+                                name='times'
+                                type='font-awesome'
+                                color='#333333' />
+                            <Text style={{ color: "#333333", fontSize: 18, marginBottom: 5, marginLeft: 5, marginTop: 5 }}>Some error occured searching for the item</Text>
+                        </View>
+                        :
+                        <Card
+                            title={productData.brand}
+                            image={{ uri: productData.img }}>
+                            <Image source={this.getNutriscoreGrade(productData.nutritionGrade)}></Image>
+                            <Text style={{ marginBottom: 10 }}>
+                                UPC Code: {productData.upc}
+                            </Text>
+                            <Button
+                                icon={<Icon name='code' color='#fff' />}
+                                buttonStyle={{ backgroundColor: '#5B8C2A' }}
+                                titleStyle={{ color: '#fff' }}
+                                onPress={this.transitionMoreInformation}
+                                title=' More info' />
+                        </Card>
+                }
 
+            </View>
         </View>
 
 
