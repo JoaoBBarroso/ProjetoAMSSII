@@ -26,7 +26,7 @@ export default class SplashScreen extends React.Component {
             // <ImageBackground source={require("../../assets/healthy-food.jpg")} style={{ width: '100%', height: '100%' }}>
             //     <View style={styles.viewStyles}>
             //         <Text style={styles.textStyles}>
-            //             Healthy Scanning
+            //             NUTRIIENTS
             //         </Text>
             //     </View>
             // </ImageBackground>

@@ -14,7 +14,7 @@ export function configureFakeBackend() {
         firstName: 'Admin',
         lastName: 'User'
     }];
-    
+
     let realFetch = window.fetch;
     window.fetch = function (url, opts) {
         return new Promise((resolve, reject) => {
@@ -71,7 +71,8 @@ export function configureFakeBackend() {
 
             // pass through any requests not handled above
             if (url !== undefined && opts !== undefined) {
-                realFetch(url, opts).then(response => resolve(response));
+                console.log(url, opts)
+                realFetch(url, opts).then(response => { console.log(response); response.json() });
             }
 
         });

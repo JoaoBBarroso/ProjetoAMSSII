@@ -1,6 +1,7 @@
 import React from 'react';
 import ProductSearch from '../../components/ProductSearch';
 import ProductInfo from '../../components/ProductInfo';
+import { searchProduct } from '../../Redux/Product';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 
@@ -11,8 +12,7 @@ class ProductPage extends React.Component {
             currentSearch: '',
             submitted: '',
             loading: false,
-            error: '',
-            productData: {}
+            error: ''
         };
     }
 
@@ -25,25 +25,11 @@ class ProductPage extends React.Component {
         let that = this;
         this.setState({ loading: true });
 
-        console.log(`http://localhost:3001/api/food/${this.state.currentSearch}`)
-        fetch(`http://localhost:3001/api/food/${this.state.currentSearch}`,
-            {
-                method: 'GET',
-                mode: 'cors',
-                cache: 'default'
-            })
-            .then(function (response) {
-                return response.json();
-            })
-            .then(function (productData) {
-                console.log(productData);
-                that.setState({ productData, loading: false });
-            }).catch(function (err) {
-                that.setState({ loading: false, error: "your product doesn't exist" });
-            });
+        this.props.searchProduct(this.state.currentSearch);
     }
 
     render() {
+        const { productData } = this.props;
         const { currentSearch, submitted, error, loading } = this.state;
         return (
             <div>
@@ -62,7 +48,7 @@ class ProductPage extends React.Component {
                 <ProductInfo
 
                     //state
-                    productData={this.state.productData}
+                    productData={productData}
                 />
             </div>
         );
@@ -70,17 +56,15 @@ class ProductPage extends React.Component {
 }
 
 const mapPropsToState = (state) => {
-    var { data } = state.product;
-    // var user = state.user;
+    var { productData } = state.product;
     return {
-        // user: user.user,
-        data: data,
+        productData: productData,
     }
 }
 
 const mapDispatchToState = (dispatch) => {
     return {
-        // getTest: () => dispatch(getTest())
+        searchProduct: (upc) => dispatch(searchProduct(upc))
     }
 }
 

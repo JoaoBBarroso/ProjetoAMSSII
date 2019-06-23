@@ -7,6 +7,7 @@ const FETCH_TEST = 'eventsTable/FETCH_TEST';
 
 const initialState = {
     name: "",
+    productData: null,
     data: []
 }
 
@@ -62,26 +63,18 @@ function fetchFailure(error) {
     }
 }
 
-export function searchProducts() {
+export function searchProduct(upc) {
     return dispatch => {
         dispatch(fetchRequest());
-        fetch(`${process.env.PUBLIC_URL}/listapis`, {
+        fetch(`http://89.115.148.193/api/Food/${upc}`, {
             method: 'GET',
+            mode: 'cors',
             credentials: 'include'
         })
             .then((response) => response.json())
-            .then((eventsTableData) => {
-
-                //Accept only active events
-                var activeEvents = []
-                eventsTableData.map(function (event) {
-                    if (event.isEventActive) {
-                        activeEvents.push(event)
-                    }
-                    return false;
-                })
-
-                dispatch(fetchSuccess(activeEvents, 'allAcronyms'))
+            .then((productData) => {
+                console.log(productData)
+                dispatch(fetchSuccess(productData, 'productData'));
             })
             .catch((error) => dispatch(fetchFailure(error)));
     }

@@ -50,7 +50,7 @@ class Menu extends React.Component {
         return (
             <div>
                 <Navbar className="navbar" light expand="md">
-                    <NavbarBrand href="/">Healthy Scanning</NavbarBrand>
+                    <NavbarBrand href="/">NUTRIIENTS</NavbarBrand>
                     <NavbarToggler onClick={this.toggle} />
                     <Collapse isOpen={this.state.isOpen} navbar>
                         <Nav className="ml-auto" navbar>

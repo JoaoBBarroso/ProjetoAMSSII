@@ -35,7 +35,9 @@ class ProductInfo extends React.Component {
     }
 
     render() {
-        if (this.props.productData !== undefined && Object.entries(this.props.productData).length !== 0 && this.props.productData.constructor === Object) {
+        console.log(this.props.productData)
+        // console.log(this.props.productData !== undefined && Object.entries(this.props.productData).length !== 0 && this.props.productData.constructor === Object)
+        if (this.props.productData) {
             return (
                 <Container className="productInfo">
                     <Row>
