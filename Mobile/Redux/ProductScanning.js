@@ -198,7 +198,6 @@ export function recommendedProducts(upc) {
         })
             .then((response) => response.json())
             .then((searchRecommendations) => {
-                console.log(searchRecommendations)
                 dispatch(fetchSuccess(searchRecommendations, 'searchRecommendations'));
             })
             .catch((error) => dispatch(fetchFailure(error)));

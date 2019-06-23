@@ -31,7 +31,7 @@ class RecommendationScreen extends Component {
 
         if (upc !== null) {
             console.log(upc)
-            // this.props.recommendedProducts(upc);
+            this.props.recommendedProducts(upc);
         }
     }
 
@@ -72,13 +72,13 @@ class RecommendationScreen extends Component {
         const {
             isLoading,
             productData,
-            // searchRecommendations, 
+            searchRecommendations,
             error
         } = this.props;
-        // console.log(searchRecommendations)
+
 
         if (isLoading) return <Loader />;
-        // if (!searchRecommendations.length === 0 || !productData) return null; // If it is not loading and its not loaded, then return nothing.
+        if (searchRecommendations.length === 0 || !productData) return null; // If it is not loading and its not loaded, then return nothing.
 
         return <View nativeID={'recommendationScreen'} style={styles.container}>
             <Card style={{ width: '90%' }}>
@@ -95,7 +95,7 @@ class RecommendationScreen extends Component {
                 </View>
             </Card>
             <Text h4>Recommendations:</Text>
-            {/* {
+            {
                 error ?
                     <View>
                         <Icon
@@ -112,7 +112,7 @@ class RecommendationScreen extends Component {
                                     <ImageBackground source={{ uri: recom.img }} style={{ width: '100%', height: '100%' }}>
                                         <View style={{ flex: 1, justifyContent: 'flex-end' }}>
                                             <View style={{ height: 65, padding: 5, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
-                                                <Text>recom.brand</Text>
+                                                <Text>{recom.brand}</Text>
                                                 {this.getNutriscoreAvatar(recom.nutritionGrade)}
                                             </View>
                                         </View>
@@ -122,10 +122,10 @@ class RecommendationScreen extends Component {
 
                         }
                     </View>
-            } */}
+            }
 
 
-            <View style={{ flex: 1, flexDirection: 'row' }}>
+            {/* <View style={{ flex: 1, flexDirection: 'row' }}>
                 <View style={{ flex: 1, backgroundColor: "red", margin: 5 }}>
                     <ImageBackground source={{ uri: "http://via.placeholder.com/300x300" }} style={{ width: '100%', height: '100%' }}>
                         <View style={{ flex: 1, justifyContent: 'flex-end' }}>
@@ -188,7 +188,7 @@ class RecommendationScreen extends Component {
                         </View>
                     </ImageBackground>
                 </View>
-            </View>
+            </View> */}
         </View>
     }
 };
@@ -205,8 +205,9 @@ const styles = StyleSheet.create({
 
 
 const mapStateToProps = (state) => {
-    const { productData, isLoaded, isLoading, error, searchHistory } = state;
+    const { productData, isLoaded, isLoading, error, searchHistory, searchRecommendations } = state;
     return {
+        searchRecommendations,
         searchHistory,
         productData,
         isLoaded,
