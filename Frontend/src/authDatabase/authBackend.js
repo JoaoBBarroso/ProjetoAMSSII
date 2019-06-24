@@ -69,10 +69,14 @@ export function configureFakeBackend() {
                 return;
             }
 
+            console.log(opts, url)
             // pass through any requests not handled above
             if (url !== undefined && opts !== undefined) {
                 console.log(url, opts)
-                realFetch(url, opts).then(response => { console.log(response); response.json() });
+                realFetch(url, opts).then(response => {
+                    console.log(response);
+                    response.json()
+                });
             }
 
         });

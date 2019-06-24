@@ -64,12 +64,15 @@ function fetchFailure(error) {
 }
 
 export function searchProduct(upc) {
+    console.log(upc)
     return dispatch => {
         dispatch(fetchRequest());
         fetch(`http://89.115.148.193/api/Food/${upc}`, {
             method: 'GET',
             mode: 'cors',
-            credentials: 'include'
+            credentials: 'include',
+            headers: { 'Content-Type': 'application/json' },
+            accept: 'application/json'
         })
             .then((response) => response.json())
             .then((productData) => {
