@@ -1,6 +1,8 @@
 import React from 'react';
 // import { userService } from '../../services/user.service';
 import HomePageComponent from '../../components/Home';
+import { withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
 
 class HomePage extends React.Component {
     constructor(props) {
@@ -36,15 +38,32 @@ class HomePage extends React.Component {
 
     render() {
         const { user, users } = this.state;
-        console.log(user, users)
+        const { searchHistory } = this.props;
         return (
             <HomePageComponent
                 user={user}
                 users={users}
+                searchHistory = {searchHistory}
             />
         );
     }
 }
 
+const mapPropsToState = (state) => {
+    var {
+        searchHistory, 
+        productData,
+        isLoaded,
+        isLoading,
+        error, } = state.product;
+    return {
+        searchHistory,
+        productData,
+        isLoaded,
+        isLoading,
+        error
+        
+    }
+}
 
-export default HomePage;
+export default withRouter(connect(mapPropsToState)(HomePage));

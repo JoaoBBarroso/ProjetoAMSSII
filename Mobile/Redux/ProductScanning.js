@@ -21,8 +21,7 @@ const initialState = {
 
 export default function reducer(state = initialState, action) {
 
-    const { searchRecommendations, searchHistory, favourites } = state;
-    let newSearchRecommendations = JSON.parse(JSON.stringify(searchRecommendations));
+    const { searchHistory, favourites } = state;
     let newFavourites = JSON.parse(JSON.stringify(favourites));
 
     switch (action.type) {
@@ -164,11 +163,6 @@ function fetchFailure(error) {
         type: FETCH_FAILURE,
         payload: error
     }
-}
-
-function saveSearchedProduct(state) {
-    writeSearchedProduct(state);
-    return state;
 }
 
 export function searchProduct(upc) {

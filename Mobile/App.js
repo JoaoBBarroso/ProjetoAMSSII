@@ -61,12 +61,6 @@ export default class App extends Component {
 
   constructor(props) {
     super(props)
-    // state = {
-    //   productData: null,
-    //   isLoading: false,
-    //   isLoaded: false,
-    //   error: null,
-    // }
   }
 
   render() {

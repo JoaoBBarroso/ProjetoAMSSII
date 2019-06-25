@@ -5,6 +5,7 @@ import { searchProduct } from '../../Redux/Product';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 
+
 class ProductPage extends React.Component {
     constructor(props) {
         super(props);
@@ -12,7 +13,8 @@ class ProductPage extends React.Component {
             currentSearch: '',
             submitted: '',
             loading: false,
-            error: ''
+            error: '',
+            // productData: null
         };
     }
 
@@ -21,16 +23,13 @@ class ProductPage extends React.Component {
         this.setState({ currentSearch: value });
     }
 
-    handleSubmit = () => {
-        let that = this;
-        this.setState({ loading: true });
-
+    handleSubmit = async () => {
         this.props.searchProduct(this.state.currentSearch);
     }
 
     render() {
-        const { productData } = this.props;
-        const { currentSearch, submitted, error, loading } = this.state;
+        const { productData, isLoading, error, searchRecommendations} = this.props;
+        const { currentSearch, submitted } = this.state;
         return (
             <div>
                 <ProductSearch
@@ -39,7 +38,7 @@ class ProductPage extends React.Component {
                     currentSearch={currentSearch}
                     submitted={submitted}
                     error={error}
-                    loading={loading}
+                    loading={isLoading}
 
                     //functions
                     handleChange={this.handleChange}
@@ -49,6 +48,7 @@ class ProductPage extends React.Component {
 
                     //state
                     productData={productData}
+                    searchRecommendations={searchRecommendations}
                 />
             </div>
         );
@@ -56,9 +56,18 @@ class ProductPage extends React.Component {
 }
 
 const mapPropsToState = (state) => {
-    var { productData } = state.product;
+    var { productData,
+        searchRecommendations,
+        isLoaded,
+        isLoading,
+        error } = state.product;
     return {
-        productData: productData,
+        productData,
+        searchRecommendations,
+        isLoaded,
+        isLoading,
+        error
+        
     }
 }
 

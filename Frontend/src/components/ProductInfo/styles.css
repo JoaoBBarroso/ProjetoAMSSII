@@ -4,13 +4,22 @@
 
 
 .productDetailButton {
-    background-color: #D8D8F6 !important;
-    color: black !important;
+    background-color: #5B8C2A !important;
+    color: white !important;
     margin-bottom: 1rem !important;
 }
 
 .productDetailsDiv {
     height: 300px;
     margin-bottom: 1.5rem;
+}
+
+.productRecommendation {
+    height: 400px;
+    margin-bottom: 1.5rem;
+}
+
+
+.productDetailsDiv, .productRecommendation {
     overflow-y: scroll;
 }

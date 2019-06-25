@@ -7,10 +7,10 @@ var mustacheExpress = require('mustache-express');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var apiRouter = require('./routes/api')
-var cors = require('cors')
+// var cors = require('cors')
 var app = express()
 
-app.use(cors())
+// app.use(cors())
 
 // view engine setup
 // Register '.mustache' extension with The Mustache Express
@@ -27,7 +27,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
-app.use('/api', cors(), apiRouter);
+app.use('/api', apiRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

@@ -1,7 +1,7 @@
 // eslint-disable
 import React from 'react';
 import {
-    Container, Row, Col, Button, Card, CardText, CardBody,
+    Container, Row, Col, Button, Card, CardText, CardBody, CardImg,
     CardTitle, CardSubtitle, ListGroup, ListGroupItem, Collapse
 } from 'reactstrap';
 import { FaAngleDown, FaAngleUp } from "react-icons/fa";
@@ -35,40 +35,63 @@ class ProductInfo extends React.Component {
     }
 
     render() {
-        console.log(this.props.productData)
-        // console.log(this.props.productData !== undefined && Object.entries(this.props.productData).length !== 0 && this.props.productData.constructor === Object)
-        if (this.props.productData) {
+        
+        const { productData, searchRecommendations } = this.props
+        if (productData) {
             return (
                 <Container className="productInfo">
                     <Row>
-                        <Col sm={{ size: 6, order: 1, offset: 2 }}>
+                        <Col sm={{ size: 6, order: 1 }}>
                             <h2>Product Info</h2>
                             <Card>
+                                <CardImg top width="100%" src={productData.img} alt={`Shows ${productData.name}`} />
                                 <CardBody>
-                                    <div style={{ float: "right" }}>
-                                        <img className="cardImage" alt={`Shows ${this.props.productData.brand}`} src={this.props.productData.img}></img>
-                                    </div>
-                                    <CardTitle>{this.props.productData.brand}</CardTitle>
-                                    <CardSubtitle>Code: {this.props.productData.id}</CardSubtitle>
+                                    <CardTitle>{productData.name}</CardTitle>
+                                    <CardSubtitle>Code: {productData.upc}</CardSubtitle>
                                     <br />
                                     <CardText>The product's score is:</CardText>
                                     <div>
-                                        {this.getNutriscoreGrade(this.props.productData.nutritionGrade)}
+                                        {this.getNutriscoreGrade(productData.nutritionGrade)}
                                     </div>
                                 </CardBody>
                             </Card>
                             <br />
                         </Col>
+                        <Col sm={{ size: 6, order: 1 }}>
+                            <h2>Recommended products</h2>
+                            <div className="productRecommendation">
+                                {
+                                    searchRecommendations !== 0 ?
+                                        searchRecommendations.map((elem, i) => (
+                                            <Card>
+                                                <CardBody>
+                                                    <CardTitle>{elem.name}</CardTitle>
+                                                    <div>
+                                                        {this.getNutriscoreGrade(elem.nutritionGrade)}
+                                                    </div>
+                                                </CardBody>
+                                            </Card>
+                                        ))
+                                        :
+                                        <Card>
+                                            <CardBody>
+                                                <CardTitle>No recommendations</CardTitle>
+                                                <CardSubtitle>Try your luck next time</CardSubtitle>
+                                            </CardBody>
+                                        </Card>
+                                }
+                            </div>
+                        </Col>
                     </Row>
                     <Row>
-                        <Col sm={{ size: 4, offset: 2 }}>
+                        <Col sm={{ size: 4 }}>
                             <Button className="productDetailButton" onClick={this.toggleIngredients}>
                                 See Ingredients {this.state.collapseIngredients ? <FaAngleUp /> : <FaAngleDown />}
                             </Button>
                             <Collapse isOpen={this.state.collapseIngredients}>
                                 <div className="productDetailsDiv">
                                     <ListGroup>
-                                        {this.props.productData.ingredients.map((ingredient, index) => {
+                                        {productData.ingredients.map((ingredient, index) => {
                                             return <ListGroupItem key={`ingridient_${index}`}>
                                                 {ingredient.text}
                                             </ListGroupItem>
@@ -84,7 +107,7 @@ class ProductInfo extends React.Component {
                             <Collapse isOpen={this.state.collapseNutrients}>
                                 <div className="productDetailsDiv">
                                     <ListGroup>
-                                        {Object.entries(this.props.productData.nutrients).map((nutrient, index) => {
+                                        {Object.entries(productData.nutrients).map((nutrient, index) => {
                                             return <ListGroupItem key={`nutrient_${index}`}>
                                                 {`${nutrient[0]}: ${nutrient[1]}`}
                                             </ListGroupItem>
