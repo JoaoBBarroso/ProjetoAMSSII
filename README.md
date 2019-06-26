@@ -31,7 +31,7 @@ SSH: ```git@github.com:JoaoBBarroso/ProjetoAMSSII.git```
   
 Once in the app you will need to access the terminal and type the command ```npm install``` in every major directory (```cd [directory]``` for the mobile, frontend & backend directories) as this will download all the necessary node-modules for the app (mobile and web).  
   
-Then, after installation all you need to do is enter the intended directory and type ```npm start``` and the app should start.
+Then, after installation all you need to do is enter the intended directory and type ```npm start``` and the app should start. If you are using the web app, be sure to also run the server (F5). 
   
 **Note:** if you do not have Node or npm installed in your computer please do install them. (Node installation also installs npm) [download LTS][1].
   
