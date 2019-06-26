@@ -328,6 +328,10 @@ router.get("/recommend/:upc", (req, res, next) => {
         return;
       }
       let ltGrades = nutritionGrades.slice(0, nutritionGrades.indexOf(product.nutritionGrade));
+      if (!product.categories) {
+        res.status(404).send("no Categories for this product");
+        return;
+      }
       ltGrades.forEach(e => {
         ltGrades.push(e.toLowerCase());
       });
