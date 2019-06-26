@@ -5,6 +5,13 @@ import Product from './containers/ProductScreen';
 import MoreInformation from './containers/MoreInfoScreen';
 import Recommendation from './containers/RecommendationScreen';
 
+handleHomePress = () => {
+    const navigateAction = this.props.navigation.navigate({
+        routeName: 'Home'
+    });
+    this.props.navigation.dispatch(navigateAction);
+};
+
 const AppNavigator = createStackNavigator({
     Home: { screen: Home },
     Scanning: { screen: Scanning },

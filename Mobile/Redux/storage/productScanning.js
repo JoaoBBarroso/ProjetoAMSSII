@@ -6,8 +6,6 @@ async function read(key, deserializer) {
         let val = await AsyncStorage.getItem(key);
         if (val !== null) {
             let readValue = JSON.parse(val).map(serialized => {
-                console.log(serialized)
-                // return deserializer(serialized);
                 return serialized;
             });
             return readValue;

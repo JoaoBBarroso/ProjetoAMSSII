@@ -23,7 +23,6 @@ class ProductSearch extends React.Component {
     }
 
     render() {
-        console.log(this.props.error, this.state.visible)
         return (
             <Container className="productSearch">
                 <Row>

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { StyleSheet, View, Spacer, ImageBackground, SafeAreaView, FlatList } from 'react-native';
+import { StyleSheet, View, Spacer, ImageBackground, SafeAreaView, FlatList, TouchableHighlight } from 'react-native';
 import { Header, Button, Icon, Input, Divider, ListItem, Text, Card, Image, Avatar } from 'react-native-elements';
 import Grid from 'react-native-grid-component';
 import { connect } from 'react-redux';
@@ -15,22 +15,28 @@ class RecommendationScreen extends Component {
         };
     }
 
-    static navigationOptions = {
-        title: 'Recommendations',
-        headerStyle: {
-            backgroundColor: '#5B8C2A',
-        },
-        headerTintColor: '#fff',
-
+    static navigationOptions = ({ navigation }) => {
+        return {
+            title: 'Recommendations',
+            headerStyle: {
+                backgroundColor: '#5B8C2A',
+            },
+            headerTintColor: '#fff',
+            headerRight: (
+                <Button
+                    buttonStyle={{ backgroundColor: '#5B8C2A', marginRight: 10 }}
+                    onPress={() => navigation.navigate('Home')}
+                    icon={<Icon name="home" size={25} color="white" />}
+                />
+            )
+        }
     };
 
     componentDidMount = () => {
         const upc = this.props.navigation.getParam('upc', null);
-        let that = this;
         this.setState({ isLoading: true })
 
         if (upc !== null) {
-            console.log(upc)
             this.props.recommendedProducts(upc);
         }
     }
@@ -79,31 +85,37 @@ class RecommendationScreen extends Component {
     }
 
     handleProductPress = (upc) => {
-        this.props.navigation.navigate('Product', { upc: upc });
+        const navigateAction = this.props.navigation.navigate({
+            routeName: 'Product',
+            params: { upc: upc },
+            key: 'ProductScreen' + upc
+        });
+        this.props.navigation.dispatch(navigateAction);
+    };
+
+    handleHomePress = () => {
+        const navigateAction = this.props.navigation.navigate({
+            routeName: 'Home'
+        });
+        this.props.navigation.dispatch(navigateAction);
     };
 
     renderRecommendation = (recom, i) => (
-        <View
-            key={i}
-            style={styles.item}
-
-        // style={{ flex: 1, flexDirection: 'row', backgroundColor: "red", margin: 5 }}
-        >
+        <View key={i} style={styles.item}>
             <ImageBackground source={{ uri: recom.img }} style={{ width: '100%', height: '100%' }}>
-                <View
-                    style={{ flex: 1, justifyContent: 'flex-end' }}
-                >
-                    <View
-                        style={{ backgroundColor: 'white' }}
-                    // style={{ height: 65, padding: 5, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}
-                    >
-                        <Text>{recom.name}</Text>
-                        {this.getNutriscoreAvatar(recom.nutritionGrade)}
-                    </View>
+                <View style={{ flex: 1, justifyContent: 'flex-end' }}>
+                    <TouchableHighlight onPress={e => this.handleProductPress(recom.upc)}>
+                        <View style={{ backgroundColor: 'white' }}>
+                            <Text>{recom.name}</Text>
+                            {this.getNutriscoreAvatar(recom.nutritionGrade)}
+                        </View>
+                    </TouchableHighlight>
                 </View>
             </ImageBackground>
         </View>
     );
+
+    keyExtractor = (item, index) => item.upc;
 
     render() {
 
@@ -114,16 +126,13 @@ class RecommendationScreen extends Component {
             error
         } = this.props;
 
-        console.log(searchRecommendations.length)
-
         if (isLoading) return <Loader />;
         if (searchRecommendations.length === 0 || !productData) return null; // If it is not loading and its not loaded, then return nothing.
 
         return <View nativeID={'recommendationScreen'} style={styles.container}>
-            <Card style={{ width: '90%' }}>
+            <Card>
                 <View style={{ flexDirection: 'row' }}>
-                    <Image source={{ uri: productData.img }}
-                        style={{ height: 75, width: 75, marginRight: 10, borderRadius: 50 }}
+                    <Image source={{ uri: productData.img }} style={styles.productImage}
                     ></Image>
                     <View style={{ flexDirection: 'column' }}>
                         <Text h3>{productData.name}</Text>
@@ -133,149 +142,33 @@ class RecommendationScreen extends Component {
                     </View>
                 </View>
             </Card>
-            <Text h4>Recommendations:</Text>
 
-            {
-                searchRecommendations.length !== 0 ?
-                    <Grid
-                        style={styles.list}
-                        renderItem={this.renderRecommendation}
-                        // renderPlaceholder={this._renderPlaceholder}
-                        data={searchRecommendations}
-                        numColumns={2}
-                    />
-                    :
-                    <View>
-                        <Icon
-                            name='times'
-                            type='font-awesome'
-                            color='#333333' />
-                        <Text style={{ color: "#333333", fontSize: 18, marginBottom: 5, marginLeft: 5, marginTop: 5 }}>Some error occured searching for the item</Text>
-                    </View>
-
-
-            }
-
-            {/* {
-                searchRecommendations.length === 0 ?
-                    <View>
-                        <Icon
-                            name='times'
-                            type='font-awesome'
-                            color='#333333' />
-                        <Text style={{ color: "#333333", fontSize: 18, marginBottom: 5, marginLeft: 5, marginTop: 5 }}>Some error occured searching for the item</Text>
-                    </View>
-                    :
-                    <View
-                    // style={{ flex: 1, flexDirection: 'row' }}
-                    >
-                        {
-                            searchRecommendations.map((recom, i) => (
-                                // <Text>
-                                //     Code: {recom.upc}
-                                // </Text>
-
-                                // <Card style={{ width: '90%' }}>
-                                //     <View style={{ flexDirection: 'row' }}>
-                                //         <Image source={{ uri: recom.img }}
-                                //             style={{ height: 75, width: 75, marginRight: 10, borderRadius: 50 }}
-                                //         ></Image>
-                                //         <View style={{ flexDirection: 'column' }}>
-                                //             <Text h3>{recom.name}</Text>
-                                //             <Text>
-                                //                 Code: {recom.upc}
-                                //             </Text>
-                                //         </View>
-                                //     </View>
-                                // </Card>
-                                <View
-                                    key={'recommended' + i}
-                                    style={{ flex: 1, flexDirection: 'row', backgroundColor: "red", margin: 5 }}
-                                >
-                                    <ImageBackground source={{ uri: recom.img }} style={{ width: '100%', height: '100%' }}>
-                                        <View
-                                            style={{ flex: 1, justifyContent: 'flex-end' }}
-                                        >
-                                            <View
-                                                style={{ height: 65, padding: 5, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}
-                                            >
-                                                <Text>{recom.name}</Text>
-                                                {this.getNutriscoreAvatar(recom.nutritionGrade)}
-                                            </View>
-                                        </View>
-                                    </ImageBackground>
-                                </View>
-                            ))
-
-                        }
-                    </View>
-            } */}
-
-
-            {/* <View style={{ flex: 1, flexDirection: 'row' }}>
-                <View style={{ flex: 1, backgroundColor: "red", margin: 5 }}>
-                    <ImageBackground source={{ uri: "http://via.placeholder.com/300x300" }} style={{ width: '100%', height: '100%' }}>
-                        <View style={{ flex: 1, justifyContent: 'flex-end' }}>
-                            <View style={{ height: 65, padding: 5, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
-                                <Text>P1</Text>
-                                <Image source={{ uri: productData.img }}
-                                    style={{
-                                        height: 45, width: 45, marginRight: 5, borderRadius: 30, borderWidth: 3,
-                                        borderColor: '#fff'
-                                    }}
-                                ></Image>
-                            </View>
-                        </View>
-                    </ImageBackground>
-                </View>
-                <View style={{ flex: 1, backgroundColor: "red", margin: 5 }}>
-                    <ImageBackground source={{ uri: "http://via.placeholder.com/300x300" }} style={{ width: '100%', height: '100%' }}>
-                        <View style={{ flex: 1, justifyContent: 'flex-end' }}>
-                            <View style={{ height: 65, padding: 5, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
-                                <Text>P2</Text>
-                                <Image source={{ uri: productData.img }}
-                                    style={{
-                                        height: 45, width: 45, marginRight: 5, borderRadius: 30, borderWidth: 3,
-                                        borderColor: '#fff'
-                                    }}
-                                ></Image>
-                            </View>
-                        </View>
-                    </ImageBackground>
-                </View>
+            <View style={{ alignItems: 'center' }}>
+                <Text h4 style={styles.recommendationTitle}>Recommendations:</Text>
             </View>
-            <View style={{ flex: 1, flexDirection: 'row' }}>
-                <View style={{ flex: 1, backgroundColor: "red", margin: 5 }}>
-                    <ImageBackground source={{ uri: "http://via.placeholder.com/300x300" }} style={{ width: '100%', height: '100%' }}>
-                        <View style={{ flex: 1, justifyContent: 'flex-end' }}>
-                            <View style={{ height: 65, padding: 5, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
-                                <Text>P3</Text>
-                                <Image source={{ uri: productData.img }}
-                                    style={{
-                                        height: 45, width: 45, marginRight: 5, borderRadius: 30, borderWidth: 3,
-                                        borderColor: '#fff'
-                                    }}
-                                ></Image>
-                            </View>
+
+            <View style={styles.grid}>
+                {
+                    searchRecommendations.length !== 0 ?
+                        <Grid
+                            style={styles.list}
+                            renderItem={this.renderRecommendation}
+                            keyExtractor={this.keyExtractor}
+                            data={searchRecommendations}
+                            numColumns={2}
+                        />
+                        :
+                        <View>
+                            <Icon
+                                name='times'
+                                type='font-awesome'
+                                color='#333333' />
+                            <Text style={styles.errorText}>Some error occured searching for the item</Text>
                         </View>
-                    </ImageBackground>
-                </View>
-                <View style={{ flex: 1, backgroundColor: "red", margin: 5 }}>
-                    <ImageBackground source={{ uri: "http://via.placeholder.com/300x300" }} style={{ width: '100%', height: '100%' }}>
-                        <View style={{ flex: 1, justifyContent: 'flex-end' }}>
-                            <View style={{ height: 65, padding: 5, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
-                                <Text>P4</Text>
-                                <Image source={{ uri: productData.img }}
-                                    style={{
-                                        height: 45, width: 45, marginRight: 5, borderRadius: 30, borderWidth: 3,
-                                        borderColor: '#fff'
-                                    }}
-                                ></Image>
-                            </View>
-                        </View>
-                    </ImageBackground>
-                </View>
-            </View> */}
+
+
+                }
+            </View>
         </View>
     }
 };
@@ -284,18 +177,36 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#f7f7f7',
-        alignItems: 'center',
         height: '100%',
-        flexDirection: "column"
+    },
+    productImage: {
+        height: 75,
+        width: 75,
+        marginRight: 10,
+        borderRadius: 50
     },
     item: {
         flex: 1,
         height: 200,
         width: 200,
-        margin: 1
+        margin: 5
     },
     list: {
         flex: 1
+    },
+    grid: {
+        flex: 1,
+        padding: 5
+    },
+    recommendationTitle: {
+        margin: 10,
+    },
+    errorText: {
+        color: "#333333",
+        fontSize: 18,
+        marginBottom: 5,
+        marginLeft: 5,
+        marginTop: 5
     }
 });
 

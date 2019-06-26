@@ -12,14 +12,21 @@ export default class MoreInfoScreen extends Component {
         };
     }
 
-    static navigationOptions = {
-        title: 'More Information',
-        headerStyle: {
-            backgroundColor: '#5B8C2A',
-        },
-        headerTintColor: '#fff',
-
-
+    static navigationOptions = ({ navigation }) => {
+        return {
+            title: 'More Information',
+            headerStyle: {
+                backgroundColor: '#5B8C2A',
+            },
+            headerTintColor: '#fff',
+            headerRight: (
+                <Button
+                    buttonStyle={{ backgroundColor: '#5B8C2A', marginRight: 10}}
+                    onPress={() => navigation.navigate('Home')}
+                    icon={<Icon name="home" size={25} color="white" />}
+                />
+            )
+        }
     };
 
     componentDidMount = () => {
@@ -38,7 +45,6 @@ export default class MoreInfoScreen extends Component {
 
         if (!nutrientsList || !ingredientsList) return null;
 
-        console.log(nutrientsList, ingredientsList);
         return <ScrollView style={styles.container}>
             <View style={styles.infoContainer}>
                 <Text h3 style={styles.title}>Nutrients</Text>

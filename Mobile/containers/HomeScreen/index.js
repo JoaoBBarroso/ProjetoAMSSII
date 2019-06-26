@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { StyleSheet, View, ScrollView, Spacer } from 'react-native';
+import { StyleSheet, View, ScrollView, Spacer, TouchableHighlight } from 'react-native';
 import { Header, Button, Icon, Input, Divider, ListItem, Text } from 'react-native-elements';
 import { connect } from 'react-redux';
 
@@ -30,6 +30,15 @@ class HomeScreen extends Component {
         this.setState({
             upcToSearch: ""
         })
+    };
+
+    handleProductListPress = (upc) => {
+        const navigateAction = this.props.navigation.navigate({
+            routeName: 'Product',
+            params: { upc: upc },
+            key: 'ProductScreen' + upc
+        });
+        this.props.navigation.dispatch(navigateAction);
     };
 
     render() {
@@ -74,44 +83,51 @@ class HomeScreen extends Component {
                     </View>
                 </View>
 
-                <Text style={{ color: "grey", fontSize: 18, marginBottom: 5, marginLeft: 5 }}>History</Text>
-                <View style={{ flex: 6 }}>
-                    {
-                        searchHistory.length !== 0 ?
-                            searchHistory.map((elem, i) => (
+                <Text style={styles.listTitle}>History</Text>
+                <View style={styles.listView}>
+                    <ScrollView>
+                        {
+                            searchHistory.length !== 0 ?
+                                searchHistory.map((elem, i) => (
+                                    <ListItem
+                                        key={i}
+                                        onPress={() => this.handleProductListPress(elem.upc)}
+                                        leftAvatar={{ source: { uri: elem.img } }}
+                                        title={elem.name}
+                                        subtitle={elem.upc}
+                                    />
+                                ))
+                                :
                                 <ListItem
-                                    key={i}
-                                    leftAvatar={{ source: { uri: elem.img } }}
-                                    title={elem.brand}
-                                    subtitle={elem.upc}
+                                    key={'empty_list'}
+                                    title={"No products searched yet"}
+                                    subtitle={"scan or search any product"}
                                 />
-                            ))
-                            :
-                            <ListItem
-                                key={'empty_list'}
-                                title={"No products searched yet"}
-                                subtitle={"scan or search any product"}
-                            />
-                    }
+                        }
+                    </ScrollView>
                 </View>
-                <View style={{ flex: 6 }}>
-                    {
-                        favourites.length !== 0 ?
-                            favourites.map((elem, i) => (
+                <Text style={styles.listTitle}>Favourites</Text>
+                <View style={styles.listView}>
+                    <ScrollView>
+                        {
+                            favourites.length !== 0 ?
+                                favourites.map((elem, i) => (
+                                    <ListItem
+                                        onPress={() => this.handleProductListPress(elem.upc)}
+                                        key={i}
+                                        leftAvatar={{ source: { uri: elem.img } }}
+                                        title={elem.name}
+                                        subtitle={elem.upc}
+                                    />
+                                ))
+                                :
                                 <ListItem
-                                    key={i}
-                                    leftAvatar={{ source: { uri: elem.img } }}
-                                    title={elem.brand}
-                                    subtitle={elem.upc}
+                                    key={'empty_list'}
+                                    title={"No products favourited yet"}
+                                    subtitle={"Add products to your 'favourite' list"}
                                 />
-                            ))
-                            :
-                            <ListItem
-                                key={'empty_list'}
-                                title={"No products favourited yet"}
-                                subtitle={"Add products to your 'favourite' list"}
-                            />
-                    }
+                        }
+                    </ScrollView>
                 </View>
             </View>
         </View>
@@ -123,13 +139,23 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: '#f7f7f7',
         alignItems: 'center',
-        // width: '100%',
         height: '100%'
     },
     home: {
         marginTop: 20,
         flexDirection: 'column',
         justifyContent: 'space-between'
+    },
+    listView: {
+        marginTop: 10,
+        flex: 4
+    },
+    listTitle: {
+        color: "grey",
+        marginTop: 10,
+        fontSize: 18,
+        marginBottom: 5,
+        marginLeft: 5
     }
 });
 

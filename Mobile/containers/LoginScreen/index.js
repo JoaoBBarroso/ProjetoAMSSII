@@ -34,12 +34,9 @@ export default class LoginScreen extends Component {
   };
 
   handleLoginPress = () => {
-    console.log("Login button pressed");
     this.props.navigation.navigate('Home')
   };
-
-
-
+  
   render() {
     return (
       <View style={styles.container}>

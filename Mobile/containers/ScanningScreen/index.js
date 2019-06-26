@@ -1,17 +1,25 @@
 import React, { Component } from "react";
 import { StyleSheet, Text, View } from 'react-native';
-import { Header } from 'react-native-elements';
+import { Header, Button, Icon } from 'react-native-elements';
 import BarcodeScanner from '../../components/BarcodeScanner';
 
 export default class ScanningScreen extends Component {
-    static navigationOptions = {
-        title: 'Scan a product!',
-        headerStyle: {
-            backgroundColor: '#5B8C2A',
-        },
-        headerTintColor: '#fff',
 
-        
+    static navigationOptions = ({ navigation }) => {
+        return {
+            title: 'Scan a product!',
+            headerStyle: {
+                backgroundColor: '#5B8C2A',
+            },
+            headerTintColor: '#fff',
+            headerRight: (
+                <Button
+                    buttonStyle={{ backgroundColor: '#5B8C2A', marginRight: 10}}
+                    onPress={() => navigation.navigate('Home')}
+                    icon={<Icon name="home" size={25} color="white" />}
+                />
+            )
+        }
     };
 
     transitionProductInfo = (data) => {

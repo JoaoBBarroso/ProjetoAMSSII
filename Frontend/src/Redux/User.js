@@ -62,7 +62,6 @@ function fetchFailure(error) {
 
 export let getUser
 
-// if(condition1){
 getUser = function getUser(role, idList, callback) {
     return dispatch => {
         dispatch(fetchRequest());
@@ -87,12 +86,3 @@ getUser = function getUser(role, idList, callback) {
             });
     }
 }
-// }else{
-//     getUser = function getUserDEV(role, idList, callback) {
-//         return dispatch => {
-//             dispatch(fetchRequest());
-//             dispatch(fetchSuccess({ID: "1", Name: 'João Barroso', Email: 'joaodb.barroso@gmail.com', ActiveRole: {Role: {Name: 'administrator'}, Event: null}}))
-//             dispatch(fetchSuccess({ID: "2", Name: 'Rui Borges', Email: '.@gmail.com', ActiveRole: {Role: {Name: 'administrator'}, Event: null}}))
-//         }
-//     }
-// }

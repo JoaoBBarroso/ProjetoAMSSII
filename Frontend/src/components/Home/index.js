@@ -12,9 +12,8 @@ export default class Home extends React.Component {
 
     render() {
 
-        const { user, users, searchHistory } = this.props;
+        const { user, searchHistory } = this.props;
 
-        console.log(searchHistory)
         return (
             <Jumbotron className="justify-content-center">
                 <Container>

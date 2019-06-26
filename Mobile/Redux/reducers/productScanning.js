@@ -20,14 +20,12 @@ function searchProduct(upc) {
     })
         .then((response) => response.json())
         .then((productData) => {
-            console.log('data', productData)
             productSearchState(productData);
             saveSearchedProduct(productSearchState(productData));
             return productData;
         })
         .catch((error) => console.log(error));
 
-    console.log(data);
     return data;
 }
 

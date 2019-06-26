@@ -20,7 +20,6 @@ export default class BarcodeScanner extends Component {
   }
 
   render() {
-    console.log(this.props)
     const { hasCameraPermission, scanned } = this.state;
 
     if (hasCameraPermission === null) {

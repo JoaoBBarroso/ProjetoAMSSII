@@ -16,21 +16,26 @@ class ProductScreen extends Component {
         };
     }
 
-    static navigationOptions = {
-        title: 'Scanned Product Information',
-        headerStyle: {
-            backgroundColor: '#5B8C2A',
-        },
-        headerTintColor: '#fff',
-
-
+    static navigationOptions = ({ navigation }) => {
+        return {
+            title: 'Scanned Product Information',
+            headerStyle: {
+                backgroundColor: '#5B8C2A',
+            },
+            headerTintColor: '#fff',
+            headerRight: (
+                <Button
+                    buttonStyle={{ backgroundColor: '#5B8C2A', marginRight: 10}}
+                    onPress={() => navigation.navigate('Home')}
+                    icon={<Icon name="home" size={25} color="white" />}
+                />
+            )
+        }
     };
 
     componentDidMount = () => {
-        const upc = this.props.navigation.getParam('upc', null);
-        let that = this;
+        let upc = this.props.navigation.getParam('upc', null);
         this.setState({ isLoading: true, searchedUpc: upc })
-
         if (upc !== null) {
             this.props.searchProduct(upc);
         }
@@ -91,15 +96,23 @@ class ProductScreen extends Component {
         this.props.navigation.navigate('MoreInformation', { productData: this.props.productData });
     }
     transitionRecommendation = () => {
-        this.props.navigation.navigate('Recommendation',
-            {
+
+        let upc = this.props.navigation.getParam('upc', null);
+
+        const navigateAction = this.props.navigation.navigate({
+            routeName: 'Recommendation',
+
+            params: {
                 productData: this.props.productData,
-                upc: this.props.navigation.getParam('upc', null)
-            });
+                upc: upc
+            },
+            key: 'RecommendationScreen' + upc
+        });
+
+        this.props.navigation.dispatch(navigateAction);
     }
 
     render() {
-
 
         const {
             isLoading,
@@ -108,7 +121,6 @@ class ProductScreen extends Component {
         } = this.props;
 
         let isFavourite = this.isFavourite()
-        console.log('isFavourite', isFavourite)
 
         if (isLoading) return <Loader />;
         if (!productData) return null; // If it is not loading and its not loaded, then return nothing.

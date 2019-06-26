@@ -14,7 +14,6 @@ class ProductPage extends React.Component {
             submitted: '',
             loading: false,
             error: '',
-            // productData: null
         };
     }
 
