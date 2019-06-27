@@ -10,10 +10,11 @@ class ProductPage extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            currentSearch: '',
+            currentSearch: null,
             submitted: '',
             loading: false,
             error: '',
+            errorMessage: '',
         };
     }
 
@@ -23,12 +24,21 @@ class ProductPage extends React.Component {
     }
 
     handleSubmit = async () => {
-        this.props.searchProduct(this.state.currentSearch);
+        if(this.state.currentSearch && this.state.currentSearch !== "" && this.state.currentSearch !== " " ){
+            this.props.searchProduct(this.state.currentSearch);
+        } else {
+            this.setState({ errorMessage: 'Please search for another product!' });
+        }
+        
+    }
+
+    handleGOPress = async (upc) => {
+        this.props.searchProduct(upc);
     }
 
     render() {
-        const { productData, isLoading, error, searchRecommendations} = this.props;
-        const { currentSearch, submitted } = this.state;
+        const { productData, isLoading, error, errorRecommendation, searchRecommendations, isLoadingRecommendation} = this.props;
+        const { currentSearch, submitted, errorMessage } = this.state;
         return (
             <div>
                 <ProductSearch
@@ -48,6 +58,11 @@ class ProductPage extends React.Component {
                     //state
                     productData={productData}
                     searchRecommendations={searchRecommendations}
+                    error={error}
+                    isLoadingRecommendation={isLoadingRecommendation}
+                    errorRecommendation={errorRecommendation}
+                    errorMessage={errorMessage}
+                    handleGOPress={this.handleGOPress}
                 />
             </div>
         );
@@ -59,13 +74,17 @@ const mapPropsToState = (state) => {
         searchRecommendations,
         isLoaded,
         isLoading,
-        error } = state.product;
+        isLoadingRecommendation,
+        error,
+        errorRecommendation } = state.product;
     return {
         productData,
         searchRecommendations,
         isLoaded,
         isLoading,
-        error
+        isLoadingRecommendation,
+        error,
+        errorRecommendation
         
     }
 }

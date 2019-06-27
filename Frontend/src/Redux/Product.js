@@ -1,7 +1,10 @@
 import axios from 'axios';
 const FETCH_REQUEST = 'eventsTable/FETCH_REQUEST';
+const FETCH_REQUEST_RECOMMENDATION = 'eventsTable/FETCH_REQUEST_RECOMMENDATION';
 const FETCH_SUCCESS = 'eventsTable/FETCH_SUCCESS';
+const FETCH_SUCCESS_RECOMMENDATION = 'eventsTable/FETCH_SUCCESS_RECOMMENDATION';
 const FETCH_FAILURE = 'eventsTable/FETCH_FAILURE';
+const FETCH_FAILURE_RECOMMENDATION = 'eventsTable/FETCH_FAILURE_RECOMMENDATION';
 const ADD_HISTORY = 'eventsTable/ADD_HISTORY';
 const ADD_FAVOURITES = 'eventsTable/ADD_FAVOURITES';
 const REMOVE_FAVOURITES = 'eventsTable/REMOVE_FAVOURITES';
@@ -13,8 +16,10 @@ const initialState = {
     favourites: [],
     productData: null,
     isLoading: false,
+    isLoadingRecommendation: false,
     isLoaded: false,
-    error: null
+    error: null,
+    errorRecommendation: null,
 }
 
 export default function reducer(state = initialState, action) {
@@ -28,23 +33,41 @@ export default function reducer(state = initialState, action) {
                 ...state,
                 error: null,
                 isLoading: true,
-                fetching: true
+                searchRecommendations: [],
+            }
+        case FETCH_REQUEST_RECOMMENDATION:
+            return {
+                ...state,
+                error: null,
+                isLoadingRecommendation: true,
+                searchRecommendations: [],
             }
         case FETCH_SUCCESS:
             return {
                 ...state,
-                fetching: false,
                 isLoading: false,
                 isLoaded: true,
+                [action.propType]: action[action.propType]
+            }
+        case FETCH_SUCCESS_RECOMMENDATION:
+            return {
+                ...state,
+                isLoadingRecommendation: false,
                 [action.propType]: action[action.propType]
             }
         case FETCH_FAILURE:
             return {
                 ...state,
-                fetching: false,
                 isLoading: false,
                 isLoaded: true,
                 error: action.payload
+            }
+        case FETCH_FAILURE_RECOMMENDATION:
+            return {
+                ...state,
+                isLoading: false,
+                isLoaded: true,
+                errorRecommendation: action.payload
             }
         case ADD_HISTORY:
 
@@ -115,6 +138,12 @@ function fetchRequest() {
     }
 }
 
+function fetchRequestRecommendation() {
+    return {
+        type: FETCH_REQUEST_RECOMMENDATION,
+    }
+}
+
 function fetchSuccess(data, prop) {
     return {
         type: FETCH_SUCCESS,
@@ -123,9 +152,24 @@ function fetchSuccess(data, prop) {
     }
 }
 
+function fetchSuccessRecommendation(data, prop) {
+    return {
+        type: FETCH_SUCCESS_RECOMMENDATION,
+        [prop]: data,
+        propType: prop
+    }
+}
+
 function fetchFailure(error) {
     return {
         type: FETCH_FAILURE,
+        payload: error
+    }
+}
+
+function fetchFailureRecommendation(error) {
+    return {
+        type: FETCH_FAILURE_RECOMMENDATION,
         payload: error
     }
 }
@@ -173,7 +217,7 @@ export function searchProduct(upc) {
 
 export function recommendedProducts(upc) {
     return dispatch => {
-        dispatch(fetchRequest());
+        dispatch(fetchRequestRecommendation());
         axios({
             method: 'get',
             url: `http://89.115.148.193/api/recommend/${upc}`,
@@ -181,8 +225,8 @@ export function recommendedProducts(upc) {
 
         }).then(function (response) {
             let searchRecommendations = response.data;
-            dispatch(fetchSuccess(searchRecommendations, 'searchRecommendations'));
+            dispatch(fetchSuccessRecommendation(searchRecommendations, 'searchRecommendations'));
         })
-            .catch((error) => dispatch(fetchFailure(error)));
+            .catch((error) => dispatch(fetchFailureRecommendation(error)));
     }
 }

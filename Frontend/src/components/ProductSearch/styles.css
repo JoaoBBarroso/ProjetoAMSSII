@@ -10,3 +10,8 @@
 .loader {
     margin-left: 1rem;
 }
+
+.searchButton {
+    background-color: #3C6020 !important;
+    color: white !important;
+}

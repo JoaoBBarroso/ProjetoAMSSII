@@ -1,3 +1,8 @@
 .cardImage{
     height: 200px;
 }
+
+.searchButton {
+    background-color: #3C6020 !important;
+    color: white !important;
+}

@@ -30,7 +30,7 @@ export default class Home extends React.Component {
                                 <CardImg className="cardImage" top src={require("../../images/vegetables.jpg")} alt="Several Vegetables" />
                                 <CardBody>
                                     <CardTitle>Product code scanning</CardTitle>
-                                    <Button tag={Link} to="/productSearch">Scan your product here!</Button>
+                                    <Button className={'searchButton'} tag={Link} to="/productSearch">Scan your product here!</Button>
                                 </CardBody>
                             </Card>
                         </Col>

@@ -175,6 +175,7 @@ export function searchProduct(upc) {
         })
             .then((response) => response.json())
             .then((productData) => {
+                console.log(productData)
                 dispatch(addToHistory(productData));
                 dispatch(fetchSuccess(productData, 'productData'));
             })

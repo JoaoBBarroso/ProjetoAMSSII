@@ -36,7 +36,7 @@ export default class Router extends Component {
     render() {
         var routes = this.getRoutes();
         return (
-            <div id="contents" style={{backgroundColor: "#f7f7f7" }}>
+            <div id="contents" style={{backgroundColor: "#f7f7f7", height: '100%' }}>
                 <Menu routes={routes} />
                 <Layout>
                     <Switch>

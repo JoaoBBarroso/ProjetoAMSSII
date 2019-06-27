@@ -4,8 +4,14 @@ import {
     Container, Row, Col, Button, Card, CardText, CardBody, CardImg,
     CardTitle, CardSubtitle, ListGroup, ListGroupItem, Collapse
 } from 'reactstrap';
+import { ClipLoader } from 'react-spinners';
 import { FaAngleDown, FaAngleUp } from "react-icons/fa";
 import './styles.css';
+
+const override = {
+    marginLeft: '1rem',
+    borderColor: 'red',
+};
 
 class ProductInfo extends React.Component {
 
@@ -35,16 +41,17 @@ class ProductInfo extends React.Component {
     }
 
     render() {
-        
-        const { productData, searchRecommendations } = this.props
-        if (productData) {
+
+        const { productData, searchRecommendations, error, errorRecommendation, errorMessage, isLoadingRecommendation } = this.props;
+
+        if (productData && !error) {
             return (
                 <Container className="productInfo">
                     <Row>
-                        <Col sm={{ size: 6, order: 1 }}>
+                        <Col sm={{ size: 6, order: 1, offset: (errorRecommendation) ? 2 : 0 }}>
                             <h2>Product Info</h2>
                             <Card>
-                                <CardImg top width="100%" src={productData.img} alt={`Shows ${productData.name}`} />
+                                <CardImg style={{ maxHeight: 400 }} top width="100%" src={productData.img} alt={`Shows ${productData.name}`} />
                                 <CardBody>
                                     <CardTitle>{productData.name}</CardTitle>
                                     <CardSubtitle>Code: {productData.upc}</CardSubtitle>
@@ -57,49 +64,75 @@ class ProductInfo extends React.Component {
                             </Card>
                             <br />
                         </Col>
-                        <Col sm={{ size: 6, order: 1 }}>
-                            <h2>Recommended products</h2>
-                            <div className="productRecommendation">
-                                {
-                                    searchRecommendations !== 0 ?
-                                        searchRecommendations.map((elem, i) => (
-                                            <Card>
-                                                <CardBody>
-                                                    <CardTitle>{elem.name}</CardTitle>
-                                                    <div>
-                                                        {this.getNutriscoreGrade(elem.nutritionGrade)}
-                                                    </div>
-                                                </CardBody>
-                                            </Card>
-                                        ))
-                                        :
-                                        <Card>
-                                            <CardBody>
-                                                <CardTitle>No recommendations</CardTitle>
-                                                <CardSubtitle>Try your luck next time</CardSubtitle>
-                                            </CardBody>
-                                        </Card>
-                                }
-                            </div>
-                        </Col>
+                        {
+                            (errorRecommendation) ?
+                                null
+                                :
+                                <Col sm={{ size: 6, order: 1 }}>
+                                    <h2>Recommended products</h2>
+                                    {
+                                        isLoadingRecommendation ?
+                                            <ClipLoader
+                                                css={override}
+                                                sizeUnit={"px"}
+                                                size={55}
+                                                color={'#407899'}
+                                                loading={isLoadingRecommendation}
+                                            />
+                                            :
+                                            <div className="productRecommendation">
+                                                {searchRecommendations.map((elem, i) => (
+                                                    <Card key={'recommendation_' + i}>
+                                                        <CardBody>
+                                                            <CardTitle>{elem.name}<Button
+                                                                onClick={() => this.props.handleGOPress(elem.upc)}
+                                                                style={{
+                                                                    float: 'right',
+                                                                    backgroundColor: '#3C6020'
+                                                                }}
+                                                            >
+                                                                Go!
+                                                        </Button></CardTitle>
+                                                            <div>
+                                                                {this.getNutriscoreGrade(elem.nutritionGrade)}
+
+                                                            </div>
+                                                        </CardBody>
+                                                    </Card>
+                                                ))}
+                                            </div>
+                                    }
+
+                                </Col>
+                        }
+
                     </Row>
                     <Row>
-                        <Col sm={{ size: 4 }}>
+                        <Col sm={{ size: 4, offset: (errorRecommendation) ? 2 : 0 }}>
                             <Button className="productDetailButton" onClick={this.toggleIngredients}>
                                 See Ingredients {this.state.collapseIngredients ? <FaAngleUp /> : <FaAngleDown />}
                             </Button>
                             <Collapse isOpen={this.state.collapseIngredients}>
                                 <div className="productDetailsDiv">
                                     <ListGroup>
-                                        {productData.ingredients.map((ingredient, index) => {
-                                            return <ListGroupItem key={`ingridient_${index}`}>
-                                                {ingredient.text}
-                                            </ListGroupItem>
-                                        })}
+                                        {
+                                            productData.ingredients.length !== 0 ?
+                                                productData.ingredients.map((ingredient, index) => {
+                                                    return <ListGroupItem key={`ingridient_${index}`}>
+                                                        {ingredient.text}
+                                                    </ListGroupItem>
+                                                })
+                                                :
+                                                <ListGroupItem key={`no_ingridient`}>
+                                                    No ingridients provided
+                                                </ListGroupItem>
+                                        }
+
                                     </ListGroup>
                                 </div>
                             </Collapse>
                         </Col>
+
                         <Col sm={{ size: 4, offset: 0 }}>
                             <Button className="productDetailButton" onClick={this.toggleNutrients}>
                                 See Nutrients {this.state.collapseNutrients ? <FaAngleUp /> : <FaAngleDown />}
@@ -107,11 +140,16 @@ class ProductInfo extends React.Component {
                             <Collapse isOpen={this.state.collapseNutrients}>
                                 <div className="productDetailsDiv">
                                     <ListGroup>
-                                        {Object.entries(productData.nutrients).map((nutrient, index) => {
-                                            return <ListGroupItem key={`nutrient_${index}`}>
-                                                {`${nutrient[0]}: ${nutrient[1]}`}
-                                            </ListGroupItem>
-                                        })}
+                                        {
+                                            productData.nutrients.length !== 0 ?
+                                                Object.entries(productData.nutrients).map((nutrient, index) => {
+                                                    return <ListGroupItem key={`nutrient_${index}`}>
+                                                        {`${nutrient[0]}: ${nutrient[1]}`}
+                                                    </ListGroupItem>
+                                                })
+                                                :
+                                                null
+                                        }
                                     </ListGroup>
                                 </div>
                             </Collapse>
@@ -121,7 +159,11 @@ class ProductInfo extends React.Component {
             );
         }
         else {
-            return null;
+            return <Row>
+                <Col sm={{ size: 6, order: 1, offset: 2 }}>
+                    <h3 style={{ marginTop: '20px' }}>{errorMessage}</h3>
+                </Col>
+            </Row>
         }
     }
 }

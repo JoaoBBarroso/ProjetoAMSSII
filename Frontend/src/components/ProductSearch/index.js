@@ -3,10 +3,10 @@ import { Container, Row, Col, Form, FormGroup, Label, Input, Button, Alert } fro
 import { ClipLoader } from 'react-spinners';
 import './styles.css';
 
-const override = `
-    margin-left: 1rem;
-    border-color: red;
-`;
+const override = {
+    marginLeft: '1rem',
+    borderColor: 'red',
+};
 
 class ProductSearch extends React.Component {
 
@@ -33,7 +33,7 @@ class ProductSearch extends React.Component {
                                 <Label for="currentSearch" className="mr-sm-2">Enter the barcode number</Label>
                                 <Input onChange={this.props.handleChange} type="text" name="currentSearch" id="currentSearch" placeholder="1 234567 890123" />
                             </FormGroup>
-                            <Button onClick={this.props.handleSubmit}>Search
+                            <Button className={'searchButton'} onClick={this.props.handleSubmit}>Search
                             </Button>
                             <ClipLoader
                                 css={override}

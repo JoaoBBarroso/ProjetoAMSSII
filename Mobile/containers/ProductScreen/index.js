@@ -25,7 +25,7 @@ class ProductScreen extends Component {
             headerTintColor: '#fff',
             headerRight: (
                 <Button
-                    buttonStyle={{ backgroundColor: '#5B8C2A', marginRight: 10}}
+                    buttonStyle={{ backgroundColor: '#5B8C2A', marginRight: 10 }}
                     onPress={() => navigation.navigate('Home')}
                     icon={<Icon name="home" size={25} color="white" />}
                 />
@@ -42,31 +42,38 @@ class ProductScreen extends Component {
     }
 
     getNutriscoreGrade = (grade) => {
-        let uppercaseGrade = grade.toUpperCase();
-
-        let requiredGrade = null
-        switch (uppercaseGrade) {
-            case 'A':
-                requiredGrade = require(`../../assets/nutriscoreA.png`);
-                break;
-            case 'B':
-                requiredGrade = require(`../../assets/nutriscoreB.png`);
-                break;
-            case 'C':
-                requiredGrade = require(`../../assets/nutriscoreC.png`);
-                break;
-            case 'D':
-                requiredGrade = require(`../../assets/nutriscoreD.png`);
-                break;
-            case 'E':
-                requiredGrade = require(`../../assets/nutriscoreE.png`);
-                break;
-            default:
-                requiredGrade = null;
-                break;
+        if (grade) {
+            let uppercaseGrade = grade.toUpperCase();
+            let requiredGrade = null
+            switch (uppercaseGrade) {
+                case 'A':
+                    requiredGrade = require(`../../assets/nutriscoreA.png`);
+                    break;
+                case 'B':
+                    requiredGrade = require(`../../assets/nutriscoreB.png`);
+                    break;
+                case 'C':
+                    requiredGrade = require(`../../assets/nutriscoreC.png`);
+                    break;
+                case 'D':
+                    requiredGrade = require(`../../assets/nutriscoreD.png`);
+                    break;
+                case 'E':
+                    requiredGrade = require(`../../assets/nutriscoreE.png`);
+                    break;
+                default:
+                    requiredGrade = null;
+                    break;
+            }
+            return requiredGrade;
+        } else {
+            return null
         }
 
-        return requiredGrade;
+
+
+
+        
     }
 
     isFavourite = () => {
@@ -145,7 +152,13 @@ class ProductScreen extends Component {
                                 <Text style={{ marginBottom: 10, color: "gray" }}>
                                     Code: {productData.upc}
                                 </Text>
-                                <Image source={this.getNutriscoreGrade(productData.nutritionGrade)} ></Image>
+                                {
+                                    productData.nutritionGrade ? 
+                                        <Image source={this.getNutriscoreGrade(productData.nutritionGrade)} ></Image>
+                                        :
+                                        <Text h4>No grade yet defined</Text>
+                                }
+                                
                                 <Button
                                     title={isFavourite ? "Remove from favourites" : "Add to favourites"}
                                     titleStyle={{
