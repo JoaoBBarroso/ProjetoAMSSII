@@ -1,0 +1,2 @@
+export const SEARCH_PRODUCT = "SEARCH_PRODUCT";
+export const LOAD_SEARCH = "LOAD_SEARCH";

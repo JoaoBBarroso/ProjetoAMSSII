@@ -50,16 +50,15 @@ class Menu extends React.Component {
         return (
             <div>
                 <Navbar className="navbar" light expand="md">
-                    <NavbarBrand href="/">Healthy Scanning</NavbarBrand>
+                    <NavbarBrand style={{ color: 'white'}} href="/">NUTRIIENTS</NavbarBrand>
                     <NavbarToggler onClick={this.toggle} />
                     <Collapse isOpen={this.state.isOpen} navbar>
                         <Nav className="ml-auto" navbar>
                             {
                                 routes.map((e, i) => {
-                                    console.log(e.to)
                                     let link = e.to + "/";
                                     if (e.hide === undefined || e.hide === false)
-                                        return <NavItem key={i}><NavLink href={link}>{e.label}</NavLink></NavItem>
+                                        return <NavItem key={i}><NavLink style={{ color: 'white'}} href={link}>{e.label}</NavLink></NavItem>
                                     return false;
                                 })
                             }

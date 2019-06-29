@@ -1,26 +1,21 @@
 import React from 'react';
 import ProductSearch from '../../components/ProductSearch';
+import ProductInfo from '../../components/ProductInfo';
+import { searchProduct } from '../../Redux/Product';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import {
-    getTest,
-} from '../../Redux/Product';
 
 
 class ProductPage extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            currentSearch: '',
+            currentSearch: null,
             submitted: '',
             loading: false,
-            error: ''
+            error: '',
+            errorMessage: '',
         };
-    }
-
-    componentDidMount = () => {
-        getTest();
-        console.log(this.props.data)
     }
 
     handleChange = (e) => {
@@ -28,64 +23,76 @@ class ProductPage extends React.Component {
         this.setState({ currentSearch: value });
     }
 
-    handleSubmit = (e) => {
-        console.log(this.state.currentSearch)
-        this.setState({ loading: true, error: "your product doesn't exist" });
-        // e.preventDefault();
+    handleSubmit = async () => {
+        if(this.state.currentSearch && this.state.currentSearch !== "" && this.state.currentSearch !== " " ){
+            this.props.searchProduct(this.state.currentSearch);
+        } else {
+            this.setState({ errorMessage: 'Please search for another product!' });
+        }
+        
+    }
 
-        // this.setState({ submitted: true });
-        // const { username, password, returnUrl } = this.state;
-
-        // // stop here if form is invalid
-        // if (!(username && password)) {
-        //     return;
-        // }
-
-        // this.setState({ loading: true });
-        // userService.login(username, password)
-        //     .then(
-        //         user => {
-        //             const { from } = this.props.location.state || { from: { pathname: "/" } };
-        //             this.props.history.push(from);
-        //         },
-        //         error => this.setState({ error, loading: false })
-        //     );
+    handleGOPress = async (upc) => {
+        this.props.searchProduct(upc);
     }
 
     render() {
-        const { currentSearch, submitted, error } = this.state;
-        console.log(this.props.data)
+        const { productData, isLoading, error, errorRecommendation, searchRecommendations, isLoadingRecommendation} = this.props;
+        const { currentSearch, submitted, errorMessage } = this.state;
         return (
-            <ProductSearch
+            <div>
+                <ProductSearch
 
-                //state
-                currentSearch={currentSearch}
-                submitted={submitted}
-                error={error}
+                    //state
+                    currentSearch={currentSearch}
+                    submitted={submitted}
+                    error={error}
+                    loading={isLoading}
 
-                //functions
-                handleChange={this.handleChange}
-                handleSubmit={this.handleSubmit}
-            />
+                    //functions
+                    handleChange={this.handleChange}
+                    handleSubmit={this.handleSubmit}
+                />
+                <ProductInfo
+
+                    //state
+                    productData={productData}
+                    searchRecommendations={searchRecommendations}
+                    error={error}
+                    isLoadingRecommendation={isLoadingRecommendation}
+                    errorRecommendation={errorRecommendation}
+                    errorMessage={errorMessage}
+                    handleGOPress={this.handleGOPress}
+                />
+            </div>
         );
     }
 }
 
 const mapPropsToState = (state) => {
-    var { data } = state.product;
-    // var user = state.user;
+    var { productData,
+        searchRecommendations,
+        isLoaded,
+        isLoading,
+        isLoadingRecommendation,
+        error,
+        errorRecommendation } = state.product;
     return {
-        // user: user.user,
-        data: data,
+        productData,
+        searchRecommendations,
+        isLoaded,
+        isLoading,
+        isLoadingRecommendation,
+        error,
+        errorRecommendation
+        
     }
 }
 
 const mapDispatchToState = (dispatch) => {
     return {
-        getTest: () => dispatch(getTest())
-
+        searchProduct: (upc) => dispatch(searchProduct(upc))
     }
 }
-
 
 export default withRouter(connect(mapPropsToState, mapDispatchToState)(ProductPage));

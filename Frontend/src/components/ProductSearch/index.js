@@ -1,6 +1,12 @@
 import React from 'react';
 import { Container, Row, Col, Form, FormGroup, Label, Input, Button, Alert } from 'reactstrap';
+import { ClipLoader } from 'react-spinners';
 import './styles.css';
+
+const override = {
+    marginLeft: '1rem',
+    borderColor: 'red',
+};
 
 class ProductSearch extends React.Component {
 
@@ -25,9 +31,17 @@ class ProductSearch extends React.Component {
                         <Form inline>
                             <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
                                 <Label for="currentSearch" className="mr-sm-2">Enter the barcode number</Label>
-                                <Input type="text" name="currentSearch" id="currentSearch" placeholder="1 234567 890123" />
+                                <Input onChange={this.props.handleChange} type="text" name="currentSearch" id="currentSearch" placeholder="1 234567 890123" />
                             </FormGroup>
-                            <Button onClick={this.props.handleSubmit}>Search</Button>
+                            <Button className={'searchButton'} onClick={this.props.handleSubmit}>Search
+                            </Button>
+                            <ClipLoader
+                                css={override}
+                                sizeUnit={"px"}
+                                size={15}
+                                color={'#407899'}
+                                loading={this.props.loading}
+                            />
                         </Form>
                     </Col>
                     <Col sm={{ size: 6, order: 2, offset: 2 }}>

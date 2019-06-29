@@ -1,0 +1,32 @@
+.productInfo {
+    margin-top: 5%;
+}
+
+
+.productDetailButton {
+    background-color: #3C6020 !important;
+    color: white !important;
+    margin-bottom: 1rem !important;
+}
+
+.productDetailsDiv {
+    height: 300px;
+    margin-bottom: 1.5rem;
+}
+
+.productRecommendation {
+    margin-bottom: 1.5rem;
+    height: 460px;
+}
+
+
+.productDetailsDiv, .productRecommendation {
+    overflow-y: auto;
+}
+
+.loader {
+    border-color: red;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

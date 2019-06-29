@@ -36,14 +36,18 @@ export default class Router extends Component {
     render() {
         var routes = this.getRoutes();
         return (
-            <div id="contents" style={{backgroundColor: "#f7f7f7", }}>
+            <div id="contents" style={{backgroundColor: "#f7f7f7", height: '100%' }}>
                 <Menu routes={routes} />
                 <Layout>
                     <Switch>
                         <Route exact path="/login" component={LoginPage} />
                         {/* Private Routes for logged-in users */}
+                        {/* <Route exact path={`/`} component={HomePage} />  */}
                         <PrivateRoute exact path={`/`} component={HomePage} /> 
+                        {/* <Route exact path="/productSearch" component={ProductPage} /> */}
                         <PrivateRoute exact path="/productSearch" component={ProductPage} />
+                        
+                        
                         {/* <Route exact path={`${process.env.PUBLIC_URL}/`} render={props => (
                             <ProtectedRoute userRole={['administrator']}>
                                 <Homepage routes={routes} />
