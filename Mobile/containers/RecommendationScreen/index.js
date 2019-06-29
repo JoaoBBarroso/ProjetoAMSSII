@@ -123,11 +123,13 @@ class RecommendationScreen extends Component {
             isLoading,
             productData,
             searchRecommendations,
-            error
+            error,
+            errorRecommendation,
+            isLoadingRecommendation
         } = this.props;
 
-        if (isLoading) return <Loader />;
-        if (searchRecommendations.length === 0 || !productData) return null; // If it is not loading and its not loaded, then return nothing.
+        if (isLoading || isLoadingRecommendation) return <Loader />;
+        if (!productData) return null; // If it is not loading and its not loaded, then return nothing.
 
         return <View nativeID={'recommendationScreen'} style={styles.container}>
             <Card>
@@ -149,15 +151,7 @@ class RecommendationScreen extends Component {
 
             <View style={styles.grid}>
                 {
-                    searchRecommendations.length !== 0 ?
-                        <Grid
-                            style={styles.list}
-                            renderItem={this.renderRecommendation}
-                            keyExtractor={this.keyExtractor}
-                            data={searchRecommendations}
-                            numColumns={2}
-                        />
-                        :
+                    errorRecommendation || searchRecommendations.length === 0 ?
                         <View>
                             <Icon
                                 name='times'
@@ -165,6 +159,16 @@ class RecommendationScreen extends Component {
                                 color='#333333' />
                             <Text style={styles.errorText}>Some error occured searching for the item</Text>
                         </View>
+                        :
+                        <Grid
+                            style={styles.list}
+                            renderItem={this.renderRecommendation}
+                            keyExtractor={this.keyExtractor}
+                            data={searchRecommendations}
+                            numColumns={2}
+                        />
+
+
 
 
                 }
@@ -212,14 +216,16 @@ const styles = StyleSheet.create({
 
 
 const mapStateToProps = (state) => {
-    const { productData, isLoaded, isLoading, error, searchHistory, searchRecommendations } = state;
+    const { productData, isLoaded, isLoading, error, searchHistory, searchRecommendations, isLoadingRecommendation, errorRecommendation } = state;
     return {
         searchRecommendations,
         searchHistory,
         productData,
         isLoaded,
         isLoading,
-        error
+        isLoadingRecommendation,
+        error,
+        errorRecommendation
     };
 };
 

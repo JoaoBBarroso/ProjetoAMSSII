@@ -35,24 +35,12 @@ export default function reducer(state = initialState, action) {
                 isLoading: true,
                 searchRecommendations: [],
             }
-        case FETCH_REQUEST_RECOMMENDATION:
-            return {
-                ...state,
-                error: null,
-                isLoadingRecommendation: true,
-                searchRecommendations: [],
-            }
+
         case FETCH_SUCCESS:
             return {
                 ...state,
                 isLoading: false,
                 isLoaded: true,
-                [action.propType]: action[action.propType]
-            }
-        case FETCH_SUCCESS_RECOMMENDATION:
-            return {
-                ...state,
-                isLoadingRecommendation: false,
                 [action.propType]: action[action.propType]
             }
         case FETCH_FAILURE:
@@ -62,6 +50,20 @@ export default function reducer(state = initialState, action) {
                 isLoaded: true,
                 error: action.payload
             }
+        case FETCH_REQUEST_RECOMMENDATION:
+            return {
+                ...state,
+                error: null,
+                isLoadingRecommendation: true,
+                searchRecommendations: [],
+            }
+        case FETCH_SUCCESS_RECOMMENDATION:
+            return {
+                ...state,
+                isLoadingRecommendation: false,
+                [action.propType]: action[action.propType]
+            }
+
         case FETCH_FAILURE_RECOMMENDATION:
             return {
                 ...state,

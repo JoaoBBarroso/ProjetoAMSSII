@@ -45,6 +45,8 @@ class HomeScreen extends Component {
 
         const { searchHistory, favourites } = this.props;
 
+        console.log(favourites.length)
+
         return <View nativeID={'root'} style={styles.container}>
             <View style={styles.home}>
                 <View style={{ flex: 1, flexDirection: 'row', width: '100%' }}>
@@ -109,6 +111,7 @@ class HomeScreen extends Component {
                 <Text style={styles.listTitle}>Favourites</Text>
                 <View style={styles.listView}>
                     <ScrollView>
+
                         {
                             favourites.length !== 0 ?
                                 favourites.map((elem, i) => (
