@@ -102,16 +102,16 @@ class RecommendationScreen extends Component {
 
     renderRecommendation = (recom, i) => (
         <View key={i} style={styles.item}>
-            <ImageBackground source={{ uri: recom.img }} style={{ width: '100%', height: '100%' }}>
-                <View style={{ flex: 1, justifyContent: 'flex-end' }}>
-                    <TouchableHighlight onPress={e => this.handleProductPress(recom.upc)}>
+            <TouchableHighlight onPress={e => this.handleProductPress(recom.upc)}>
+                <ImageBackground source={{ uri: recom.img }} style={{ width: '100%', height: '100%' }}>
+                    <View style={{ flex: 1, justifyContent: 'flex-end' }}>
                         <View style={{ backgroundColor: 'white' }}>
                             <Text>{recom.name}</Text>
                             {this.getNutriscoreAvatar(recom.nutritionGrade)}
                         </View>
-                    </TouchableHighlight>
-                </View>
-            </ImageBackground>
+                    </View>
+                </ImageBackground>
+            </TouchableHighlight>
         </View>
     );
 
@@ -167,10 +167,6 @@ class RecommendationScreen extends Component {
                             data={searchRecommendations}
                             numColumns={2}
                         />
-
-
-
-
                 }
             </View>
         </View>

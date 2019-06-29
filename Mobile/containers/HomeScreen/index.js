@@ -45,8 +45,6 @@ class HomeScreen extends Component {
 
         const { searchHistory, favourites } = this.props;
 
-        console.log(favourites.length)
-
         return <View nativeID={'root'} style={styles.container}>
             <View style={styles.home}>
                 <View style={{ flex: 1, flexDirection: 'row', width: '100%' }}>
@@ -72,7 +70,6 @@ class HomeScreen extends Component {
                     </View>
                     <View style={{ flex: 1 }}>
                         <Button
-                            title=""
                             icon={{
                                 name: "barcode",
                                 type: "font-awesome",
@@ -82,6 +79,7 @@ class HomeScreen extends Component {
                             type="clear"
                             onPress={this.handleScannerPress}
                         />
+                        <Text style={styles.scanText} onPress={this.handleScannerPress}>Scan it!</Text>
                     </View>
                 </View>
 
@@ -159,6 +157,9 @@ const styles = StyleSheet.create({
         fontSize: 18,
         marginBottom: 5,
         marginLeft: 5
+    },
+    scanText: {
+        marginLeft: 10,
     }
 });
 
