@@ -43,6 +43,7 @@ class ProductInfo extends React.Component {
     render() {
 
         const { productData, searchRecommendations, error, errorRecommendation, errorMessage, isLoadingRecommendation } = this.props;
+        console.log(searchRecommendations, isLoadingRecommendation, errorRecommendation)
 
         if (productData && !error) {
             return (

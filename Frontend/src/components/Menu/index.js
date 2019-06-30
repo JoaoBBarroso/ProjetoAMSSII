@@ -7,11 +7,6 @@ import {
     Nav,
     NavItem,
     NavLink,
-    UncontrolledDropdown,
-    DropdownToggle,
-    DropdownMenu,
-    DropdownItem,
-    Glyphicon
 } from 'reactstrap';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
@@ -34,19 +29,19 @@ class Menu extends React.Component {
 
     render() {
         var routes = this.props.routes || [];
-        var title;
+        // var title;
         var { state } = this.props.location;
-        if (state && state.title) {
-            title = state.title;
-        } else {
-            routes.some(route => {
-                if (route.to === this.props.location.pathname) {
-                    title = route.title;
-                    return true;
-                }
-                return false;
-            })
-        }
+        // if (state && state.title) {
+        //     title = state.title;
+        // } else {
+        //     routes.some(route => {
+        //         if (route.to === this.props.location.pathname) {
+        //             title = route.title;
+        //             return true;
+        //         }
+        //         return false;
+        //     })
+        // }
         return (
             <div>
                 <Navbar className="navbar" light expand="md">
@@ -62,30 +57,6 @@ class Menu extends React.Component {
                                     return false;
                                 })
                             }
-                            {/*  SE QUISERMOS DROPDOWN 
-                            <NavItem>
-                                <NavLink href="/components/">Components</NavLink>
-                            </NavItem>
-                            <NavItem>
-                                <NavLink href="https://github.com/reactstrap/reactstrap">GitHub</NavLink>
-                            </NavItem>
-                            <UncontrolledDropdown nav inNavbar>
-                                <DropdownToggle nav caret>
-                                    Options
-                                </DropdownToggle>
-                                <DropdownMenu right>
-                                    <DropdownItem>
-                                        Option 1
-                                </DropdownItem>
-                                    <DropdownItem>
-                                        Option 2
-                                </DropdownItem>
-                                    <DropdownItem divider />
-                                    <DropdownItem>
-                                        Reset
-                                </DropdownItem>
-                                </DropdownMenu>
-                            </UncontrolledDropdown> */}
                         </Nav>
                     </Collapse>
                 </Navbar>
@@ -95,10 +66,7 @@ class Menu extends React.Component {
 }
 
 const mapPropsToState = (state) => {
-    var user = state.user;
-    return {
-        user: user.user,
-    }
+    
 }
 
 

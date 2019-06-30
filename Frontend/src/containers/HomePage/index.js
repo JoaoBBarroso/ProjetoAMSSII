@@ -1,5 +1,4 @@
 import React from 'react';
-// import { userService } from '../../services/user.service';
 import HomePageComponent from '../../components/Home';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
@@ -15,12 +14,6 @@ class HomePage extends React.Component {
     }
 
     componentWillMount() {
-        // this.setState({
-        //     user: JSON.parse(localStorage.getItem('user')),
-        //     users: { loading: true }
-        // }, () => { console.log(this.state.user) });
-
-        // userService.getAll().then(users => this.setState({ users }));
 
         let users = [{
             id: 1,

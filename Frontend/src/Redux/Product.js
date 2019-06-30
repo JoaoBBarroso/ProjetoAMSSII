@@ -53,7 +53,7 @@ export default function reducer(state = initialState, action) {
         case FETCH_REQUEST_RECOMMENDATION:
             return {
                 ...state,
-                error: null,
+                errorRecommendation: null,
                 isLoadingRecommendation: true,
                 searchRecommendations: [],
             }
@@ -67,8 +67,7 @@ export default function reducer(state = initialState, action) {
         case FETCH_FAILURE_RECOMMENDATION:
             return {
                 ...state,
-                isLoading: false,
-                isLoaded: true,
+                isLoadingRecommendation: false,
                 errorRecommendation: action.payload
             }
         case ADD_HISTORY:
