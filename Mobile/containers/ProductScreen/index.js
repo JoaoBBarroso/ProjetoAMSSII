@@ -82,7 +82,9 @@ class ProductScreen extends Component {
         let favourite = false;
 
         favourites.map((elem) => {
-            favourite = elem.upc === productData.upc;
+            if(elem.upc === productData.upc){
+                favourite = true;
+            }
         })
 
         return favourite;

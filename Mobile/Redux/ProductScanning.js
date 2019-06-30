@@ -1,9 +1,13 @@
 
 import { writeSearchedProduct } from "./storage/productScanning";
+import axios from 'axios';
 
 const FETCH_REQUEST = 'ProductScanning/FETCH_REQUEST';
 const FETCH_SUCCESS = 'ProductScanning/FETCH_SUCCESS';
 const FETCH_FAILURE = 'ProductScanning/FETCH_FAILURE';
+const FETCH_REQUEST_RECOMMENDATION = 'ProductScanning/FETCH_REQUEST_RECOMMENDATION';
+const FETCH_SUCCESS_RECOMMENDATION = 'ProductScanning/FETCH_SUCCESS_RECOMMENDATION';
+const FETCH_FAILURE_RECOMMENDATION = 'ProductScanning/FETCH_FAILURE_RECOMMENDATION';
 const ADD_HISTORY = 'ProductScanning/ADD_HISTORY';
 const ADD_FAVOURITES = 'ProductScanning/ADD_FAVOURITES';
 const REMOVE_FAVOURITES = 'ProductScanning/REMOVE_FAVOURITES';
@@ -12,6 +16,8 @@ export const SEARCH_PRODUCT = 'SEARCH_PRODUCT';
 const initialState = {
     searchHistory: [],
     searchRecommendations: [],
+    isLoadingRecommendation: false,
+    errorRecommendation: null,
     favourites: [],
     productData: null,
     isLoading: true,
@@ -46,6 +52,28 @@ export default function reducer(state = initialState, action) {
                 isLoaded: true,
                 error: action.payload
             }
+        case FETCH_REQUEST_RECOMMENDATION:
+            return {
+                ...state,
+                errorRecommendation: null,
+                searchRecommendations: [],
+                isLoadingRecommendation: true,
+            }
+        case FETCH_SUCCESS_RECOMMENDATION:
+            return {
+                ...state,
+                isLoadingRecommendation: false,
+                [action.propType]: action[action.propType]
+            }
+
+        case FETCH_FAILURE_RECOMMENDATION:
+            return {
+                ...state,
+                isLoadingRecommendation: false,
+                isLoaded: true,
+                searchRecommendations: [],
+                errorRecommendation: action.payload
+            }
         case ADD_HISTORY:
 
             let newProduct = action.payload;
@@ -59,7 +87,7 @@ export default function reducer(state = initialState, action) {
             })
 
             if (!check) {
-                historyCheck.push(newProduct);
+                historyCheck.splice(0, 0, newProduct);
             }
 
             return {
@@ -67,17 +95,17 @@ export default function reducer(state = initialState, action) {
                 searchHistory: historyCheck
             }
         case ADD_FAVOURITES:
-            
+
             let newProductToAdd = action.payload;
             let checkAdd = false;
 
-            newFavourites.map((elem) => {
+            newFavourites.map((elem, index) => {
                 if (elem.upc === newProductToAdd.upc) {
                     checkAdd = true;
                 }
             })
             if (!checkAdd) {
-                newFavourites.push(newProductToAdd);
+                newFavourites.splice(0, 0, newProductToAdd);
             }
 
             return {
@@ -89,20 +117,20 @@ export default function reducer(state = initialState, action) {
 
             let toDeleteProduct = action.payload;
             let indexToDelete = null;
-            let removedArray = [];
 
             newFavourites.map((elem, index) => {
                 if (elem.upc === toDeleteProduct.upc) {
                     indexToDelete = index;
                 }
             })
+
             if (indexToDelete) {
-                removedArray = newFavourites.splice(indexToDelete, 1);
+                newFavourites.splice(indexToDelete, 1);
             }
 
             return {
                 ...state,
-                favourites: removedArray
+                favourites: newFavourites
             }
 
         default:
@@ -116,11 +144,32 @@ function fetchRequest() {
     }
 }
 
+function fetchRequestRecommendation() {
+    return {
+        type: FETCH_REQUEST_RECOMMENDATION,
+    }
+}
+
 function fetchSuccess(data, prop) {
     return {
         type: FETCH_SUCCESS,
         [prop]: data,
         propType: prop
+    }
+}
+
+function fetchSuccessRecommendation(data, prop) {
+    return {
+        type: FETCH_SUCCESS_RECOMMENDATION,
+        [prop]: data,
+        propType: prop
+    }
+}
+
+function fetchFailureRecommendation(error) {
+    return {
+        type: FETCH_FAILURE_RECOMMENDATION,
+        payload: error
     }
 }
 
@@ -175,7 +224,6 @@ export function searchProduct(upc) {
         })
             .then((response) => response.json())
             .then((productData) => {
-                console.log(productData)
                 dispatch(addToHistory(productData));
                 dispatch(fetchSuccess(productData, 'productData'));
             })
@@ -185,17 +233,17 @@ export function searchProduct(upc) {
 
 export function recommendedProducts(upc) {
     return dispatch => {
-        dispatch(fetchRequest());
-        fetch(`http://89.115.148.193/api/recommend/${upc}`, {
-            method: 'GET',
-            mode: 'cors',
-            credentials: 'include'
+        dispatch(fetchRequestRecommendation());
+        axios({
+            method: 'get',
+            url: `http://89.115.148.193/api/recommend/${upc}`,
+            responseType: 'json',
+
+        }).then(function (response) {
+            let searchRecommendations = response.data;
+            dispatch(fetchSuccessRecommendation(searchRecommendations, 'searchRecommendations'));
         })
-            .then((response) => response.json())
-            .then((searchRecommendations) => {
-                dispatch(fetchSuccess(searchRecommendations, 'searchRecommendations'));
-            })
-            .catch((error) => dispatch(fetchFailure(error)));
+            .catch((error) => dispatch(fetchFailureRecommendation(error)));
     }
 }
 

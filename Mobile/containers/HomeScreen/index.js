@@ -70,7 +70,6 @@ class HomeScreen extends Component {
                     </View>
                     <View style={{ flex: 1 }}>
                         <Button
-                            title=""
                             icon={{
                                 name: "barcode",
                                 type: "font-awesome",
@@ -80,6 +79,7 @@ class HomeScreen extends Component {
                             type="clear"
                             onPress={this.handleScannerPress}
                         />
+                        <Text style={styles.scanText} onPress={this.handleScannerPress}>Scan it!</Text>
                     </View>
                 </View>
 
@@ -109,6 +109,7 @@ class HomeScreen extends Component {
                 <Text style={styles.listTitle}>Favourites</Text>
                 <View style={styles.listView}>
                     <ScrollView>
+
                         {
                             favourites.length !== 0 ?
                                 favourites.map((elem, i) => (
@@ -156,6 +157,9 @@ const styles = StyleSheet.create({
         fontSize: 18,
         marginBottom: 5,
         marginLeft: 5
+    },
+    scanText: {
+        marginLeft: 10,
     }
 });
 
