@@ -100,6 +100,8 @@ class RecommendationScreen extends Component {
         this.props.navigation.dispatch(navigateAction);
     };
 
+    
+
     renderRecommendation = (recom, i) => (
         <View key={i} style={styles.item}>
             <TouchableHighlight onPress={e => this.handleProductPress(recom.upc)}>

@@ -1,6 +1,7 @@
 
 import { writeSearchedProduct } from "./storage/productScanning";
 import axios from 'axios';
+import { AsyncStorage } from 'react-native';
 
 const FETCH_REQUEST = 'ProductScanning/FETCH_REQUEST';
 const FETCH_SUCCESS = 'ProductScanning/FETCH_SUCCESS';
@@ -11,6 +12,8 @@ const FETCH_FAILURE_RECOMMENDATION = 'ProductScanning/FETCH_FAILURE_RECOMMENDATI
 const ADD_HISTORY = 'ProductScanning/ADD_HISTORY';
 const ADD_FAVOURITES = 'ProductScanning/ADD_FAVOURITES';
 const REMOVE_FAVOURITES = 'ProductScanning/REMOVE_FAVOURITES';
+const SET_HISTORY_PERSISTED = 'ProductScanning/SET_HISTORY_PERSISTED';
+const SET_FAVOURITES_PERSISTED = 'ProductScanning/SET_FAVOURITES_PERSISTED';
 export const SEARCH_PRODUCT = 'SEARCH_PRODUCT';
 
 const initialState = {
@@ -88,6 +91,7 @@ export default function reducer(state = initialState, action) {
 
             if (!check) {
                 historyCheck.splice(0, 0, newProduct);
+                storeSearchHistory(historyCheck);
             }
 
             return {
@@ -106,6 +110,7 @@ export default function reducer(state = initialState, action) {
             })
             if (!checkAdd) {
                 newFavourites.splice(0, 0, newProductToAdd);
+                storeFavourites(newFavourites)
             }
 
             return {
@@ -126,11 +131,29 @@ export default function reducer(state = initialState, action) {
 
             if (indexToDelete) {
                 newFavourites.splice(indexToDelete, 1);
+                storeFavourites(newFavourites)
             }
 
             return {
                 ...state,
                 favourites: newFavourites
+            }
+
+        case SET_FAVOURITES_PERSISTED:
+
+            let persistedFavourites = action.payload;
+
+            return {
+                ...state,
+                favourites: persistedFavourites
+            }
+        case SET_HISTORY_PERSISTED:
+
+            let persistedHistory = action.payload;
+
+            return {
+                ...state,
+                searchHistory: persistedHistory
             }
 
         default:
@@ -173,7 +196,7 @@ function fetchFailureRecommendation(error) {
     }
 }
 
-function addToHistory(data) {
+export function addToHistory(data) {
     return {
         type: ADD_HISTORY,
         payload: data
@@ -183,6 +206,20 @@ function addToHistory(data) {
 function addToFavouritesAction(data) {
     return {
         type: ADD_FAVOURITES,
+        payload: data
+    }
+}
+
+function setFavouritesAction(data) {
+    return {
+        type: SET_FAVOURITES_PERSISTED,
+        payload: data
+    }
+}
+
+function setHistoryAction(data) {
+    return {
+        type: SET_HISTORY_PERSISTED,
         payload: data
     }
 }
@@ -214,6 +251,35 @@ function fetchFailure(error) {
     }
 }
 
+storeSearchHistory = async (array) => {
+    try {
+        await AsyncStorage.setItem('@history', JSON.stringify(array));
+    } catch (error) {
+        console.log(error)
+    }
+};
+
+storeFavourites = async (array) => {
+    try {
+        await AsyncStorage.setItem('@favourites', JSON.stringify(array));
+    } catch (error) {
+        // Error saving data
+        console.log(error)
+    }
+};
+
+export function setHistoryPersisted(data) {
+    return dispatch => {
+        dispatch(setHistoryAction(data));
+    }
+}
+
+export function setFavouritesPersisted(data) {
+    return dispatch => {
+        dispatch(setFavouritesAction(data));
+    }
+}
+
 export function searchProduct(upc) {
     return dispatch => {
         dispatch(fetchRequest());
@@ -241,11 +307,14 @@ export function recommendedProducts(upc) {
 
         }).then(function (response) {
             let searchRecommendations = response.data;
+            storeFavourites(searchRecommendations);
             dispatch(fetchSuccessRecommendation(searchRecommendations, 'searchRecommendations'));
         })
             .catch((error) => dispatch(fetchFailureRecommendation(error)));
     }
 }
+
+
 
 
 

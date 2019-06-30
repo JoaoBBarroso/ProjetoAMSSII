@@ -3,6 +3,9 @@ import HomePageComponent from '../../components/Home';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 
+/**
+ * Home page container of the application.
+*/
 class HomePage extends React.Component {
     constructor(props) {
         super(props);
@@ -36,7 +39,7 @@ class HomePage extends React.Component {
             <HomePageComponent
                 user={user}
                 users={users}
-                searchHistory = {searchHistory}
+                searchHistory={searchHistory}
             />
         );
     }
@@ -44,7 +47,7 @@ class HomePage extends React.Component {
 
 const mapPropsToState = (state) => {
     var {
-        searchHistory, 
+        searchHistory,
         productData,
         isLoaded,
         isLoading,
@@ -55,7 +58,7 @@ const mapPropsToState = (state) => {
         isLoaded,
         isLoading,
         error
-        
+
     }
 }
 

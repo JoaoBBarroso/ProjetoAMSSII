@@ -1,3 +1,9 @@
 .loginContainer {
     margin-top: 5%;
 }
+
+.loginButton {
+    border: #3C6020 ;
+    background-color: #3C6020 !important;
+    color: white !important;
+}
