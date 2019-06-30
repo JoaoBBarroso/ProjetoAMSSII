@@ -41,8 +41,8 @@ class ProductInfo extends React.Component {
     }
 
     render() {
-
         const { productData, searchRecommendations, error, errorRecommendation, errorMessage, isLoadingRecommendation } = this.props;
+        console.log(searchRecommendations, isLoadingRecommendation, errorRecommendation)
 
         if (productData && !error) {
             return (
@@ -102,10 +102,8 @@ class ProductInfo extends React.Component {
                                                 ))}
                                             </div>
                                     }
-
                                 </Col>
                         }
-
                     </Row>
                     <Row>
                         <Col sm={{ size: 4, offset: (errorRecommendation) ? 2 : 0 }}>

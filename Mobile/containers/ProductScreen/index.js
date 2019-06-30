@@ -10,7 +10,6 @@ class ProductScreen extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            // productData: this.props.productData || [],
             searchedUpc: null,
             isLoading: false
         };

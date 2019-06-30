@@ -323,15 +323,19 @@ router.get("/recommend/:upc", (req, res, next) => {
     products.findOne({
       upc: upc
     }, (err, product) => {
-      if (product.nutritionGrade === "ND") {
+      if (product.nutritionGrade === "ND" && product.categories.length===0) {
         res.sendStatus(500).send("We don't have a NutriScore for this yet")
         return;
+      }else if(product.nutritionGrade === "ND" || !product.nutritionGrade){
+        product.nutritionGrade = "e";
       }
-      let ltGrades = nutritionGrades.slice(0, nutritionGrades.indexOf(product.nutritionGrade));
-      if (!product.categories) {
+      if(!product.categories){
         res.status(404).send("no Categories for this product");
         return;
       }
+
+      let ltGrades = nutritionGrades.slice(0, nutritionGrades.indexOf(product.nutritionGrade));
+
       ltGrades.forEach(e => {
         ltGrades.push(e.toLowerCase());
       });

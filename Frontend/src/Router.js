@@ -1,10 +1,5 @@
 import React, { Component } from 'react';
 import { Route, Switch } from 'react-router-dom';
-
-
-
-// import ProtectedRoute from './Containers/ProtectedRoute';
-// import { PrivateRoute } from './PrivateRoute';
 import Footer from './components/Footer';
 import Menu from './components/Menu';
 import Layout from './components/Layout';
@@ -46,16 +41,6 @@ export default class Router extends Component {
                         <PrivateRoute exact path={`/`} component={HomePage} /> 
                         {/* <Route exact path="/productSearch" component={ProductPage} /> */}
                         <PrivateRoute exact path="/productSearch" component={ProductPage} />
-                        
-                        
-                        {/* <Route exact path={`${process.env.PUBLIC_URL}/`} render={props => (
-                            <ProtectedRoute userRole={['administrator']}>
-                                <Homepage routes={routes} />
-                            </ProtectedRoute>
-                        )} />
-                        <Route exact path={`${process.env.PUBLIC_URL}/error`} render={props => (
-                            <ErrorPage />
-                        )} /> */}
                     </Switch>
                 </Layout>
                 <Footer />
@@ -63,8 +48,3 @@ export default class Router extends Component {
         )
     }
 }
-
-// <Switch>
-//   <PrivateRoute exact path="/" component={HomePage} />
-//   <Route path="/login" component={LoginPage} />
-// </Switch>

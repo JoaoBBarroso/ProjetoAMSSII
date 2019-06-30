@@ -1,9 +1,11 @@
 import React from 'react';
-// import { userService } from '../../services/user.service';
 import HomePageComponent from '../../components/Home';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 
+/**
+ * Home page container of the application.
+*/
 class HomePage extends React.Component {
     constructor(props) {
         super(props);
@@ -15,12 +17,6 @@ class HomePage extends React.Component {
     }
 
     componentWillMount() {
-        // this.setState({
-        //     user: JSON.parse(localStorage.getItem('user')),
-        //     users: { loading: true }
-        // }, () => { console.log(this.state.user) });
-
-        // userService.getAll().then(users => this.setState({ users }));
 
         let users = [{
             id: 1,
@@ -43,7 +39,7 @@ class HomePage extends React.Component {
             <HomePageComponent
                 user={user}
                 users={users}
-                searchHistory = {searchHistory}
+                searchHistory={searchHistory}
             />
         );
     }
@@ -51,7 +47,7 @@ class HomePage extends React.Component {
 
 const mapPropsToState = (state) => {
     var {
-        searchHistory, 
+        searchHistory,
         productData,
         isLoaded,
         isLoading,
@@ -62,7 +58,7 @@ const mapPropsToState = (state) => {
         isLoaded,
         isLoading,
         error
-        
+
     }
 }
 
