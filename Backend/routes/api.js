@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 const http = require('http');
+const calcNutri = require('../nutriscore');
 const MongoClient = require('mongodb').MongoClient;
 const uri = "mongodb+srv://asmsii:asmsii@cluster0-9q1xc.mongodb.net/test?retryWrites=true";
 let nutrInfo = [];
