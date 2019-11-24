@@ -47,7 +47,7 @@ class ProductSearch extends React.Component {
                     <Col sm={{ size: 6, order: 2, offset: 2 }}>
                         {this.props.error &&
                             <Alert color="danger" isOpen={this.state.visible} toggle={this.onDismiss}>
-                                {this.props.error}
+                                {this.props.error.toJSON()}
                             </Alert>
                         }
                     </Col>

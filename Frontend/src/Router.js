@@ -40,6 +40,8 @@ export default class Router extends Component {
                         <Route exact path={`/`} component={HomePage} /> 
                         {/* <PrivateRoute exact path={`/`} component={HomePage} />  */}
                         <Route exact path="/productSearch" component={ProductPage} />
+                        <Route exact path="/healthy-tips" component={ProductPage} />
+                        <Route exact path="/about" component={ProductPage} />
                         {/* <PrivateRoute exact path="/productSearch" component={ProductPage} /> */}
                     </Switch>
                 </Layout>
