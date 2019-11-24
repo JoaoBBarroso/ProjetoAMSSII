@@ -4,6 +4,8 @@
  * Module dependencies.
  */
 
+var express = require('express');
+var path = require('path');
 var app = require('../app.js');
 var debug = require('debug')('backend:server');
 var http = require('http');
@@ -16,11 +18,14 @@ var port = process.env.PORT || '5000';
 // app.set('port', port);
 const publicPath = path.join(__dirname, 'Frontend/public');
 app.use(express.static(publicPath));
+app.listen(port, () => {
+  console.log('Server is up!');
+});
+
 
 /**
  * Create HTTP server.
  */
-
 var server = http.createServer(app);
 
 /**
