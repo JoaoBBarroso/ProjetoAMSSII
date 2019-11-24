@@ -13,7 +13,9 @@ var http = require('http');
  */
 
 var port = process.env.PORT || '5000';
-app.set('port', port);
+// app.set('port', port);
+const publicPath = path.join(__dirname, 'Frontend/public');
+app.use(express.static(publicPath));
 
 /**
  * Create HTTP server.

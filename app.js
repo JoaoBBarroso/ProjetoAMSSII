@@ -10,6 +10,8 @@ var apiRouter = require('./routes/api')
 // var cors = require('cors')
 var app = express()
 
+
+
 // app.use(cors())
 
 // view engine setup
@@ -44,8 +46,8 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.send(err.message);
 });
-const publicPath = path.join(__dirname, 'Frontend/public');
-app.use(express.static(publicPath));
+
+
 
 
 module.exports = app;
