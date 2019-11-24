@@ -3,7 +3,7 @@
     "version": "0.0.1",
     "private": true,
     "scripts": {
-        "start": "node server/server.js"
+        "start": "node server/server.js && ./Frontend npm start"
     },
     "dependencies": {
         "basic-auth": "^2.0.1",
