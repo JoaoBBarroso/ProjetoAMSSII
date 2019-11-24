@@ -7,8 +7,8 @@
             "type": "node",
             "request": "launch",
             "name": "Server",
-            "program": "${workspaceFolder}/Backend/bin/www"
-            // "program": "${workspaceFolder}/Backend/app.js"
+            "program": "${workspaceFolder}/bin/www"
+            // "program": "${workspaceFolder}/app.js"
         }, {
             "name": "Client Frontend",
             "type": "chrome",
