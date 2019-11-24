@@ -45,11 +45,11 @@ app.use(function(err, req, res, next) {
   res.send(err.message);
 });
 
-// var port = process.env.PORT || '3001';
-// const publicPath = path.join(__dirname, '..', 'Frontend/public');
-// app.use(express.static(publicPath));
+var port = process.env.PORT || '3000';
+const publicPath = path.join(__dirname, '..', 'Frontend/public');
+app.use(express.static(publicPath));
 
-// app.listen(port, () => {
-//   console.log(`Server is up on port ${port}!`);
-// });
+app.listen(port, () => {
+  console.log(`Server is up on port ${port}!`);
+});
 module.exports = app;
