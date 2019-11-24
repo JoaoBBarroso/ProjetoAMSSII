@@ -30,7 +30,7 @@ class Menu extends React.Component {
     render() {
         var routes = this.props.routes || [];
         // var title;
-        var { state } = this.props.location;
+        // var { state } = this.props.location;
         // if (state && state.title) {
         //     title = state.title;
         // } else {
