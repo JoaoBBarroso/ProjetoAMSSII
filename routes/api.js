@@ -23,7 +23,8 @@ const units = {
 
 router.get('/listapis', function (req, res, next) {
   const client = new MongoClient(uri, {
-    useNewUrlParser: true
+    useNewUrlParser: true,
+    useUnifiedTopology: true
   });
   client.connect(err => {
     if (err) throw err;
@@ -48,7 +49,8 @@ router.get('/food/:upc', (req, res, next) => {
       }
       if (!err & response.statusCode === 200) {
         const client = new MongoClient(uri, {
-          useNewUrlParser: true
+          useNewUrlParser: true,
+          useUnifiedTopology: true
         });
         body = JSON.parse(body);
         if (!body.product) {
@@ -102,7 +104,8 @@ router.get('/food/:upc', (req, res, next) => {
 
 router.get('/food', (req, res, next) => {
   const client = new MongoClient(uri, {
-    useNewUrlParser: true
+    useNewUrlParser: true,
+    useUnifiedTopology: true
   });
   client.connect(err => {
     if (err) throw err;
@@ -144,7 +147,8 @@ router.delete('/food/:upc', (req, res, next) => {
   var upc = req.params['upc'];
   if (upc) {
     const client = new MongoClient(uri, {
-      useNewUrlParser: true
+      useNewUrlParser: true,
+      useUnifiedTopology: true
     });
     client.connect(err => {
       if (err) throw err;
@@ -176,7 +180,8 @@ router.get('/alternatives/:upc', (req, res, next) => {
 
 router.get('/categorize', (req, res, next) => {
   const client = new MongoClient(uri, {
-    useNewUrlParser: true
+    useNewUrlParser: true,
+    useUnifiedTopology: true
   });
   client.connect(err => {
     if (err) throw err;
@@ -247,7 +252,8 @@ router.get('/categorize/:upc', (req, res, next) => {
   var next = req.query.next;
   if (upc) {
     const client = new MongoClient(uri, {
-      useNewUrlParser: true
+      useNewUrlParser: true,
+      useUnifiedTopology: true
     });
     client.connect(err => {
       if (err) res.send(500);
@@ -291,7 +297,8 @@ router.post("/categorize", (req, res, next) => {
   var upc = req.body["upc"];
   var category = req.body["category"];
   const client = new MongoClient(uri, {
-    useNewUrlParser: true
+    useNewUrlParser: true,
+    useUnifiedTopology: true
   });
   client.connect(err => {
     if (err) res.send(500);
@@ -315,7 +322,8 @@ router.post("/categorize", (req, res, next) => {
 router.get("/recommend/:upc", (req, res, next) => {
   var upc = req.params['upc'];
   const client = new MongoClient(uri, {
-    useNewUrlParser: true
+    useNewUrlParser: true,
+    useUnifiedTopology: true
   });
   client.connect(err => {
     if (err) res.send(500);
@@ -362,7 +370,8 @@ router.get("/recommend/:upc", (req, res, next) => {
 function getRecommended(upc) {
   return new Promise((resolve, reject) => {
     const client = new MongoClient(uri, {
-      useNewUrlParser: true
+      useNewUrlParser: true,
+      useUnifiedTopology: true
     });
     client.connect(err => {
       if (err) throw err;
