@@ -4,7 +4,7 @@
     "private": true,
     "scripts": {
         "dev": "node server/server.js",
-        "start": "concurrently \"node server/server.js\" \"cd Frontend && npm start\""
+        "start": "node server/server.js & (cd Frontend && npm start)"
     },
     "dependencies": {
         "basic-auth": "^2.0.1",
