@@ -19,6 +19,6 @@ Footer.propTypes = {
 }
 
 Footer.defaultProps = {
-    leftText: 'João Barroso e Rui Borges - AMS e SII ',
+    leftText: 'João Barroso',
     rightText: ''
 }
