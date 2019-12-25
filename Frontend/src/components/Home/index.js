@@ -18,13 +18,6 @@ export default class Home extends React.Component {
             <Jumbotron className="justify-content-center">
                 <Container>
                     <Row>
-                        <Col><h1>Hi {user.firstName}!</h1>
-                            <p>
-                                <Link to="/login">Logout</Link>
-                            </p>
-                        </Col>
-                    </Row>
-                    <Row>
                         <Col xs="6">
                             <Card>
                                 <CardImg className="cardImage" top src={require("../../images/vegetables.jpg")} alt="Several Vegetables" />
