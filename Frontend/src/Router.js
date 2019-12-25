@@ -4,6 +4,8 @@ import Footer from './components/Footer';
 import Menu from './components/Menu';
 import Layout from './components/Layout';
 import HomePage from './containers/HomePage';
+import AboutPage from './containers/AboutPage';
+import TipsPage from './containers/TipsPage';
 // import LoginPage from './containers/LoginPage';
 import ProductPage from './containers/ProductPage';
 // import { PrivateRoute } from './PrivateRoute';
@@ -40,8 +42,8 @@ export default class Router extends Component {
                         <Route exact path={`/`} component={HomePage} /> 
                         {/* <PrivateRoute exact path={`/`} component={HomePage} />  */}
                         <Route exact path="/productSearch" component={ProductPage} />
-                        <Route exact path="/healthy-tips" component={ProductPage} />
-                        <Route exact path="/about" component={ProductPage} />
+                        <Route exact path="/healthy-tips" component={TipsPage} />
+                        <Route exact path="/about" component={AboutPage} />
                         {/* <PrivateRoute exact path="/productSearch" component={ProductPage} /> */}
                     </Switch>
                 </Layout>
