@@ -35,33 +35,51 @@ export default class Home extends React.Component {
                             </Card>
                         </Col>
                         <Col xs="6">
-                            <div className="productDetailsDiv">
-                                {
-                                    searchHistory.length !== 0 ?
-                                        <ListGroup>
-                                            {
-                                                searchHistory.map((elem, i) => (
-                                                    <ListGroupItem key={`searchItem${i}`}>
-                                                        {elem.name}
-                                                    </ListGroupItem>
-                                                ))
-                                            }
-                                        </ListGroup>
-
-                                        :
-                                        <div>
-                                            There are currently no items on search history.
-                                            <ListGroup>
-                                                <ListGroupItem key={`noItems`}>
-                                                    Search for an item!
-                                            </ListGroupItem>
-                                            </ListGroup>
-                                        </div>
-                                }
-
-
-                            </div>
+                        <Card>
+                                <CardImg className="cardImage" top src={require("../../images/vegetables.jpg")} alt="Several Vegetables" />
+                                <CardBody>
+                                    <CardTitle>I don't know where to start</CardTitle>
+                                    <Button className={'searchButton'} tag={Link} to="/healthy-tips">Here are some tips!</Button>
+                                </CardBody>
+                            </Card>
                         </Col>
+                    </Row>
+                    <Row>
+                        <Col xs="6">
+                            <Card>
+                                <CardImg className="cardImage" top src={require("../../images/vegetables.jpg")} alt="Several Vegetables" />
+                                <CardBody>
+                                    <CardTitle>About this simple website</CardTitle>
+                                    <Button className={'searchButton'} tag={Link} to="/about">Who is this for</Button>
+                                </CardBody>
+                            </Card>
+                        </Col>
+                        <Col xs="6"><div className="productDetailsDiv">
+                            {
+                                searchHistory.length !== 0 ?
+                                    <ListGroup>
+                                        {
+                                            searchHistory.map((elem, i) => (
+                                                <ListGroupItem key={`searchItem${i}`}>
+                                                    {elem.name}
+                                                </ListGroupItem>
+                                            ))
+                                        }
+                                    </ListGroup>
+
+                                    :
+                                    <div>
+                                        There are currently no items on search history.
+                                            <ListGroup>
+                                            <ListGroupItem key={`noItems`}>
+                                                Search for an item!
+                                            </ListGroupItem>
+                                        </ListGroup>
+                                    </div>
+                            }
+
+
+                        </div></Col>
                     </Row>
                 </Container>
                 <div>
