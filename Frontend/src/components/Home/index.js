@@ -31,7 +31,7 @@ export default class Home extends React.Component {
                     <Row>
                         <Col xs="6">
                             <Card>
-                                <CardImg className="cardImage" top src={require("../../images/eating.jpg")} alt="Several Vegetables" />
+                                <CardImg className="cardImage" top src={require("../../images/eating.jpg")} alt="Sitting and eating a plate of Vegetables" />
                                 <CardBody>
                                     <CardTitle>Having doubts about your product?</CardTitle>
                                     <Button className={'searchButton'} tag={Link} to="/upc-product-search">Scan your product!</Button>
@@ -40,10 +40,10 @@ export default class Home extends React.Component {
                         </Col>
                         <Col xs="6">
                         <Card>
-                                <CardImg className="cardImage" top src={require("../../images/food.jpg")} alt="Several Vegetables" />
+                                <CardImg className="cardImage" top src={require("../../images/food.jpg")} alt="Bowl of several vegetables" />
                                 <CardBody>
-                                    <CardTitle>I don't know where to start</CardTitle>
-                                    <Button className={'searchButton'} tag={Link} to="/healthy-tips">Check some tips!</Button>
+                                    <CardTitle>"I don't know where to start..."</CardTitle>
+                                    <Button className={'searchButton'} tag={Link} to="/healthy-tips">...check some tips!</Button>
                                 </CardBody>
                             </Card>
                         </Col>
@@ -51,7 +51,7 @@ export default class Home extends React.Component {
                     <Row>
                         <Col xs="6">
                             <Card>
-                                <CardImg className="cardImage" top src={require("../../images/healthy.jpg")} alt="Several Vegetables" />
+                                <CardImg className="cardImage" top src={require("../../images/healthy.jpg")} alt="Cutting numerous vegetables" />
                                 <CardBody>
                                     <CardTitle>About this simple website</CardTitle>
                                     <Button className={'searchButton'} tag={Link} to="/about">Who is this for</Button>
