@@ -31,7 +31,7 @@ class Menu extends React.Component {
         return (
             <div>
                 <Navbar className="navbar" light expand="md">
-                    <NavbarBrand style={{ color: 'white' }} href="/">NUTREAT</NavbarBrand>
+                    <NavbarBrand style={{ color: 'white' }} href="/">NUTRIEAT</NavbarBrand>
                     <NavbarToggler onClick={this.toggle} />
                     <Collapse isOpen={this.state.isOpen} navbar>
                         <Nav className="ml-auto" navbar>

@@ -11,7 +11,7 @@ export default class About extends React.Component {
                 <Container>
                     <Row>
                         <Col xs="12">
-                            <h1>This is NUTREAT</h1>
+                            <h1>This is NUTRIEAT - nutrition and diet</h1>
                         </Col>
                     </Row>
                     <Row>

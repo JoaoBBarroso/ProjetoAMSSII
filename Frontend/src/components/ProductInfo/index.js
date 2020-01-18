@@ -48,7 +48,7 @@ class ProductInfo extends React.Component {
                 <Container className="productInfo">
                     <Row>
                         <Col sm={{ size: 6, order: 1, offset: (errorRecommendation) ? 2 : 0 }}>
-                            <h2>Product Info</h2>
+                            <h2>Product Info - upc product search</h2>
                             <Card>
                                 <CardImg style={{ maxHeight: 400 }} top width="100%" src={productData.img} alt={`Shows ${productData.name}`} />
                                 <CardBody>

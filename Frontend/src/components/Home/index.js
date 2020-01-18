@@ -18,21 +18,32 @@ export default class Home extends React.Component {
             <Jumbotron className="justify-content-center">
                 <Container>
                     <Row>
+                        <h1>Welcome to Nutrieat - healthy eating</h1>
+                        <h3>Our goal is to help you becoming healthier.</h3>
+                    </Row>
+                    <Row>
+                        <span>Through our website you will find several pages where you can</span>
+                        <ul>
+                            <li>Search any product by its UPC code and get the nutritional value through nutri-score</li>
+                            <li>Get tips and other info about how to eat healthier and have a better lifestyle</li>
+                        </ul>
+                    </Row>
+                    <Row>
                         <Col xs="6">
                             <Card>
-                                <CardImg className="cardImage" top src={require("../../images/vegetables.jpg")} alt="Several Vegetables" />
+                                <CardImg className="cardImage" top src={require("../../images/eating.jpg")} alt="Several Vegetables" />
                                 <CardBody>
-                                    <CardTitle>Product code scanning</CardTitle>
-                                    <Button className={'searchButton'} tag={Link} to="/productSearch">Scan your product here!</Button>
+                                    <CardTitle>Having doubts about your product?</CardTitle>
+                                    <Button className={'searchButton'} tag={Link} to="/upc-product-search">Scan your product!</Button>
                                 </CardBody>
                             </Card>
                         </Col>
                         <Col xs="6">
                         <Card>
-                                <CardImg className="cardImage" top src={require("../../images/vegetables.jpg")} alt="Several Vegetables" />
+                                <CardImg className="cardImage" top src={require("../../images/food.jpg")} alt="Several Vegetables" />
                                 <CardBody>
                                     <CardTitle>I don't know where to start</CardTitle>
-                                    <Button className={'searchButton'} tag={Link} to="/healthy-tips">Here are some tips!</Button>
+                                    <Button className={'searchButton'} tag={Link} to="/healthy-tips">Check some tips!</Button>
                                 </CardBody>
                             </Card>
                         </Col>
@@ -40,7 +51,7 @@ export default class Home extends React.Component {
                     <Row>
                         <Col xs="6">
                             <Card>
-                                <CardImg className="cardImage" top src={require("../../images/vegetables.jpg")} alt="Several Vegetables" />
+                                <CardImg className="cardImage" top src={require("../../images/healthy.jpg")} alt="Several Vegetables" />
                                 <CardBody>
                                     <CardTitle>About this simple website</CardTitle>
                                     <Button className={'searchButton'} tag={Link} to="/about">Who is this for</Button>

@@ -23,7 +23,7 @@ export default class Router extends Component {
                 hide: true
             },
             {
-                to: `${process.env.PUBLIC_URL}/productSearch`,
+                to: `${process.env.PUBLIC_URL}/upc-product-search`,
                 label: 'Product Search',
                 title: 'ProductSearch'
             },
@@ -41,7 +41,7 @@ export default class Router extends Component {
                         {/* Private Routes for logged-in users */}
                         <Route exact path={`/`} component={HomePage} /> 
                         {/* <PrivateRoute exact path={`/`} component={HomePage} />  */}
-                        <Route exact path="/productSearch" component={ProductPage} />
+                        <Route exact path="/upc-product-search" component={ProductPage} />
                         <Route exact path="/healthy-tips" component={TipsPage} />
                         <Route exact path="/about" component={AboutPage} />
                         {/* <PrivateRoute exact path="/productSearch" component={ProductPage} /> */}
